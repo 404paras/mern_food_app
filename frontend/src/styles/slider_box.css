@@ -1,0 +1,78 @@
+.slider-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 2rem 1rem 2rem 1rem;
+    height: 55vh;
+    padding: 1rem;
+}
+
+.slider-box>.heading {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem;
+}
+
+.slider-box .button {
+    display: flex;
+    justify-content: space-between;
+}
+
+.slider-box .button button {
+    margin: 0.5rem;
+    font-size: 1.5rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 100%;
+    background-color: rgb(190, 188, 188);
+    color: black;
+    width: 2rem;
+    height: 2rem;
+}
+
+.slider-box .button button:hover {
+    background-color: black;
+    color: white;
+}
+
+.slider-box .cards {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.slider-box .card {
+    width: 20%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 50vh;
+    transition: 0.5s ease-out;
+}
+
+.slider-box .card>.slider-images img {
+    width: 100%;
+    border-radius: 25px;
+    height: 30vh;
+}
+
+.slider-box .card>div {
+    padding: 0.2rem;
+}
+
+.slider-box .card>.item-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.slider-box .card:hover {
+    transform: scale(0.9);
+}

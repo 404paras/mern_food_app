@@ -1,0 +1,45 @@
+.navbar {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(251, 251, 251);
+    position: sticky;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    top: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    flex: 5;
+    margin: auto;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    font-size: 1.2rem;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.nav-items {
+    flex: 5;
+    width: 100%;
+    margin: auto;
+}
+
+.nav-items ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+}
+
+.nav-items>ul li {
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.nav-items>ul li:hover {
+    color: rgb(255, 140, 0);
+}

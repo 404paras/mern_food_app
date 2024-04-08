@@ -1,0 +1,11 @@
+.home {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.bottom-line {
+    width: 100%;
+    margin: 2rem 0 1rem 0;
+}
