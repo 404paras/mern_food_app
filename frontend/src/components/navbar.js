@@ -9,9 +9,16 @@ import '../styles/navbar.css';
 import {Link} from 'react-router-dom';
 
 
-const navbar = () => {
+const navbar = ({onSignIn}) => {
+
+
+const signInHandler = ()=>{
+  onSignIn();
+}
+
+
   return (
-    <div className="navbar">
+    <div className="navbar" id="nav">
 <div className="logo">
 Food App
 </div>
@@ -23,7 +30,7 @@ Food App
       <Link to='/'>  <li > <IoHomeOutline/> &nbsp;Home</li></Link>
       <Link to='/search'>     <li><CiSearch/> &nbsp; Search</li></Link>
       <Link to='/offers'>   <li> < BiSolidOffer/> &nbsp; Offers</li></Link>
-      <Link to='/signIn'>   <li> <FaRegUser /> &nbsp; SignIn</li></Link>
+         <li onClick={signInHandler}> <FaRegUser /> &nbsp; SignIn</li>
       
       <Link to='/cart'> <li> <RiShoppingCartLine/> &nbsp;Cart</li></Link>
        <li style={{display:"none"}}><BiLogOut/> &nbsp; LogOut</li>
@@ -32,6 +39,7 @@ Food App
 </div>
 
     </div>
+
   )
 }
 
