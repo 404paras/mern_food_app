@@ -6,7 +6,7 @@ import Home from './pages/home.js'
 import Footer from './components/footer.js'
 import Search from './pages/search.js';
 import SignIn from './components/SignIn.js'
-
+import AddProduct from './components/AddProduct.js';
 
 
 const App = () => {
@@ -29,7 +29,9 @@ const closeHandler = ()=>{
 
   <Route path='/' element={<Home/>}/>
   <Route path='/search' element={<Search/>}/>
+  <Route path='admin/addProduct' element={<AddProduct/>} />
   {signInPage && <Route path="*" element={<Navigate to='/'/>}/>}
+  
 </Routes>
 {
   signInPage && <SignIn onClose={closeHandler}/>
