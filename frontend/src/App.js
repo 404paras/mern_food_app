@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import './app.css';
 import {BrowserRouter as Router , Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from './components/navbar.js'
+import Navbar from './components/Navbar.js'
 import Home from './pages/home.js'
 import Footer from './components/footer.js'
 import Search from './pages/search.js';
 import SignIn from './components/SignIn.js'
 import AddProduct from './components/AddProduct.js';
+
 
 
 const App = () => {

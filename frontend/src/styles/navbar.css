@@ -4,11 +4,11 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: rgb(251, 251, 251);
+    background-color: white;
     position: sticky;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     top: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.258);
 }
 
 .logo {

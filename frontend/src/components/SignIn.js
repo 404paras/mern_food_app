@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import "../styles/signIn.css";
 import { IoCloseOutline } from "react-icons/io5";
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { server } from '../server.js';
 
-const SignIn = ({onClose}) => {
+const SignIn = ({ onClose }) => {
   const [registerPage, setRegisterPage] = useState(false);
   const [loginInputs, setLoginInputs] = useState({ name: "", email: "", password: "" });
+  const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
 
   const inputsChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -14,16 +19,31 @@ const SignIn = ({onClose}) => {
     }));
   };
 
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault();
-    console.log(loginInputs);
-    setLoginInputs({ ...loginInputs, email: "", password: "" });
+    try {
+      console.log(loginInputs)
+      const response = await axios.post(`${server}api/v1/login`, {email:loginInputs.email, password:loginInputs.password});
+      dispatch.login();
+      alert("Login Successful");
+      console.log(response);
+      setLoginInputs({ ...loginInputs, email: "", password: "" });
+    } catch (error) {
+      setErrorMessage(error.response.data.error);
+    }
   };
 
-  const registerHandler = (e) => {
+  const registerHandler = async (e) => {
     e.preventDefault();
-    console.log(loginInputs);
-    setLoginInputs({ name: "", email: "", password: "" });
+    try {
+      const response = await axios.post(`${server}/api/v1/register`, loginInputs);
+      alert("Registration Successful");
+      console.log(response)
+      setRegisterPage(false);
+      setLoginInputs({ name: "", email: "", password: "" });
+    } catch (error) {
+      setErrorMessage(error.response.data.error);
+    }
   };
 
   const createAccHandler = () => {
@@ -31,17 +51,15 @@ const SignIn = ({onClose}) => {
   };
 
   const closeHandler = () => {
-    // Implement close functionality
     onClose();
   };
 
   return (
-    <siv className="signIn">
+    <div className="signIn">
       <div className="signIn-details">
         <div className="closebtn" onClick={closeHandler}>
-          <IoCloseOutline/>
+          <IoCloseOutline />
         </div>
-
         {registerPage ? (
           <div className="register">
             <h1>Register</h1>
@@ -98,8 +116,9 @@ const SignIn = ({onClose}) => {
             </form>
           </div>
         )}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </div>
-    </siv>
+    </div>
   );
 };
 
