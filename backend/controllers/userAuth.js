@@ -21,8 +21,10 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
+
     try {
         const existingUser = await User.findOne({ email });
+       
         if (!existingUser) {
             return res.status(404).json({ error: 'User not found' });
         }
@@ -31,6 +33,7 @@ router.post('/login', async (req, res) => {
         if (!passMatch) {
             return res.status(401).json({ error: 'Invalid password' });
         }
+        console.log(passMatch)
 
         res.status(200).json(existingUser);
     } catch (error) {

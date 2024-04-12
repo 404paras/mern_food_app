@@ -8,14 +8,19 @@ import { BiLogOut } from "react-icons/bi";
 import '../styles/navbar.css';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import {logout} from '../store/store.js';
 
 const Navbar = ({ onSignIn }) => {
   const isAuthenticated = useSelector(state => state.isAuthenticated);
-  const dispatch = useDispatch();
-
+ const dispatch = useDispatch();
   const signInHandler = () => {
     onSignIn();
   }
+
+const logOutHandler = ()=>{
+  sessionStorage.clear();
+  dispatch(logout())
+}
 
   return (
     <div className="navbar" id="nav">
@@ -27,9 +32,9 @@ const Navbar = ({ onSignIn }) => {
           <Link to='/'> <li> <IoHomeOutline /> &nbsp;Home</li></Link>
           <Link to='/search'> <li><CiSearch /> &nbsp; Search</li></Link>
           <Link to='/offers'> <li> < BiSolidOffer /> &nbsp; Offers</li></Link>
-          <li onClick={signInHandler}> <FaRegUser /> &nbsp; SignIn</li>
           <Link to='/cart'> <li> <RiShoppingCartLine /> &nbsp;Cart</li></Link>
-          {isAuthenticated && <li><BiLogOut /> &nbsp; LogOut</li>}
+          {isAuthenticated ? <li onClick={logOutHandler}><BiLogOut /> &nbsp; LogOut</li>: <li onClick={signInHandler}> <FaRegUser /> &nbsp; SignIn</li>
+         }
         </ul>
       </div>
     </div>

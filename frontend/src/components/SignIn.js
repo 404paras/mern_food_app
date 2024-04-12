@@ -4,12 +4,15 @@ import { IoCloseOutline } from "react-icons/io5";
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { server } from '../server.js';
+import { useNavigate } from 'react-router-dom';
+import {login} from '../store/store.js'
 
 const SignIn = ({ onClose }) => {
   const [registerPage, setRegisterPage] = useState(false);
   const [loginInputs, setLoginInputs] = useState({ name: "", email: "", password: "" });
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const inputsChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -21,16 +24,27 @@ const SignIn = ({ onClose }) => {
 
   const loginHandler = async (e) => {
     e.preventDefault();
+
     try {
-      console.log(loginInputs)
-      const response = await axios.post(`${server}api/v1/login`, {email:loginInputs.email, password:loginInputs.password});
-      dispatch.login();
-      alert("Login Successful");
+      const response = await axios.post(`${server}api/v1/login`, loginInputs);
       console.log(response);
-      setLoginInputs({ ...loginInputs, email: "", password: "" });
+      setErrorMessage('Login Successful!!')
+      sessionStorage.setItem("id",response.data._id)
+      console.log(response.data._id)
+
+      navigate('/');
+
+      dispatch(login());
+    
+     
+    
     } catch (error) {
-      setErrorMessage(error.response.data.error);
+      if (error.response && error.response.data && error.response.data.error) {
+        setErrorMessage(error.response.data.error);
+      } 
     }
+    
+    setLoginInputs({ ...loginInputs, email: "", password: "" });
   };
 
   const registerHandler = async (e) => {
@@ -42,7 +56,11 @@ const SignIn = ({ onClose }) => {
       setRegisterPage(false);
       setLoginInputs({ name: "", email: "", password: "" });
     } catch (error) {
-      setErrorMessage(error.response.data.error);
+      if (error.response && error.response.data && error.response.data.error) {
+        setErrorMessage(error.response.data.error);
+      } else {
+        setErrorMessage("An unexpected error occurred.");
+      }
     }
   };
 
@@ -116,7 +134,7 @@ const SignIn = ({ onClose }) => {
             </form>
           </div>
         )}
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {errorMessage && <p className="error-message">{errorMessage.toString()}</p>}
       </div>
     </div>
   );
