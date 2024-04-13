@@ -18,7 +18,7 @@ const AdminPage = () => {
       <AdminPageCard
         title="Manage Customers"
         description="View and manage customer details"
-        link="/admin/customers"
+        link="/admin/manageCustomers"
       />
       <AdminPageCard  title="Add Offers"
       description="Add offers for the customers"

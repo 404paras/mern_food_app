@@ -13,6 +13,7 @@ const SignIn = ({ onClose }) => {
     name: "",
     email: "",
     password: "",
+    mobile: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const SignIn = ({ onClose }) => {
       }
     }
 
-    setLoginInputs({ ...loginInputs, email: "", password: "" });
+    setLoginInputs({ ...loginInputs, email: "", password: "", mobile: "" });
   };
 
   const registerHandler = async (e) => {
@@ -69,7 +70,7 @@ const SignIn = ({ onClose }) => {
       setErrorMessage("Registration Successful!!");
       console.log(response);
       setRegisterPage(false);
-      setLoginInputs({ name: "", email: "", password: "" });
+      setLoginInputs({ name: "", email: "", password: "", mobile: "" });
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
         setErrorMessage(error.response.data.error);
@@ -119,6 +120,15 @@ const SignIn = ({ onClose }) => {
                 name="email"
                 value={loginInputs.email}
                 onChange={inputsChangeHandler}
+              />
+              <input
+                type="number"
+                name="mobile"
+                onChange={inputsChangeHandler}
+                placeholder="Mobile Number"
+                value={loginInputs.mobile}
+                minLength={10} // Minimum length
+                maxLength={10} // Maximum length
               />
               <input
                 type="password"

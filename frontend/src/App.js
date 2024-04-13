@@ -17,6 +17,7 @@ import AddProduct from "./components/AddProduct.js";
 import AdminRoute from "./components/AdminRoute.js"; // Import the AdminRoute component
 import { useDispatch, useSelector } from "react-redux";
 import AdminPage from "./pages/adminPage.js";
+import CustomerAdmin from "./pages/CustomerAdmin.js";
 
 const App = () => {
   const isAuthenticated = useSelector(state => state.isAuthenticated);
@@ -53,6 +54,8 @@ const App = () => {
         <Route path="/search" element={<Search />} />
         <Route path='/admin' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminPage/>}/>}/>
         <Route path='/admin/addProduct' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddProduct/>}/>}/>
+       
+        <Route path='/admin/manageCustomers' element={<AdminRoute isAuthenticated={isAuthenticated} child={<CustomerAdmin/>}/>}/>
        
         {/* Use AdminRoute for admin routes */}
         {signInPage && <Route path="*" element={<Navigate to="/" />} />}
