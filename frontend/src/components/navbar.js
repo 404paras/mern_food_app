@@ -9,15 +9,18 @@ import '../styles/navbar.css';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {logout} from '../store/store.js';
+import { MdAdminPanelSettings } from "react-icons/md";
 
 const Navbar = ({ onSignIn }) => {
   const isAuthenticated = useSelector(state => state.isAuthenticated);
+  const isAdmin = useSelector(state => state.role==='admin');
  const dispatch = useDispatch();
   const signInHandler = () => {
     onSignIn();
   }
 
 const logOutHandler = ()=>{
+
   sessionStorage.clear();
   dispatch(logout())
 }
@@ -31,8 +34,9 @@ const logOutHandler = ()=>{
         <ul>
           <Link to='/'> <li> <IoHomeOutline /> &nbsp;Home</li></Link>
           <Link to='/search'> <li><CiSearch /> &nbsp; Search</li></Link>
-          <Link to='/offers'> <li> < BiSolidOffer /> &nbsp; Offers</li></Link>
-          <Link to='/cart'> <li> <RiShoppingCartLine /> &nbsp;Cart</li></Link>
+          {!isAdmin && <Link to='/offers'> <li> < BiSolidOffer /> &nbsp; Offers</li></Link>}
+          {!isAdmin && <Link to='/cart'> <li> <RiShoppingCartLine /> &nbsp;Cart</li></Link>}
+        {isAdmin &&  <Link to='/admin'><li> < MdAdminPanelSettings/> &nbsp;Admin</li> </Link>}
           {isAuthenticated ? <li onClick={logOutHandler}><BiLogOut /> &nbsp; LogOut</li>: <li onClick={signInHandler}> <FaRegUser /> &nbsp; SignIn</li>
          }
         </ul>

@@ -5,11 +5,11 @@ import { Router } from 'express';
 const router = new Router();
 
 router.post('/register', async (req, res) => {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
     try {
         const hashPassword = await bcrypt.hash(password, 10);
-        const user = new User({ name, email, password: hashPassword, role });
+        const user = new User({ name, email, password: hashPassword, role:'user'});
         const savedUser = await user.save();
         res.status(201).json(savedUser);
     } catch (error) {

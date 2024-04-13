@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/signIn.css";
 import { IoCloseOutline } from "react-icons/io5";
-import { useDispatch } from 'react-redux';
-import axios from 'axios';
-import { server } from '../server.js';
-import { useNavigate } from 'react-router-dom';
-import {login} from '../store/store.js'
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { server } from "../server.js";
+import { useNavigate } from "react-router-dom";
+import { login } from "../store/store.js";
 
 const SignIn = ({ onClose }) => {
   const [registerPage, setRegisterPage] = useState(false);
-  const [loginInputs, setLoginInputs] = useState({ name: "", email: "", password: "" });
+  const [loginInputs, setLoginInputs] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,44 +26,53 @@ const SignIn = ({ onClose }) => {
     }));
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setErrorMessage("");
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [errorMessage]);
+
   const loginHandler = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(`${server}api/v1/login`, loginInputs);
-      console.log(response);
-      setErrorMessage('Login Successful!!')
-      sessionStorage.setItem("id",response.data._id)
-      console.log(response.data._id)
-
-      navigate('/');
-
-      dispatch(login());
-    
+      
+      setErrorMessage("Login Successful!!");
+      const role = response?.data?.role;
+      sessionStorage.setItem("id", response.data._id);
+      sessionStorage.setItem("role", role);
      
-    
+      console.log(response.data.role);
+      navigate("/");
+     
+
+      dispatch(login({ role: role || "user" }));
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
         setErrorMessage(error.response.data.error);
-      } 
+      }
     }
-    
+
     setLoginInputs({ ...loginInputs, email: "", password: "" });
   };
 
   const registerHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${server}/api/v1/register`, loginInputs);
-      alert("Registration Successful");
-      console.log(response)
+      const response = await axios.post(
+        `${server}api/v1/register`,
+        loginInputs
+      );
+      setErrorMessage("Registration Successful!!");
+      console.log(response);
       setRegisterPage(false);
       setLoginInputs({ name: "", email: "", password: "" });
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
         setErrorMessage(error.response.data.error);
-      } else {
-        setErrorMessage("An unexpected error occurred.");
       }
     }
   };
@@ -82,7 +95,15 @@ const SignIn = ({ onClose }) => {
           <div className="register">
             <h1>Register</h1>
             <span>
-              or <span onClick={() => { setRegisterPage(false); setLoginInputs(prevState => ({ ...prevState, name: "" })) }}>login to your account</span>
+              or{" "}
+              <span
+                onClick={() => {
+                  setRegisterPage(false);
+                  setLoginInputs((prevState) => ({ ...prevState, name: "" }));
+                }}
+              >
+                login to your account
+              </span>
             </span>
             <form onSubmit={registerHandler}>
               <input
@@ -134,7 +155,9 @@ const SignIn = ({ onClose }) => {
             </form>
           </div>
         )}
-        {errorMessage && <p className="error-message">{errorMessage.toString()}</p>}
+        {errorMessage && (
+          <p className="error-message">{errorMessage.toString()}</p>
+        )}
       </div>
     </div>
   );
