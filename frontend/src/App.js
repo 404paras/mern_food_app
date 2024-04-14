@@ -18,6 +18,8 @@ import AdminRoute from "./components/AdminRoute.js"; // Import the AdminRoute co
 import { useDispatch, useSelector } from "react-redux";
 import AdminPage from "./pages/adminPage.js";
 import CustomerAdmin from "./pages/CustomerAdmin.js";
+import ManageRestaurant from './pages/ManageRestaurant.js';
+import AddRestaurants from "./components/AddRestaurants.js";
 
 const App = () => {
   const isAuthenticated = useSelector(state => state.isAuthenticated);
@@ -56,6 +58,10 @@ const App = () => {
         <Route path='/admin/addProduct' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddProduct/>}/>}/>
        
         <Route path='/admin/manageCustomers' element={<AdminRoute isAuthenticated={isAuthenticated} child={<CustomerAdmin/>}/>}/>
+       
+        <Route path='/admin/manageRestaurant' element={<AdminRoute isAuthenticated={isAuthenticated} child={<ManageRestaurant/>}/>}/>
+       
+        <Route path='/admin/addRestaurant' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddRestaurants/>}/>}/>
        
         {/* Use AdminRoute for admin routes */}
         {signInPage && <Route path="*" element={<Navigate to="/" />} />}

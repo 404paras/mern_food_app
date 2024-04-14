@@ -13,7 +13,7 @@ const AdminPage = () => {
       <AdminPageCard
         title="Add Restaurant"
         description="Add a new restaurant to the system"
-        link="/admin/addRestaurant"
+        link="/admin/manageRestaurant"
       />
       <AdminPageCard
         title="Manage Customers"

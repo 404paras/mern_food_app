@@ -3,7 +3,7 @@ import {connectDB} from './database/connectDb.js'
 import dotenv from 'dotenv';
 import cors from 'cors';
 import userRouter from './controllers/userAuth.js'
-
+import foodRestaurantList from './controllers/foodItems.js'
 dotenv.config();
 
 const app = express();
@@ -15,6 +15,7 @@ const port =  4000;
 connectDB();
 
 app.use('/api/v1',userRouter);
+app.use('/api/v1',foodRestaurantList)
 
 app.listen(port,()=>{
 console.log(`Listening on port ${port}`)

@@ -1,10 +1,13 @@
-import mongoose from 'mongoose'; 
+import mongoose from 'mongoose';
 
-const restaurant = new mongoose.Schema({
+const restaurantSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    foodItems: {
-        name: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FoodList' }]
-    }
-},{timestamps:true});
+    address:{type:String,required:true},
+    imgUrl:{type:String,required:true},
+    foodItems: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'FoodList'
+    }]
+}, { timestamps: true });
 
-export const RestaurantsList = mongoose.model('RestaurantsList', restaurant);
+export const RestaurantsList = mongoose.model('RestaurantsList', restaurantSchema);
