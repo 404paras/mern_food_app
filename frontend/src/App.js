@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useEffect } from "react";
 import "./app.css";
 import {
@@ -13,7 +12,7 @@ import Footer from "./components/footer.js";
 import { login } from "./store/store.js";
 import Search from "./pages/search.js";
 import SignIn from "./components/SignIn.js";
-import AddProduct from "./components/AddProduct.js";
+import AddFoodItem from "./components/AddFoodItem.js";
 import AdminRoute from "./components/AdminRoute.js"; // Import the AdminRoute component
 import { useDispatch, useSelector } from "react-redux";
 import AdminPage from "./pages/adminPage.js";
@@ -25,6 +24,7 @@ const App = () => {
   const isAuthenticated = useSelector(state => state.isAuthenticated);
   const dispatch = useDispatch();
   const [signInPage, setSignInPage] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const signInHandler = () => {
     setSignInPage(true);
@@ -45,7 +45,14 @@ const App = () => {
     if (isAuthenticated) {
       setSignInPage(false);
     }
+
+    setIsLoading(false); // Set loading to false once authentication status is determined
   }, [dispatch, isAuthenticated]);
+
+  // If still loading, return null or a loading indicator
+  if (isLoading) {
+    return null; // Or return a loading spinner
+  }
 
   return (
     <Router>
@@ -55,7 +62,7 @@ const App = () => {
         
         <Route path="/search" element={<Search />} />
         <Route path='/admin' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminPage/>}/>}/>
-        <Route path='/admin/addProduct' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddProduct/>}/>}/>
+        <Route path='/admin/addFoodItem' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddFoodItem/>}/>}/>
        
         <Route path='/admin/manageCustomers' element={<AdminRoute isAuthenticated={isAuthenticated} child={<CustomerAdmin/>}/>}/>
        

@@ -11,6 +11,16 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.258);
 }
 
+.back-button>svg {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.back-button>svg:hover {
+    color: #fc8019;
+}
+
 .logo {
     flex: 5;
     margin: auto;
@@ -19,7 +29,6 @@
     display: flex;
     font-size: 1.2rem;
     justify-content: center;
-    cursor: pointer;
 }
 
 .nav-items {

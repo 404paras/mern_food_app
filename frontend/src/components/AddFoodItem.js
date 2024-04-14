@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/addProduct.css'
 
-const AddProduct = () => {
+const AddFoodItem = () => {
   return (
     <div className='addProduct'>
 <h1>Admin : Add food items!</h1>
@@ -18,4 +18,4 @@ const AddProduct = () => {
   )
 }
 
-export default AddProduct
+export default AddFoodItem

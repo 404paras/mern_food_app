@@ -8,8 +8,13 @@ foodRestaurantList.post('/admin/addRestaurant', async (req, res) => {
     const { name, address, imgUrl } = req.body;
 
     try {
+        const exist = await RestaurantsList.findOne({ name, address, imgUrl });
+        if (exist) {
+            return res.status(200).json({ restaurantId: exist._id, message: 'Restaurant Already exists' });
+        }
         const restaurant = await RestaurantsList.create({ name, address, imgUrl });
-        res.status(200).json({ restaurantId: restaurant._id });
+
+        res.status(200).json({ restaurantId: restaurant._id, message: 'Restaurant Created Successfully' });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Failed to add restaurant' });
@@ -17,11 +22,12 @@ foodRestaurantList.post('/admin/addRestaurant', async (req, res) => {
 });
 
 foodRestaurantList.post('/admin/addFoodItems', async (req, res) => {
-    const { name, description, outlet, category, price, image, restId ,quantity} = req.body;
+    const { name, description, outlet, category, price, image, restId, quantity } = req.body;
 
     try {
-        const foodItem = await FoodList.create({ name, description, outlet, category, price, image, restaurant: restId,quantity });
-        res.status(200).json({ foodItemId: foodItem._id ,message:"Food Item Added successfully"});
+        
+        const foodItem = await FoodList.create({ name, description, outlet, category, price, image, restaurant: restId, quantity });
+        res.status(200).json({ foodItemId: foodItem._id, message: "Food Item Added successfully" });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Failed to add food item' });
