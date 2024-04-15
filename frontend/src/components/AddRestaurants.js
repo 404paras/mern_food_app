@@ -19,10 +19,11 @@ const AddRestaurants = () => {
     const name = document.getElementById("restaurantNameInput").value;
     const address = document.getElementById("address").value;
     const restImg = document.getElementById("restImg").value;
-    if (!name || !address || !restImg) {
+    const category = document.getElementById("category").value;
+    if (!name || !address || !restImg || !category) {
       alert("Please enter all fields");
     } else {
-      setRestaurantName({ name, address, restImg });
+      setRestaurantName({ name, address, restImg ,category});
       setAddBtn(true);
     }
   };
@@ -115,6 +116,7 @@ const AddRestaurants = () => {
 
   const submitBtnHandler = async () => {
     try {
+      console.log(restaurantName,dishes)
       const {
         data: { restaurantId },
       } = await axios.post(`${server}api/v1/admin/addRestaurant`, {
@@ -122,6 +124,15 @@ const AddRestaurants = () => {
         address: restaurantName.address,
         imgUrl: restaurantName.restImg,
       });
+
+      console.log(restaurantName.category)
+
+      const response = await axios.post(`${server}api/v1/admin/category`,{
+        type: 'Biryani',
+        restaurants: [restaurantId]
+      })
+
+      console.log(response);
 
       const foodId = [];
       for (const fooditem of dishes) {
@@ -209,6 +220,14 @@ const AddRestaurants = () => {
             boxSizing: "border-box",
             }}
           />
+
+          <input type="text" name="category" id="category" placeholder="Category" required
+            style={{outline: "none",
+            margin:"0.5rem 0 1rem 0",
+            padding: "0.5rem",
+            width: "100%",
+            boxSizing: "border-box",
+            }}/>
           <button
             onClick={restaurantNameHandler}
             style={{

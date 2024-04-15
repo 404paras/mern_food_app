@@ -1,11 +1,13 @@
 .box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    transition: all 0.05s ease 0s;
+    cursor: pointer;
+    gap: 12px;
+    grid-auto-flow: row;
+    justify-content: stretch;
+    -webkit-box-align: center;
     align-items: center;
-    width: 100%;
-    margin: 2rem 1rem 2rem 1rem;
-    padding: 1rem;
+    padding: 0px;
 }
 
 .box>.heading {
@@ -21,7 +23,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     /* Each line contains 4 cards */
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .box .card {
@@ -30,15 +32,16 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
-    height: 50vh;
+    height: 40vh;
     transition: 0.5s ease-out;
 }
 
 .box .card>.images img {
     width: 100%;
-    border-radius: 25px;
-    height: 30vh;
+    height: 25vh;
+    border-radius: 16px;
+    overflow: hidden;
+    filter: drop-shadow(rgba(0, 0, 0, 0.1) 0px 2px 8px);
 }
 
 .box .card>div {
@@ -46,10 +49,40 @@
 }
 
 .box .card>.item-name {
-    font-size: 1.1rem;
-    font-weight: bold;
+    margin: 0px;
+    -webkit-font-smoothing: antialiased;
+    font-family: Basis_Grotesque_Pro_Bold;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.3px;
+    color: rgba(2, 6, 12, 0.75);
+    overflow: hidden;
+    width: 100%;
+    display: -webkit-box;
+    overflow-wrap: break-word;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.box .card .rating {
+    -webkit-box-align: center;
+    align-items: center;
+    margin-top: 2px;
+    gap: 2px;
+    grid-auto-flow: column;
+    -webkit-box-pack: start;
+    justify-content: start;
+}
+
+.box .card .info {
+    display: grid;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-top: 2px;
+    gap: 2px;
 }
 
 .box .card:hover {
-    transform: scale(0.9);
+    transform: scale(0.95);
 }

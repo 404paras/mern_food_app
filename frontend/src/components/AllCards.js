@@ -1,38 +1,58 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import "../styles/allCards.css";
-import config from "../assets/slider_box/imgFile.js";
 import { MdStars } from "react-icons/md";
 
-const AllCards = () => {
+const AllCards = ({ heading, data }) => {
+  const [restaurant, setRestaurant] = useState([]);
 
- 
+  useEffect(() => {
+    if (data) {
+      setRestaurant(data);
+    }
+  }, [data]);
+
   const cardHandler = (item_id) => {
     console.log(item_id);
   };
 
   return (
-    <div className="box">
+    <div className="box" style={{
+      position: "relative",
+     
+      width: "100%",
+      margin: "0 auto",
+      msFlexWrap: "wrap",
+    }}>
       <div className="heading">
-        <h2> Restaurants with online food delivery </h2>
-       
+        <h2>{heading}</h2>
       </div>
-      <div className="cards">
-        {Object.values(config)
-          .map((item, index) => (
-            <div className="card" key={index} onClick={()=>cardHandler(item.id)}>
+      {restaurant && restaurant.length > 0 ? (
+        <div className="cards">
+          {restaurant.map((item, index) => (
+            <div
+              className="card"
+              key={index}
+              onClick={() => cardHandler(item._id)}
+            >
               <div className="images">
-                <img src={item.img} alt={item.name} />
+                <img src={item.imgUrl || ""} alt={item.name || ""} />
               </div>
-              <div className="item-name">{item.name}</div>
-              <div className="rating">
-                <MdStars /> &nbsp;{item.rating}
+              <div style={{ marginLeft: "12px" }}>
+                <div className="item-name">{item.name || ""}</div>
+                <div className="rating">
+                  <MdStars /> &nbsp;{item.rating || "5"}
+                </div>
+                <div className="info">
+                  <div>{item.category?.join(", ") || ""}</div>
+                  <div>{item.address || ""}</div>
+                </div>
               </div>
-              <div>{item.category.join(", ")}</div>
-              <div>{item.outlet}</div>
             </div>
           ))}
-      </div>
+        </div>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 };

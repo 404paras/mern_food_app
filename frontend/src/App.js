@@ -7,7 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Navbar from "./components/Navbar.js";
-import Home from "./pages/home.js";
+import Home from "./pages/Home.js";
 import Footer from "./components/footer.js";
 import { login } from "./store/store.js";
 import Search from "./pages/search.js";
@@ -16,6 +16,7 @@ import AddFoodItem from "./components/AddFoodItem.js";
 import AdminRoute from "./components/AdminRoute.js"; // Import the AdminRoute component
 import { useDispatch, useSelector } from "react-redux";
 import AdminPage from "./pages/adminPage.js";
+import CategoryRest from "./pages/CategoryRest.js";
 import CustomerAdmin from "./pages/CustomerAdmin.js";
 import ManageRestaurant from './pages/ManageRestaurant.js';
 import AddRestaurants from "./components/AddRestaurants.js";
@@ -61,6 +62,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         
         <Route path="/search" element={<Search />} />
+        <Route path='category/:name' element={<CategoryRest/>}/>
         <Route path='/admin' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminPage/>}/>}/>
         <Route path='/admin/addFoodItem' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddFoodItem/>}/>}/>
        
