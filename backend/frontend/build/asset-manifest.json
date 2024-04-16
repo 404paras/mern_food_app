@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.fe9627fb.css",
+    "main.js": "/static/js/main.29fbb6fd.js",
+    "static/media/manageRestaurant.webp": "/static/media/manageRestaurant.ccc6f6ee0a22ffa21cab.webp",
+    "static/media/Pizza.png": "/static/media/Pizza.d3cc2f307980b055a5d2.png",
+    "static/media/Paratha.png": "/static/media/Paratha.e3698c658580d6e85f21.png",
+    "static/media/Dosa.png": "/static/media/Dosa.1290b884fb0f06fdfed8.png",
+    "static/media/Burger.png": "/static/media/Burger.26dfce0e26453bbe31c9.png",
+    "static/media/Rasmalai.png": "/static/media/Rasmalai.1e699aa3edf5221a9945.png",
+    "static/media/Rolls.png": "/static/media/Rolls.fc0943df4ed1566a59b1.png",
+    "static/media/Rasgulla.png": "/static/media/Rasgulla.beab3631969751fecbfc.png",
+    "static/media/Pastry.png": "/static/media/Pastry.78e964c71cc86302d96f.png",
+    "static/media/addFoodItem.jpeg": "/static/media/addFoodItem.3a20320c86922871fc6b.jpeg",
+    "static/media/Lassi.png": "/static/media/Lassi.79cc2a2206677375d9f6.png",
+    "static/media/manageOffer.jpeg": "/static/media/manageOffer.c1468d0f5e6f67033398.jpeg",
+    "static/media/addRestaurant.jpeg": "/static/media/addRestaurant.0c906bd7be09fe4fc442.jpeg",
+    "static/media/manageCustomer.jpeg": "/static/media/manageCustomer.4ea55a457f39fd3d82eb.jpeg",
+    "static/media/Biryani.avif": "/static/media/Biryani.4c2ee2d782d6aab35540.avif",
+    "index.html": "/index.html",
+    "main.fe9627fb.css.map": "/static/css/main.fe9627fb.css.map",
+    "main.29fbb6fd.js.map": "/static/js/main.29fbb6fd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fe9627fb.css",
+    "static/js/main.29fbb6fd.js"
+  ]
+}
