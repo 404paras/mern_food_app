@@ -20,6 +20,7 @@ import CategoryRest from "./pages/CategoryRest.js";
 import CustomerAdmin from "./pages/CustomerAdmin.js";
 import ManageRestaurant from './pages/ManageRestaurant.js';
 import AddRestaurants from "./components/AddRestaurants.js";
+import RestaurantDishes from "./pages/RestaurantDishes.js";
 
 const App = () => {
   const isAuthenticated = useSelector(state => state.isAuthenticated);
@@ -63,6 +64,7 @@ const App = () => {
         
         <Route path="/search" element={<Search />} />
         <Route path='category/:name' element={<CategoryRest/>}/>
+       <Route path="/restaurant/:categoryName/:id" element={<RestaurantDishes/>}/>
         <Route path='/admin' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminPage/>}/>}/>
         <Route path='/admin/addFoodItem' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddFoodItem/>}/>}/>
        

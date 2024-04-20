@@ -34,6 +34,35 @@ foodRestaurantList.post('/admin/addFoodItems', async (req, res) => {
     }
 });
 
+foodRestaurantList.post('/admin/addFood', async (req, res) => {
+    console.log(req.body)
+    const data = req.body;
+    console.log(data)
+    try {
+        const foodIds = [];
+        for (const foodItem of data) {
+            const newFood = await FoodList.create({
+                name: foodItem.name,
+                description: foodItem.description,
+                outlet: foodItem.outlet,
+                category: foodItem.category,
+                price: foodItem.price,
+                image: foodItem.image,
+                restaurant: foodItem.restaurant,
+                quantity: foodItem.quantity,
+                reviews: foodItem.reviews
+            });
+            foodIds.push(newFood._id);
+        }
+        res.status(201).json({ success: true, foodIds });
+    } catch (error) {
+        console.error('Error adding food items:', error);
+        res.status(500).json({ success: false, error: 'Failed to add food items' });
+    }
+});
+
+
+
 foodRestaurantList.post('/admin/restaurant', async (req, res) => {
     const { restId, foodItems } = req.body;
 
@@ -62,7 +91,7 @@ foodRestaurantList.post('/admin/restaurant', async (req, res) => {
 
 foodRestaurantList.get('/getAllRestaurants', async (req, res) => {
     try {
-        const restaurants = await RestaurantsList.find();
+        const restaurants = await RestaurantsList.find().sort({ createdAt: -1 });
         res.status(200).json(restaurants);
     } catch (error) {
         console.error(error);
@@ -70,16 +99,40 @@ foodRestaurantList.get('/getAllRestaurants', async (req, res) => {
     }
 });
 
+foodRestaurantList.get('/getRestaurantInfo/:id',async (req,res)=>{
+    const {id} = req.params;
+    try {
+        const restaurant = await RestaurantsList.findById(id);
+        if (!restaurant) {
+            return res.status(404).json({ message: 'Restaurant not found' });}
+            console.log(restaurant);
+            res.status(200).json({ restaurant });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Failed to fetch food items of restaurant' });
+        }
+})
+
 foodRestaurantList.get('/getAllDishOfRestaurant/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const restaurant = await RestaurantsList.findById(id);
+        console.log(restaurant)
         if (!restaurant) {
             return res.status(404).json({ message: 'Restaurant not found' });
         }
 
-        const foodItems = await FoodList.find({ _id: { $in: restaurant.foodItems } });
-        res.status(200).json({ foodItems });
+        const foodItem = []
+        for(const id of restaurant.foodItems)
+        {
+            const item = id.toString()
+            const data = await FoodList.findById(item)
+            console.log(data)
+            foodItem.push(data)
+        };
+       
+        
+        res.status(200).json({ foodItem });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Failed to fetch food items of restaurant' });

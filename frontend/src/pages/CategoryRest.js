@@ -50,7 +50,7 @@ const CategoryRest = () => {
         <div style={{ fontSize: "40px", fontWeight: 600 }}>{name}</div>
         <div>Dive into these delicious & flavoursome noodles for a perfect meal</div>
       </div></div>
-      <div><AllCards heading={"Restaurants to explore"} data={category} /></div>
+      <div><AllCards heading={"Restaurants to explore"} data={category} categoryName = {name}/></div>
     </div>
   );
 };

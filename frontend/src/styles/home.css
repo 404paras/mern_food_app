@@ -1,11 +1,20 @@
 .home {
-    width: 90%;
+    width: 80%;
     margin: auto;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    z-index: 10;
 }
 
 .bottom-line {
-    width: 100%;
-    margin: 2rem 0 1rem 0;
+    margin: 2rem auto 3rem auto;
+    height: 0.5px;
+    background-color: rgb(226, 226, 231);
+    width: calc(100% - 32px);
+    margin: 24px auto;
+}
+
+.slider-box {
+    height: 50vh;
 }

@@ -9,7 +9,7 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     top: 0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.258);
-    z-index: 1000;
+    z-index: 100;
 }
 
 .back-button>svg {

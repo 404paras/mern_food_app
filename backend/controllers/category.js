@@ -16,7 +16,9 @@ categoryRouter.post('/admin/category', async (req, res) => {
         }
 
         if (restaurants && restaurants.length > 0) {
-            existingCategory.restaurants.push(...restaurants);
+            // Filter out duplicate restaurant IDs
+            const uniqueRestaurants = restaurants.filter(restaurantId => !existingCategory.restaurants.includes(restaurantId));
+            existingCategory.restaurants.push(...uniqueRestaurants);
             await existingCategory.save();
         }
 
@@ -30,7 +32,7 @@ categoryRouter.post('/admin/category', async (req, res) => {
 categoryRouter.get('/category/:name', async (req, res) => {
     const { name } = req.params;
     try {
-        const category = await Category.findOne({ type:name });
+        const category = await Category.findOne({ type: name });
         if (!category) {
             return res.status(404).json({ message: "Category not found" });
         }

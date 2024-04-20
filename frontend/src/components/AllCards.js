@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "../styles/allCards.css";
 import { MdStars } from "react-icons/md";
 
-const AllCards = ({ heading, data }) => {
+const AllCards = ({ heading, data , categoryName}) => {
   const [restaurant, setRestaurant] = useState([]);
 
   useEffect(() => {
@@ -11,14 +12,9 @@ const AllCards = ({ heading, data }) => {
     }
   }, [data]);
 
-  const cardHandler = (item_id) => {
-    console.log(item_id);
-  };
-
   return (
     <div className="box" style={{
       position: "relative",
-     
       width: "100%",
       margin: "0 auto",
       msFlexWrap: "wrap",
@@ -29,10 +25,10 @@ const AllCards = ({ heading, data }) => {
       {restaurant && restaurant.length > 0 ? (
         <div className="cards">
           {restaurant.map((item, index) => (
-            <div
-              className="card"
+            <Link
+              to={`/restaurant/${categoryName || "restaurantInfo"}/${item._id}`} // Navigate to route with restaurant ID
               key={index}
-              onClick={() => cardHandler(item._id)}
+              className="card" // Wrap the card content with Link component
             >
               <div className="images">
                 <img src={item.imgUrl || ""} alt={item.name || ""} />
@@ -47,7 +43,7 @@ const AllCards = ({ heading, data }) => {
                   <div>{item.address || ""}</div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       ) : (

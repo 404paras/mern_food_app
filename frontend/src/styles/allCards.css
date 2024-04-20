@@ -1,11 +1,9 @@
 .box {
     display: grid;
     transition: all 0.05s ease 0s;
-    cursor: pointer;
     gap: 12px;
     grid-auto-flow: row;
     justify-content: stretch;
-    -webkit-box-align: center;
     align-items: center;
     padding: 0px;
 }
@@ -34,6 +32,14 @@
     justify-content: space-around;
     height: 40vh;
     transition: 0.5s ease-out;
+    text-decoration: none;
+    /* Remove underline from links */
+    color: inherit;
+    /* Inherit text color from parent */
+}
+
+.box .card:hover {
+    transform: scale(0.95);
 }
 
 .box .card>.images img {
@@ -50,7 +56,6 @@
 
 .box .card>.item-name {
     margin: 0px;
-    -webkit-font-smoothing: antialiased;
     font-family: Basis_Grotesque_Pro_Bold;
     font-weight: 700;
     font-size: 18px;
@@ -66,23 +71,14 @@
 }
 
 .box .card .rating {
-    -webkit-box-align: center;
     align-items: center;
     margin-top: 2px;
     gap: 2px;
-    grid-auto-flow: column;
-    -webkit-box-pack: start;
     justify-content: start;
 }
 
 .box .card .info {
-    display: grid;
-    -webkit-box-align: center;
     align-items: center;
     margin-top: 2px;
     gap: 2px;
-}
-
-.box .card:hover {
-    transform: scale(0.95);
 }

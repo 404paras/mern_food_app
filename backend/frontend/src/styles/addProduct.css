@@ -1,9 +1,0 @@
-.addProduct {
-    width: 60%;
-    margin: auto;
-    height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
