@@ -81,7 +81,7 @@ const App = () => {
       </Routes>
       {signInPage && <SignIn onClose={closeHandler} />}
      
-      <Footer />
+     
     </Router>
   );
 };

@@ -4,9 +4,8 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 2rem 1rem 2rem 1rem;
+    margin: 2rem 0 2rem 0;
     height: 30vh;
-    padding: 1rem;
 }
 
 .searchSlider .heading {
@@ -47,13 +46,13 @@
     justify-content: space-around;
 }
 
-.searchSlider .slider-images img {
+.sliderImg {
     cursor: pointer;
-    width: 10%;
+    width: 100%;
     height: 7rem;
     transition: 0.5s ease-in;
 }
 
-.searchSlider .slider-images img:hover {
+.sliderImg:hover {
     transform: scale(1.1);
 }

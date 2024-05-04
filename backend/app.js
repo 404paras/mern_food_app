@@ -7,6 +7,7 @@ import userRouter from './controllers/userAuth.js';
 import foodRestaurantList from './controllers/foodItems.js';
 import categoryRouter from './controllers/category.js';
 import path from 'path';
+import search from './controllers/search.js';
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url); // Getting filename
@@ -26,7 +27,7 @@ connectDB();
 app.use('/api/v1', userRouter);
 app.use('/api/v1', foodRestaurantList);
 app.use('/api/v1', categoryRouter);
-
+app.use('/api/v1',search)
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/frontend/build/index.html'));
 });

@@ -4,6 +4,7 @@ import Slider from '../components/Slider.js';
 import SliderBox from '../components/SliderBox.js';
 import AllCards from '../components/AllCards.js';
 import { allRestaurants } from '../Data/Data.js';
+import Footer from '../components/footer.js';
 
 const Home = () => {
   const [restData, setRestData] = useState([]);
@@ -24,6 +25,7 @@ const Home = () => {
   }, [restData]);
 
   return (
+    <>
     <div className="home">
       <div className="slider"><Slider /></div>
       <div className="bottom-line"></div>
@@ -33,7 +35,10 @@ const Home = () => {
         <div><AllCards heading={"Restaurants with online food delivery"} data={restData} /></div>
       )}
       <div className="bottom-line"></div>
+  
     </div>
+    <Footer />
+    </>
   );
 };
 

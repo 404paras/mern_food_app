@@ -3,6 +3,8 @@ import file from '../assets/slider/imageFile.js';
 import '../styles/searchBarSlider.css';
 import { GoArrowLeft } from "react-icons/go";
 import { GoArrowRight } from "react-icons/go";
+import { Link } from 'react-router-dom';
+
 
 const SearchBarSlider = () => {
   const [imgIndex, setImgIndex] = useState(0);
@@ -50,12 +52,14 @@ const SearchBarSlider = () => {
       <div className="slider-images">
         {/* Displaying the 6 images */}
         {Object.values(file).slice(imgIndex, imgIndex + 8).map((item, index) => (
-          <img
-            key={index}
-            src={item.img}
-            alt={item.name}
-            onClick={() => handleImageClick(item.name)}
-          />
+          <Link to={{pathname:`/category/${item.name}`,
+          state:{categoryData:item.name}}} key={index}>
+            <img
+              src={item.img}
+              alt={item.name}
+              className='sliderImg'
+            />
+          </Link>
         ))}
       </div>
     </div>
