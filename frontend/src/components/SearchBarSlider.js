@@ -32,9 +32,7 @@ const SearchBarSlider = () => {
     }
   };
 
-  const handleImageClick = (itemName) => {
-    console.log(itemName);
-  };
+ 
 
   return (
     <div className='searchSlider'>
