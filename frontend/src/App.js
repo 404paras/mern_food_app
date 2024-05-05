@@ -7,8 +7,8 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import Navbar from "./components/navbar.js";
-import Home from "./pages/home.js";
+import Navbar from "./components/Navbar.js";
+import Home from "./pages/Home.js";
 
 import { login } from "./store/store.js";
 import Search from "./pages/search.js";
