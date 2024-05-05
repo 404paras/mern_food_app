@@ -36,7 +36,7 @@ const CategoryRest = () => {
         color: "#282c3f",
         paddingTop: "60px",
         paddingBottom: "8px",
-        display: "-ms-flexbox",
+  
         display: "flex",
         msFlexAlign: "center",
         alignItems: "center",

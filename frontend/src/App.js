@@ -6,8 +6,14 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+<<<<<<< HEAD
 import Navbar from "./components/Navbar.js";
 import Home from "./pages/Home.js";
+=======
+import Navbar from "./components/navbar.js";
+import Home from "./pages/home.js";
+
+>>>>>>> a5bba6d09b0a9aacd1c6e98bf89115065fc68d44
 import { login } from "./store/store.js";
 import Search from "./pages/search.js";
 import SignIn from "./components/SignIn.js";
