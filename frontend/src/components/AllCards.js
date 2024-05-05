@@ -11,7 +11,7 @@ const AllCards = ({ heading, data , categoryName,fontSize}) => {
       setRestaurant(data);
       console.log(restaurant)
     }
-  }, [data]);
+  }, [data,restaurant]);
 
   return (
     <div className="box" style={{
