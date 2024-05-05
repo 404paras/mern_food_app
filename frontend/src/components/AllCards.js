@@ -3,12 +3,13 @@ import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "../styles/allCards.css";
 import { MdStars } from "react-icons/md";
 
-const AllCards = ({ heading, data , categoryName}) => {
+const AllCards = ({ heading, data , categoryName,fontSize}) => {
   const [restaurant, setRestaurant] = useState([]);
 
   useEffect(() => {
     if (data) {
       setRestaurant(data);
+      console.log(restaurant)
     }
   }, [data]);
 
@@ -31,14 +32,14 @@ const AllCards = ({ heading, data , categoryName}) => {
               className="card" // Wrap the card content with Link component
             >
               <div className="images">
-                <img src={item.imgUrl || ""} alt={item.name || ""} />
+                <img src={item.imgUrl || item.image || " "} alt={item.name || ""} />
               </div>
-              <div style={{ marginLeft: "12px" }}>
+              <div style={{ marginLeft: "12px", fontSize:`${fontSize}`}}>
                 <div className="item-name">{item.name || ""}</div>
                 <div className="rating">
                   <MdStars /> &nbsp;{item.rating || "5"}
                 </div>
-                <div className="info">
+                <div className="info" >
                   <div>{item.category?.join(", ") || ""}</div>
                   <div>{item.address || ""}</div>
                 </div>

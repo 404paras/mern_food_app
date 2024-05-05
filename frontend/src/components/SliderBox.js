@@ -3,6 +3,7 @@ import "../styles/slider_box.css";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { allRestaurants } from '../Data/Data.js';
 import { MdStars } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const SliderBox = () => {
   const [imgIndex, setImgIndex] = useState(0);
@@ -75,8 +76,11 @@ const SliderBox = () => {
           .slice(imgIndex, imgIndex + 4)
           .map((item, index) => (
             <div className="card" key={index} onClick={() => cardHandler(item.id)}>
-             
+           <Link
+              to={`/restaurant/${"restaurantInfo"}/${item._id}`} // Navigate to route with restaurant ID
+              key={index}>
               <div className="slider-images">
+                
                 <img src={item.imgUrl} alt={item?.name} />
               </div>
               <div className="item-info">
@@ -86,7 +90,9 @@ const SliderBox = () => {
               </div>
               
               <div className="address">{item?.address}</div>
-            </div></div>
+            </div>
+            </Link>
+            </div>
           ))}
       </div>
     </div>

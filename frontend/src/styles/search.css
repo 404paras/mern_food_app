@@ -91,6 +91,16 @@
     margin-bottom: 1px;
 }
 
+.morebtn {
+    width: 100%;
+}
+
+.morebtnstyle {
+    padding: 0.5rem;
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
 ._1Z_E6 {
     font-size: 1rem;
     color: #7e808c;
