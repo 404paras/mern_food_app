@@ -31,9 +31,8 @@ const Search = () => {
     if (searchInput !== "") {
       fetchData();
     }
-    console.log(selectedId)
-
-  }, [searchInput,selectedId]);
+    console.log(selectedId);
+  }, [searchInput, selectedId]);
 
   return (
     <div className="search">
@@ -51,41 +50,61 @@ const Search = () => {
       </div>
 
       {btnClicked ? (
-        <div className="searchInfo">
-          {selectedId !=="" ? (
+        <div>
+          {selectedId !== "" ? (
             <>
-              {searchData
-                .filter((item) => item._id === selectedId)
-                .map((item) => (
-                  <SearchCard key={item._id} id={selectedId} image={item.image} name={item.name} price={item.price}
-                  desc = {item.description}
-                  category={item.category}/>
-                ))}
-              {searchData
-                .filter((item) => item._id !== selectedId)
-                .map((item, index) => (
-                  <SearchCard
-                    key={index}
-                    heading={"Items you may like"}
-                    image={item.image}
-                    name={item.name}
-                    price={item.price}desc = {item.description}
-                category={item.category}
-                  />
-                ))}
+              <div className="selectedSearchCard">
+               
+                {searchData
+                  .filter((item) => item._id === selectedId)
+                  .map((item) => (
+                    <SearchCard
+                      key={item._id}
+                      id={selectedId}
+                      image={item.image}
+                      name={item.name}
+                      price={item.price}
+                      desc={item.description}
+                      width={"100%"}
+                      category={item.category}
+                    />
+                  ))}
+              </div>
+              <div className="searchHeading" style={{margin:"1rem",fontWeight:700}}>More items you may like!!</div>
+              <div className="searchInfo">
+              
+                {searchData
+                  .filter((item) => item._id !== selectedId)
+                  .map((item, index) => (
+                    <SearchCard
+                      key={index}
+                      heading={"Items you may like"}
+                      image={item.image}
+                      name={item.name}
+                      price={item.price}
+                      desc={item.description}
+                      category={item.category}
+                    />
+                  ))}
+              </div>
             </>
-          ) : (
-            searchData.map((item, index) => (
-              <SearchCard
-                key={index}
-                image={item.image}
-                name={item.name}
-                id={item._id}
-                price={item.price}
-                category={item.category}desc = {item.description}
-                heading={ `Showing results for ${searchInput}` }
-              />
-            ))
+          ) : (<>
+            <div className="searchHeading"  style={{margin:"1rem",fontWeight:700}}>{`Showing results for ${searchInput}`}</div>
+            <div className="searchInfo">
+              
+              {searchData.map((item, index) => (
+                <SearchCard
+                  key={index}
+                  image={item.image}
+                  name={item.name}
+                  id={item._id}
+                  price={item.price}
+                  category={item.category}
+                  desc={item.description}
+                  heading={`Showing results for ${searchInput}`}
+                />
+              ))}
+            </div></>
           )}
         </div>
       ) : searchInput ? (
@@ -127,11 +146,10 @@ const Search = () => {
               <div className="morebtn">
                 <div
                   className="search-result morebtnstyle"
-                  onClick={() => {setBtnClicked(true)
-
-                    setSelectedId('')
-                  }
-                }
+                  onClick={() => {
+                    setBtnClicked(true);
+                    setSelectedId("");
+                  }}
                 >
                   <CiSearch /> <span>See more results</span>
                 </div>
