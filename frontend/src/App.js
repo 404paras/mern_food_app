@@ -7,7 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import Navbar from "./components/Navbar.js";
+import Navbar from "./components/navbar.js";
 import { login } from "./store/store.js";
 import { useDispatch, useSelector } from "react-redux";
 import Shimmer from "./components/Shimmer.js";

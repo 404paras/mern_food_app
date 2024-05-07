@@ -4,7 +4,7 @@ import Slider from '../components/Slider.js';
 import SliderBox from '../components/SliderBox.js';
 import AllCards from '../components/AllCards.js';
 import { allRestaurants } from '../Data/Data.js';
-import Footer from '../components/Footer.js';
+import Footer from '../components/footer.js';
 import Shimmer from '../components/Shimmer.js'; // Import the Shimmer component if not already imported
 
 const Home = () => {
