@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci";
 import SearchBarSlider from "../components/SearchBarSlider.js";
 import { server } from "../server.js";
 import axios from "axios";
-import SearchCard from "../components/SearchCards.js"; // Assuming there's a component named SearchCard
+import SearchCard from "../components/searchCards.js"; // Assuming there's a component named SearchCard
 
 
 const Search = () => {
