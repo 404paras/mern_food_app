@@ -2,17 +2,22 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "../styles/allCards.css";
 import { MdStars } from "react-icons/md";
+import Shimmer from "./Shimmer";
 
 const AllCards = ({ heading, data , categoryName,fontSize}) => {
   const [restaurant, setRestaurant] = useState([]);
-
+const [isLoading,setIsLoading] = useState(false);
   useEffect(() => {
     if (data) {
       setRestaurant(data);
-      console.log(restaurant)
+      setIsLoading(true);
     }
   }, [data,restaurant]);
-
+if(!isLoading){
+  return (
+    <Shimmer/>
+  )
+}
   return (
     <div className="box" style={{
       position: "relative",

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "../styles/search.css";
 import { CiSearch } from "react-icons/ci";
-import SearchBarSlider from "../components/SearchBarSlider";
+import SearchBarSlider from "../components/SearchBarSlider.js";
 import { server } from "../server.js";
 import axios from "axios";
-import SearchCard from "../components/searchCards"; // Assuming there's a component named SearchCard
+import SearchCard from "../components/SearchCards.js"; // Assuming there's a component named SearchCard
+
 
 const Search = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [btnClicked, setBtnClicked] = useState(false);
   const [selectedId, setSelectedId] = useState("");
+  
 
   const changeHandler = (e) => {
     setBtnClicked(false);
@@ -24,6 +26,7 @@ const Search = () => {
           `${server}api/v1/search/${searchInput}`
         );
         setSearchData(data.results);
+       
       } catch (error) {
         console.error("Error fetching search results:", error);
       }
@@ -33,6 +36,7 @@ const Search = () => {
     }
     console.log(selectedId);
   }, [searchInput, selectedId]);
+
 
   return (
     <div className="search">
@@ -54,7 +58,6 @@ const Search = () => {
           {selectedId !== "" ? (
             <>
               <div className="selectedSearchCard">
-               
                 {searchData
                   .filter((item) => item._id === selectedId)
                   .map((item) => (
@@ -70,9 +73,13 @@ const Search = () => {
                     />
                   ))}
               </div>
-              <div className="searchHeading" style={{margin:"1rem",fontWeight:700}}>More items you may like!!</div>
+              <div
+                className="searchHeading"
+                style={{ margin: "1rem", fontWeight: 700 }}
+              >
+                More items you may like!!
+              </div>
               <div className="searchInfo">
-              
                 {searchData
                   .filter((item) => item._id !== selectedId)
                   .map((item, index) => (
@@ -88,23 +95,27 @@ const Search = () => {
                   ))}
               </div>
             </>
-          ) : (<>
-            <div className="searchHeading"  style={{margin:"1rem",fontWeight:700}}>{`Showing results for ${searchInput}`}</div>
-            <div className="searchInfo">
-              
-              {searchData.map((item, index) => (
-                <SearchCard
-                  key={index}
-                  image={item.image}
-                  name={item.name}
-                  id={item._id}
-                  price={item.price}
-                  category={item.category}
-                  desc={item.description}
-                  heading={`Showing results for ${searchInput}`}
-                />
-              ))}
-            </div></>
+          ) : (
+            <>
+              <div
+                className="searchHeading"
+                style={{ margin: "1rem", fontWeight: 700 }}
+              >{`Showing results for ${searchInput}`}</div>
+              <div className="searchInfo">
+                {searchData.map((item, index) => (
+                  <SearchCard
+                    key={index}
+                    image={item.image}
+                    name={item.name}
+                    id={item._id}
+                    price={item.price}
+                    category={item.category}
+                    desc={item.description}
+                    heading={`Showing results for ${searchInput}`}
+                  />
+                ))}
+              </div>
+            </>
           )}
         </div>
       ) : searchInput ? (

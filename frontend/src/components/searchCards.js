@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/searchCard.css';
-const searchCards = ({heading,image,name,id,price,category,desc,width}) => {
+const searchCards = ({image,name,id,price,category,desc,width}) => {
     console.log(id)
   return (
     <div className='searchCard'>

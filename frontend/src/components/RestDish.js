@@ -1,17 +1,26 @@
 import React, { useState,useEffect } from 'react';
 import '../styles/RestDish.css';
+import Shimmer from './Shimmer';
 
 const RestDish = ({ data }) => {
     console.log(data)
     const [foodItem,setFoodItem] = useState();
+    const [isLoading,setIsLoading] = useState(false);
 
     useEffect(() => {
         if (data) {
             setFoodItem(data);
+            setIsLoading(true);
         }
       }, [data]);
 
       console.log(foodItem);
+    if(!isLoading){
+
+        return (
+            <Shimmer/>
+        )
+    }
     return (
         <div className="restDishCard">
           

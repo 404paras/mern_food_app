@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import "./app.css";
 import {
   BrowserRouter as Router,
@@ -8,20 +8,21 @@ import {
 } from "react-router-dom";
 
 import Navbar from "./components/Navbar.js";
-import Home from "./pages/Home.js";
-
 import { login } from "./store/store.js";
-import Search from "./pages/search.js";
-import SignIn from "./components/SignIn.js";
-import AddFoodItem from "./components/AddFoodItem.js";
-import AdminRoute from "./components/AdminRoute.js"; // Import the AdminRoute component
 import { useDispatch, useSelector } from "react-redux";
-import AdminPage from "./pages/adminPage.js";
-import CategoryRest from "./pages/CategoryRest.js";
-import CustomerAdmin from "./pages/CustomerAdmin.js";
-import ManageRestaurant from './pages/ManageRestaurant.js';
-import AddRestaurants from "./components/AddRestaurants.js";
-import RestaurantDishes from "./pages/RestaurantDishes.js";
+import Shimmer from "./components/Shimmer.js";
+
+const Home = lazy(() => import("./pages/Home.js"));
+const Search = lazy(() => import("./pages/Search.js"));
+const SignIn = lazy(() => import("./components/SignIn.js"));
+const AddFoodItem = lazy(() => import("./components/AddFoodItem.js"));
+const AdminPage = lazy(() => import("./pages/AdminPage.js"));
+const CategoryRest = lazy(() => import("./pages/CategoryRest.js"));
+const CustomerAdmin = lazy(() => import("./pages/CustomerAdmin.js"));
+const ManageRestaurant = lazy(() => import('./pages/ManageRestaurant.js'));
+const AddRestaurants = lazy(() => import("./components/AddRestaurants.js"));
+const RestaurantDishes = lazy(() => import("./pages/RestaurantDishes.js"));
+const AdminRoute = lazy(() => import("./components/AdminRoute.js"));
 
 const App = () => {
   const isAuthenticated = useSelector(state => state.isAuthenticated);
@@ -49,40 +50,34 @@ const App = () => {
       setSignInPage(false);
     }
 
-    setIsLoading(false); // Set loading to false once authentication status is determined
+    setIsLoading(false);
   }, [dispatch, isAuthenticated]);
 
-  // If still loading, return null or a loading indicator
   if (isLoading) {
-    return null; // Or return a loading spinner
+    return (
+      <Shimmer/>
+    );
   }
 
   return (
     <Router>
       <Navbar onSignIn={signInHandler} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        
-        <Route path="/search" element={<Search />} />
-        <Route path='category/:name' element={<CategoryRest/>}/>
-       <Route path="/restaurant/:categoryName/:id" element={<RestaurantDishes/>}/>
-        <Route path='/admin' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminPage/>}/>}/>
-        <Route path='/admin/addFoodItem' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddFoodItem/>}/>}/>
-       
-        <Route path='/admin/manageCustomers' element={<AdminRoute isAuthenticated={isAuthenticated} child={<CustomerAdmin/>}/>}/>
-       
-        <Route path='/admin/manageRestaurant' element={<AdminRoute isAuthenticated={isAuthenticated} child={<ManageRestaurant/>}/>}/>
-       
-        <Route path='/admin/addRestaurant' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddRestaurants/>}/>}/>
-       
-        {/* Use AdminRoute for admin routes */}
-        {signInPage && <Route path="*" element={<Navigate to="/" />} />}
-
-        <Route path="*" element={<Home />} />
-      </Routes>
+      <Suspense fallback={<Shimmer/>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path='category/:name' element={<CategoryRest/>}/>
+          <Route path="/restaurant/:categoryName/:id" element={<RestaurantDishes/>}/>
+          <Route path='/admin' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminPage/>}/>}/>
+          <Route path='/admin/addFoodItem' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddFoodItem/>}/>}/>
+          <Route path='/admin/manageCustomers' element={<AdminRoute isAuthenticated={isAuthenticated} child={<CustomerAdmin/>}/>}/>
+          <Route path='/admin/manageRestaurant' element={<AdminRoute isAuthenticated={isAuthenticated} child={<ManageRestaurant/>}/>}/>
+          <Route path='/admin/addRestaurant' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddRestaurants/>}/>}/>
+          {signInPage && <Route path="*" element={<Navigate to="/" />} />}
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </Suspense>
       {signInPage && <SignIn onClose={closeHandler} />}
-     
-     
     </Router>
   );
 };

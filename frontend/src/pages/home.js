@@ -4,7 +4,8 @@ import Slider from '../components/Slider.js';
 import SliderBox from '../components/SliderBox.js';
 import AllCards from '../components/AllCards.js';
 import { allRestaurants } from '../Data/Data.js';
-import Footer from '../components/footer.js';
+import Footer from '../components/Footer.js';
+import Shimmer from '../components/Shimmer.js'; // Import the Shimmer component if not already imported
 
 const Home = () => {
   const [restData, setRestData] = useState([]);
@@ -26,18 +27,22 @@ const Home = () => {
 
   return (
     <>
-    <div className="home">
-      <div className="slider"><Slider /></div>
-      <div className="bottom-line"></div>
-      <div className="slider-box"><SliderBox /></div>
-      <div className="bottom-line"></div>
-      {restData.length > 0 && (
-        <div><AllCards heading={"Restaurants with online food delivery"} data={restData} /></div>
+      {restData.length === 0 ? (<div className='shimmer'>
+      
+        <Shimmer /></div>
+      ) : (
+        <div className="home">
+          <div className="slider"><Slider /></div>
+          <div className="bottom-line"></div>
+          <div className="slider-box"><SliderBox /></div>
+          <div className="bottom-line"></div>
+          {restData.length > 0 && (
+            <div><AllCards heading={"Restaurants with online food delivery"} data={restData} /></div>
+          )}
+          
+        </div>
       )}
-      <div className="bottom-line"></div>
-  
-    </div>
-    <Footer />
+      <Footer />
     </>
   );
 };

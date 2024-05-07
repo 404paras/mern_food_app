@@ -4,11 +4,13 @@ import { restaurantDish } from "../Data/Data.js";
 import { useParams } from "react-router";
 import RestDishCard from "../components/RestDish.js";
 import { restInfo } from "../Data/Data.js";
+import Shimmer from "../components/Shimmer.js";
 
 const RestaurantDishes = () => {
   const [foodItems, setFoodItems] = useState([]);
   const { categoryName, id } = useParams();
   const [restDetail, setRestDetail] = useState({});
+const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchFoodItems = async () => {
@@ -16,8 +18,10 @@ const RestaurantDishes = () => {
         const data = await restaurantDish({ id });
 
         setFoodItems(data.foodItem);
+        
         const restaurant = await restInfo({ id });
         setRestDetail(restaurant);
+        setIsLoading(true);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -27,6 +31,10 @@ const RestaurantDishes = () => {
       fetchFoodItems();
     }
   }, [id, foodItems, restDetail]);
+
+if(!isLoading) {
+  return <Shimmer/>}
+
 
   return (
     <div className="restaurantDish">

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { server } from '../server.js';
 import { MdDelete } from "react-icons/md";
 import { CiSearch } from 'react-icons/ci';
+import Shimmer from '../components/Shimmer.js';
 
 const CustomerAdmin = () => {
     const [customers, setCustomers] = useState([]);
@@ -38,6 +39,9 @@ setSearch(e.target.value);
             console.error('Error deleting customer:', error);
         }
     };
+    if(customers.length===0){
+        return (<Shimmer/>)
+    }
 
     return (
         <div style={{ minHeight: "80vh", width: "70%", margin: "auto", padding: "1rem" }}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { categoryData } from '../Data/Data.js';
 import AllCards from '../components/AllCards.js';
+import Shimmer from '../components/Shimmer.js';
 
 const CategoryRest = () => {
   const { name } = useParams();
@@ -24,7 +25,7 @@ const CategoryRest = () => {
     fetchData();
   }, [name]); // Fetch data whenever name changes
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Shimmer/>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
