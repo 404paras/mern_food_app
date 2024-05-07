@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Shimmer from "./components/Shimmer.js";
 
 const Home = lazy(() => import("./pages/home.js"));
-const Search = lazy(() => import("./pages/Search.js"));
+const Search = lazy(() => import("./pages/search.js"));
 const SignIn = lazy(() => import("./components/SignIn.js"));
 const AddFoodItem = lazy(() => import("./components/AddFoodItem.js"));
 const AdminPage = lazy(() => import("./pages/adminPage.js"));
