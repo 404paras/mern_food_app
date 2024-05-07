@@ -12,11 +12,11 @@ import { login } from "./store/store.js";
 import { useDispatch, useSelector } from "react-redux";
 import Shimmer from "./components/Shimmer.js";
 
-const Home = lazy(() => import("./pages/Home.js"));
+const Home = lazy(() => import("./pages/home.js"));
 const Search = lazy(() => import("./pages/Search.js"));
 const SignIn = lazy(() => import("./components/SignIn.js"));
 const AddFoodItem = lazy(() => import("./components/AddFoodItem.js"));
-const AdminPage = lazy(() => import("./pages/AdminPage.js"));
+const AdminPage = lazy(() => import("./pages/adminPage.js"));
 const CategoryRest = lazy(() => import("./pages/CategoryRest.js"));
 const CustomerAdmin = lazy(() => import("./pages/CustomerAdmin.js"));
 const ManageRestaurant = lazy(() => import('./pages/ManageRestaurant.js'));
