@@ -17,7 +17,7 @@ const Home = lazy(() => import("./pages/home.js"));
 const Search = lazy(() => import("./pages/search.js"));
 const SignIn = lazy(() => import("./components/SignIn.js"));
 const AddFoodItem = lazy(() => import("./components/AddFoodItem.js"));
-const Cart =lazy(()=>import( "./pages/Cart.js"));
+const Cart =lazy(()=>import( "./pages/cart.js"));
 const AdminPage = lazy(() => import("./pages/adminPage.js"));
 const CategoryRest = lazy(() => import("./pages/CategoryRest.js"));
 const CustomerAdmin = lazy(() => import("./pages/CustomerAdmin.js"));
