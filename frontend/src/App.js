@@ -8,14 +8,16 @@ import {
 } from "react-router-dom";
 
 import Navbar from "./components/navbar.js";
-import { login } from "./store/store.js";
+import { login } from "./store/authSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import Shimmer from "./components/Shimmer.js";
+
 
 const Home = lazy(() => import("./pages/home.js"));
 const Search = lazy(() => import("./pages/search.js"));
 const SignIn = lazy(() => import("./components/SignIn.js"));
 const AddFoodItem = lazy(() => import("./components/AddFoodItem.js"));
+const Cart =lazy(()=>import( "./pages/Cart.js"));
 const AdminPage = lazy(() => import("./pages/adminPage.js"));
 const CategoryRest = lazy(() => import("./pages/CategoryRest.js"));
 const CustomerAdmin = lazy(() => import("./pages/CustomerAdmin.js"));
@@ -25,7 +27,7 @@ const RestaurantDishes = lazy(() => import("./pages/RestaurantDishes.js"));
 const AdminRoute = lazy(() => import("./components/AdminRoute.js"));
 
 const App = () => {
-  const isAuthenticated = useSelector(state => state.isAuthenticated);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const [signInPage, setSignInPage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,9 +46,11 @@ const App = () => {
 
     if (userId && userRole) {
       dispatch(login({ role: userRole }));
+      
     }
-
+    
     if (isAuthenticated) {
+    
       setSignInPage(false);
     }
 
@@ -61,10 +65,11 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar onSignIn={signInHandler} />
       <Suspense fallback={<Shimmer/>}>
+        <Navbar onSignIn={signInHandler} />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart/>}/>
           <Route path="/search" element={<Search />} />
           <Route path='category/:name' element={<CategoryRest/>}/>
           <Route path="/restaurant/:categoryName/:id" element={<RestaurantDishes/>}/>
@@ -76,8 +81,8 @@ const App = () => {
           {signInPage && <Route path="*" element={<Navigate to="/" />} />}
           <Route path="*" element={<Home />} />
         </Routes>
+        {signInPage && <SignIn onClose={closeHandler} />}
       </Suspense>
-      {signInPage && <SignIn onClose={closeHandler} />}
     </Router>
   );
 };

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { server } from "../server.js";
 import { useNavigate } from "react-router-dom";
-import { login } from "../store/store.js";
+import { login } from "../store/authSlice.js";
 
 const SignIn = ({ onClose }) => {
   const [registerPage, setRegisterPage] = useState(false);

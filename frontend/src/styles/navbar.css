@@ -12,18 +12,18 @@
     z-index: 100;
 }
 
-.back-button>svg {
+.back-button svg {
     font-size: 1.5rem;
     margin-left: 1rem;
     cursor: pointer;
 }
 
-.back-button>svg:hover {
+.back-button svg:hover {
     color: #fc8019;
 }
 
 .logo {
-    flex: 5;
+    flex: 4;
     margin: auto;
     width: 100%;
     align-items: center;
@@ -33,7 +33,7 @@
 }
 
 .nav-items {
-    flex: 5;
+    flex: 6;
     width: 100%;
     margin: auto;
 }
@@ -45,11 +45,34 @@
     list-style: none;
 }
 
-.nav-items>ul li {
+.nav-items ul li {
     cursor: pointer;
     font-size: 1.1rem;
 }
 
-.nav-items>ul li:hover {
+.nav-items ul li.cart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+}
+
+.nav-items ul li.cart svg {
+    font-size: 1.8rem;
+    fill: #60b246;
+}
+
+.nav-items ul li.cart span {
+    font-size: 0.8rem;
+    position: absolute;
+    color: white;
+    font-weight: 600;
+    left: 6px;
+    top: 3px;
+}
+
+.nav-items ul li:hover {
+    stroke: #fc8019;
+    fill: #fc8019;
     color: #fc8019;
 }
