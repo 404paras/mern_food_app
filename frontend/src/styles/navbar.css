@@ -63,12 +63,12 @@
 }
 
 .nav-items ul li.cart span {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     position: absolute;
     color: white;
     font-weight: 600;
-    left: 6px;
-    top: 3px;
+    left: 5px;
+    top: 5px;
 }
 
 .nav-items ul li:hover {

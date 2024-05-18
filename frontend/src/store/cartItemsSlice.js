@@ -12,33 +12,42 @@ const cartItemsSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      const { foodItem } = action.payload;
-      const existingItem = state.foodItems.itemDetail.find(item => item._id === foodItem._id);
+      const item = action.payload;
+      const existingItem = state.foodItems.itemDetail.find(foodItem => foodItem.id === item.id);
 
       if (existingItem) {
         existingItem.count++;
       } else {
-        state.foodItems.itemDetail.push({ ...foodItem, count: 1 });
+        state.foodItems.itemDetail.push({ 
+          id: item.id, 
+          name: item.name, 
+          price: item.price, 
+          image: item.image, 
+          count: 1 
+        });
       }
-      
-      state.foodItems.itemCount = state.foodItems.itemDetail.reduce((total, item) => total + item.count, 0);
+
+      state.foodItems.itemCount = state.foodItems.itemDetail.reduce((total, foodItem) => total + foodItem.count, 0);
+      sessionStorage.setItem('cartItems', JSON.stringify(state.foodItems));
     },
     removeItem: (state, action) => {
       const { foodItemId } = action.payload;
-      const existingItem = state.foodItems.itemDetail.find(item => item._id === foodItemId);
+      const existingItem = state.foodItems.itemDetail.find(foodItem => foodItem.id === foodItemId);
 
       if (existingItem) {
         if (existingItem.count > 1) {
           existingItem.count--;
         } else {
-          state.foodItems.itemDetail = state.foodItems.itemDetail.filter(item => item._id !== foodItemId);
+          state.foodItems.itemDetail = state.foodItems.itemDetail.filter(foodItem => foodItem.id !== foodItemId);
         }
-        state.foodItems.itemCount--;
+        state.foodItems.itemCount = state.foodItems.itemDetail.reduce((total, foodItem) => total + foodItem.count, 0);
+        sessionStorage.setItem('cartItems', JSON.stringify(state.foodItems));
       }
     },
     clearCart: (state) => {
       state.foodItems.itemDetail = [];
       state.foodItems.itemCount = 0;
+      sessionStorage.setItem('cartItems', JSON.stringify(state.foodItems));
     }
   }
 });

@@ -35,9 +35,9 @@ foodRestaurantList.post('/admin/addFoodItems', async (req, res) => {
 });
 
 foodRestaurantList.post('/admin/addFood', async (req, res) => {
-    console.log(req.body)
+    
     const data = req.body;
-    console.log(data)
+    
     try {
         const foodIds = [];
         for (const foodItem of data) {
@@ -105,7 +105,7 @@ foodRestaurantList.get('/getRestaurantInfo/:id',async (req,res)=>{
         const restaurant = await RestaurantsList.findById(id);
         if (!restaurant) {
             return res.status(404).json({ message: 'Restaurant not found' });}
-            console.log(restaurant);
+            
             res.status(200).json({ restaurant });
         } catch (error) {
             console.error(error);
@@ -117,7 +117,7 @@ foodRestaurantList.get('/getAllDishOfRestaurant/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const restaurant = await RestaurantsList.findById(id);
-        console.log(restaurant)
+        
         if (!restaurant) {
             return res.status(404).json({ message: 'Restaurant not found' });
         }

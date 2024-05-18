@@ -6,7 +6,7 @@ const categoryRouter = new Router();
 
 categoryRouter.post('/admin/category', async (req, res) => {
     const { type, restaurants } = req.body;
-    console.log(type, restaurants);
+
 
     try {
         let existingCategory = await Category.findOne({ type });
@@ -36,7 +36,7 @@ categoryRouter.get('/category/:name', async (req, res) => {
         if (!category) {
             return res.status(404).json({ message: "Category not found" });
         }
-        console.log(category)
+        
         const restaurantIds = category.restaurants;
         if (restaurantIds.length < 1) {
             return res.status(404).json({ message: 'No restaurants available for this category' });

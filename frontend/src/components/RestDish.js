@@ -9,9 +9,10 @@ const RestDish = ({ data }) => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
-  const addToCart = (id) => {
+  const addToCart = ({id,name,price,image}) => {
+    
     if (foodItem) {
-      dispatch(addItem({ foodItem }));
+      dispatch(addItem({id:id,name:name,price:price,image:image}));
     }
   };
 
@@ -33,10 +34,10 @@ const RestDish = ({ data }) => {
         <p className="dishPrice">Rs. {foodItem?.price}</p>
         <p className="dishDescription">{foodItem?.description}</p>
       </div>
-      <div className='dishSpace'></div>
+      <div className="dishSpace"></div>
       <div className="dishImageContainer">
-        <img src={foodItem?.image} alt="" className="dishImage" />
-        <button className="addButton" onClick={() => addToCart(foodItem)}>Add</button>
+        <img src={foodItem?.image} alt={foodItem?.name} className="dishImage" />
+        <button className="addButton" onClick={() => addToCart({id:foodItem._id,name:foodItem.name,price:foodItem.price,image:foodItem.image})}>Add</button>
       </div>
     </div>
   );
