@@ -1,14 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "../styles/Cart.css"; // Import your CSS file for styling
-
+import "../styles/Cart.css";
 import { addItem, removeItem } from "../store/cartItemsSlice.js"; // Import your Redux actions
+import SignIn from '../components/SignIn.js';
 
 const Cart = () => {
+  const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated)
   const foodItems = useSelector((state) => state.cart.foodItems.itemDetail);
   const dispatch = useDispatch();
   const [billDetail, setBillDetail] = useState(0);
+  const [signIn,setSignIn] = useState(false);
 
+  const closeHandler = () => {
+    setSignIn(false);
+  };
+  
+const checkOutBtnHandler = ()=>{
+if(!isAuthenticated){
+setSignIn(true);}
+else{
+
+}
+
+};
   useEffect(() => {
     const totalBill = foodItems.reduce(
       (total, item) => total + item.price * item.count,
@@ -105,8 +119,9 @@ const Cart = () => {
             <span>₹{(billDetail+2+billDetail*0.18+20).toFixed(2)}</span>
           </div>
         </div>
-        <button className="cart-checkout-btn">CheckOut</button>
+        <button className="cart-checkout-btn" onClick={checkOutBtnHandler}>CheckOut</button>
       </div>
+      {signIn && <SignIn onClose={closeHandler} />}
     </div>
   );
 };

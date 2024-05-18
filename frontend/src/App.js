@@ -78,7 +78,7 @@ const App = () => {
           <Route path='/admin/manageCustomers' element={<AdminRoute isAuthenticated={isAuthenticated} child={<CustomerAdmin/>}/>}/>
           <Route path='/admin/manageRestaurant' element={<AdminRoute isAuthenticated={isAuthenticated} child={<ManageRestaurant/>}/>}/>
           <Route path='/admin/addRestaurant' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddRestaurants/>}/>}/>
-          {signInPage && <Route path="*" element={<Navigate to="/" />} />}
+          {signInPage && <Route path="*" element={<Navigate to="*" />} />}
           <Route path="*" element={<Home />} />
         </Routes>
         {signInPage && <SignIn onClose={closeHandler} />}
