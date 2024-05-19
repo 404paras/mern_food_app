@@ -1,0 +1,100 @@
+.dish-container {
+    margin-top: 2rem;
+}
+
+.dishes-container {
+    width: 60%;
+    margin: auto;
+}
+
+.dish {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.dish input {
+    outline: none;
+    margin: 0.5rem 0 1rem 0;
+    padding: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dish-details {
+    display: flex;
+    min-height: 30vh;
+    justify-content: space-between;
+}
+
+.dish-details div {
+    flex: 6;
+}
+
+.dish-details img {
+    flex: 4;
+    height: 30vh;
+    width: 100%;
+    margin: auto;
+}
+
+.dish-details h4,
+.dish-details p {
+    margin: 0.5rem;
+}
+
+.add-food-item-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-food-item-button-remove {
+    background-color: #dc3545;
+}
+
+.add-food-item-button-save {
+    margin-right: 10px;
+}
+
+.add-food-item-add-dish-btn,
+.add-food-item-submit-btn,
+.add-food-item-confirm-btn,
+.add-food-item-cancel-btn {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    margin-top: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.add-food-item-add-dish-btn {
+    background-color: #fc8019;
+    color: #fff;
+}
+
+.add-food-item-submit-btn {
+    background-color: #28a745;
+    color: #fff;
+    font-weight: bold;
+}
+
+.add-food-item-confirm-btn {
+    background-color: #fc8019;
+    color: #fff;
+}
+
+.add-food-item-cancel-btn {
+    margin-top: 10px;
+    background-color: #dc3545;
+    color: #fff;
+}

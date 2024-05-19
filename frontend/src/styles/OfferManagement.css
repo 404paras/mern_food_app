@@ -1,0 +1,67 @@
+.offer-management-container {
+    width: 70%;
+    margin: auto;
+    padding: 1rem;
+}
+
+.offer-management- h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.offer-form label,
+.offer-form input {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.offer-form input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.offer-form button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.offer-form button:hover {
+    background: #0056b3;
+}
+
+.offer-list {
+    list-style: none;
+    padding: 0;
+}
+
+.offer-list li {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+}
+
+.offer-list li button {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.offer-list li button:hover {
+    background: #c82333;
+}

@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const storedCartItems = JSON.parse(sessionStorage.getItem('cartItems')) || { itemDetail: [], itemCount: 0 };
+
 const initialState = {
   foodItems: {
-    itemDetail: [],
-    itemCount: 0
+    itemDetail: storedCartItems.itemDetail,
+    itemCount: storedCartItems.itemCount
   }
 };
 
@@ -31,7 +33,7 @@ const cartItemsSlice = createSlice({
       sessionStorage.setItem('cartItems', JSON.stringify(state.foodItems));
     },
     removeItem: (state, action) => {
-      const { foodItemId } = action.payload;
+      const foodItemId = action.payload;
       const existingItem = state.foodItems.itemDetail.find(foodItem => foodItem.id === foodItemId);
 
       if (existingItem) {

@@ -1,0 +1,88 @@
+.customer-admin-container {
+    min-height: 80vh;
+    width: 70%;
+    margin: auto;
+    padding: 1rem;
+}
+
+.customer-admin-heading {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.customer-search-bar-container {
+    margin: 1.5rem;
+}
+
+.customer-search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.customer-search-bar input {
+    flex: 1;
+    padding: 0.5rem;
+}
+
+.customer-search-bar button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+.customer-details {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.customer-name,
+.customer-email,
+.customer-mobile,
+.customer-address {
+    margin: 0;
+    color: #666;
+}
+
+.customer-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.delete-button,
+.view-history-button {
+    padding: 0.5rem 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.delete-button {
+    background: #f44336;
+}
+
+.view-history-button {
+    background: #2196f3;
+}
+
+.delete-icon {
+    margin-right: 0.5rem;
+}
+
+.no-customer,
+.no-user {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #666;
+    margin-top: 1rem;
+}

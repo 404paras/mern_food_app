@@ -3,16 +3,15 @@ import axios from 'axios';
 import { server } from '../server.js';
 import { MdDelete } from "react-icons/md";
 import { CiSearch } from 'react-icons/ci';
-import Shimmer from '../components/Shimmer.js';
+import '../styles/CustomerAdmin.css';
 
 const CustomerAdmin = () => {
     const [customers, setCustomers] = useState([]);
-    const [search,setSearch] = useState('');
-const changeHandler = (e)=>{
-setSearch(e.target.value);
+    const [search, setSearch] = useState('');
 
-}
-
+    const changeHandler = (e) => {
+        setSearch(e.target.value);
+    }
 
     useEffect(() => {
         const getCustomers = async () => {
@@ -26,11 +25,11 @@ setSearch(e.target.value);
         getCustomers();
     }, [search]);
 
-    const searchRequest = ()=>{
+    const searchRequest = () => {
         const user = customers.filter(customer => (customer.name === search || customer.email === search));
         setCustomers(user);
-       
     }
+
     const handleDeleteCustomer = async (customerId) => {
         try {
             await axios.delete(`${server}api/v1/deleteUser/${customerId}`);
@@ -39,43 +38,44 @@ setSearch(e.target.value);
             console.error('Error deleting customer:', error);
         }
     };
-    if(customers.length===0){
-        return (<Shimmer/>)
+
+    if (customers.length === 0) {
+        return (<div className="no-customer">No customer to display!</div>)
     }
 
     return (
-        <div style={{ minHeight: "80vh", width: "70%", margin: "auto", padding: "1rem" }}>
-            <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>Customer List</h2>
-<div style={{margin:"1.5rem"}}>
-<div className="search-bar" >
-        <input
-          type="text"
-          name="search"
-          placeholder='Search by name or email'
-          value={search}
-          onChange={changeHandler}
-        />
-        <button onClick={searchRequest}><CiSearch/>&nbsp; Search</button>
-      </div>
-</div>
+        <div className="customer-admin-container">
+            <h2 className="customer-admin-heading">Customer List</h2>
+            <div className="customer-search-bar-container">
+                <div className="customer-search-bar">
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder='Search by name or email'
+                        value={search}
+                        onChange={changeHandler}
+                    />
+                    <button onClick={searchRequest}><CiSearch />&nbsp; Search</button>
+                </div>
+            </div>
 
-            {customers? customers.map((customer, index) => (
-                <div key={index} style={{ marginBottom: "1rem", padding: "1rem", background: "#f4f4f4", borderRadius: "8px", boxShadow: "0 0 5px rgba(0, 0, 0, 0.1)" }}>
-                    <h3 style={{ margin: "0" }}>Name : {customer.name}</h3>
-                    <p style={{ margin: "0", color: "#666" }}>Email : {customer.email}</p>
-                    <p style={{ margin: "0", color: "#666" }}>Mobile : {customer?.mobile || 'Mobile Number not available'}</p>
-                    <p style={{ margin: "0", color: "#666" }}>Address : {customer?.address || 'Address not available'}</p>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginTop: "0.5rem" }}>
-                        <button style={{ padding: "0.5rem 1rem", background: "#f44336", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer", display: "flex", alignItems: "center" }} onClick={() => handleDeleteCustomer(customer._id)}>
-                            <MdDelete style={{ marginRight: "0.5rem" }} /> Delete
+            {customers ? customers.map((customer, index) => (
+                <div key={index} className="customer-details">
+                    <h3 className="customer-name">Name : {customer.name}</h3>
+                    <p className="customer-email">Email : {customer.email}</p>
+                    <p className="customer-mobile">Mobile : {customer?.mobile || 'Mobile Number not available'}</p>
+                    <p className="customer-address">Address : {customer?.address || 'Address not available'}</p>
+                    <div className="customer-buttons">
+                        <button className="delete-button" onClick={() => handleDeleteCustomer(customer._id)}>
+                            <MdDelete className="delete-icon" /> Delete
                         </button>
-                        <button style={{ padding: "0.5rem 1rem", background: "#2196f3", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer", display: "flex", alignItems: "center" }}>
+                        <button className="view-history-button">
                             View Order History
                         </button>
                     </div>
                 </div>
-            )):
-            <h2>No user found !!</h2>
+            )) :
+                <h2 className="no-user">No user found !!</h2>
             }
         </div>
     );

@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Shimmer from "./components/Shimmer.js";
 
 
+const UserOffers = lazy(()=>import("./pages/UserOffers.js"));
 const Home = lazy(() => import("./pages/home.js"));
 const Search = lazy(() => import("./pages/search.js"));
 const SignIn = lazy(() => import("./components/SignIn.js"));
@@ -25,6 +26,7 @@ const ManageRestaurant = lazy(() => import('./pages/ManageRestaurant.js'));
 const AddRestaurants = lazy(() => import("./components/AddRestaurants.js"));
 const RestaurantDishes = lazy(() => import("./pages/RestaurantDishes.js"));
 const AdminRoute = lazy(() => import("./components/AdminRoute.js"));
+const AdminAddOffers = lazy(() => import("./components/AdminAddOffers.js"));
 
 const App = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -73,12 +75,14 @@ const App = () => {
           <Route path="/search" element={<Search />} />
           <Route path='category/:name' element={<CategoryRest/>}/>
           <Route path="/restaurant/:categoryName/:id" element={<RestaurantDishes/>}/>
+          <Route path="/offers" element={<UserOffers/>}/>
           <Route path='/admin' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminPage/>}/>}/>
           <Route path='/admin/addFoodItem' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddFoodItem/>}/>}/>
           <Route path='/admin/manageCustomers' element={<AdminRoute isAuthenticated={isAuthenticated} child={<CustomerAdmin/>}/>}/>
           <Route path='/admin/manageRestaurant' element={<AdminRoute isAuthenticated={isAuthenticated} child={<ManageRestaurant/>}/>}/>
+          <Route path='/admin/addOffers' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminAddOffers/>}/>}/>
           <Route path='/admin/addRestaurant' element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddRestaurants/>}/>}/>
-          {signInPage && <Route path="*" element={<Navigate to="*" />} />}
+          {signInPage && <Route path="*" element={<Navigate to="/" />} />}
           <Route path="*" element={<Home />} />
         </Routes>
         {signInPage && <SignIn onClose={closeHandler} />}

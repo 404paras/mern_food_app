@@ -9,6 +9,7 @@ import categoryRouter from './controllers/category.js';
 import path from 'path';
 import search from './controllers/search.js';
 import Stripe from 'stripe';
+import offerManagement from './controllers/offers.js';
 
 dotenv.config();
 
@@ -53,6 +54,7 @@ app.use('/api/v1', userRouter);
 app.use('/api/v1', foodRestaurantList);
 app.use('/api/v1', categoryRouter);
 app.use('/api/v1', search);
+app.use('/api/v1',offerManagement)
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/frontend/build/index.html'));

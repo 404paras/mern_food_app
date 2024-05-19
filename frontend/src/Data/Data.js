@@ -53,3 +53,14 @@ export const restInfo = async({id})=>{
   throw error;
   }
 }
+
+export const getAllOffers = async () => {
+  try {
+    const response = await axios.get(`${server}api/v1/getAllOffers`);
+    console.log(response)
+    return response.data; // Return the offers data
+  } catch (error) {
+    console.error('Error fetching offers:', error);
+    return []; // Return an empty array in case of an error
+  }
+};
