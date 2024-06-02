@@ -85,7 +85,8 @@ const Search = () => {
                   .map((item, index) => (
                     <SearchCard
                       key={index}
-                      heading={"Items you may like"}
+                      id={item._id}
+                     
                       image={item.image}
                       name={item.name}
                       price={item.price}

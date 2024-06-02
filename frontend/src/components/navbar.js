@@ -16,6 +16,7 @@ const Navbar = ({ onSignIn }) => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const isAdmin = useSelector(state => state.auth.role === 'admin');
   const totalCartItems = useSelector((state)=>state.cart.foodItems.itemCount)
+  
  
   const dispatch = useDispatch();
   const navigate = useNavigate();

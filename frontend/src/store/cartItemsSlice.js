@@ -3,10 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const storedCartItems = JSON.parse(sessionStorage.getItem('cartItems')) || { itemDetail: [], itemCount: 0 };
 
 const initialState = {
-  foodItems: {
-    itemDetail: storedCartItems.itemDetail,
-    itemCount: storedCartItems.itemCount
-  }
+  foodItems: storedCartItems,
 };
 
 const cartItemsSlice = createSlice({
@@ -16,7 +13,7 @@ const cartItemsSlice = createSlice({
     addItem: (state, action) => {
       const item = action.payload;
       const existingItem = state.foodItems.itemDetail.find(foodItem => foodItem.id === item.id);
-
+console.log(state)
       if (existingItem) {
         existingItem.count++;
       } else {
@@ -33,16 +30,17 @@ const cartItemsSlice = createSlice({
       sessionStorage.setItem('cartItems', JSON.stringify(state.foodItems));
     },
     removeItem: (state, action) => {
-      const foodItemId = action.payload;
-      const existingItem = state.foodItems.itemDetail.find(foodItem => foodItem.id === foodItemId);
-
+      const itemId = action.payload;
+      const existingItem = state.foodItems.itemDetail.find(foodItem => foodItem.id === itemId);
+console.log(action,existingItem,initialState,state)
       if (existingItem) {
         if (existingItem.count > 1) {
           existingItem.count--;
         } else {
-          state.foodItems.itemDetail = state.foodItems.itemDetail.filter(foodItem => foodItem.id !== foodItemId);
+          state.foodItems.itemDetail = state.foodItems.itemDetail.filter(foodItem => foodItem.id !== itemId);
         }
         state.foodItems.itemCount = state.foodItems.itemDetail.reduce((total, foodItem) => total + foodItem.count, 0);
+        console.log(state.foodItems)
         sessionStorage.setItem('cartItems', JSON.stringify(state.foodItems));
       }
     },
