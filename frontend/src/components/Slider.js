@@ -34,11 +34,11 @@ const Slider = () => {
     <div className='slider'>
       <div className="heading">
         <h2> Categories that you may Love 💖 !!</h2>
-        <div className="button">
-          <button className="left-btn" onClick={leftBtnHandler} disabled={isLeftDisabled}>
+        <div className="button-home">
+          <button className="left-btn-home" onClick={leftBtnHandler} disabled={isLeftDisabled}>
             <GoArrowLeft />
           </button>
-          <button className="right-btn" onClick={rightBtnHandler} disabled={isRightDisabled}>
+          <button className="right-btn-home" onClick={rightBtnHandler} disabled={isRightDisabled}>
             <GoArrowRight />
           </button>
         </div>

@@ -30,6 +30,7 @@ const AddRestaurants = lazy(() => import("./components/AddRestaurants.js"));
 const RestaurantDishes = lazy(() => import("./pages/RestaurantDishes.js"));
 const AdminRoute = lazy(() => import("./components/AdminRoute.js"));
 const AdminAddOffers = lazy(() => import("./components/AdminAddOffers.js"));
+const User = lazy(()=> import("./components/User.js"))
 
 const App = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -74,6 +75,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/user" element={<User/>}/>
             <Route path="/search" element={<Search />} />
             <Route path="/category/:name" element={<CategoryRest />} />
             <Route path="/restaurant/:categoryName/:id" element={<RestaurantDishes />} />

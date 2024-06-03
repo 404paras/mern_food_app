@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/Cart.css";
 import { addItem, removeItem } from "../store/cartItemsSlice.js";
 import SignIn from "../components/SignIn.js";
-import { UserDetails } from "../components/userDetail.js";
 import { getAllOffers } from "../Data/Data.js";
 import { Link } from "react-router-dom";
 
@@ -11,7 +10,6 @@ const Cart = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const foodItems = useSelector((state) => state.cart.foodItems.itemDetail);
   const dispatch = useDispatch();
-  const user = useContext(UserDetails);
 
   const [couponCode, setCouponCode] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
@@ -21,6 +19,8 @@ const Cart = () => {
   const [signIn, setSignIn] = useState(false);
   const [coupons, setCoupons] = useState(null);
   const [showCouponInput, setShowCouponInput] = useState(false);
+
+
 
   useEffect(() => {
     const fetchOffers = async () => {
@@ -34,16 +34,17 @@ const Cart = () => {
     if (!coupons) {
       fetchOffers();
     }
+    const calculateBillDetail = () => {
+      const totalBill = foodItems.reduce(
+        (total, item) => total + item.price * item.count,
+        0
+      );
+      setBillDetail(totalBill);
+    };
     calculateBillDetail();
   }, [foodItems, coupons]);
 
-  const calculateBillDetail = () => {
-    const totalBill = foodItems.reduce(
-      (total, item) => total + item.price * item.count,
-      0
-    );
-    setBillDetail(totalBill);
-  };
+
 
   const handleCouponCodeSubmit = () => {
     const coupon = coupons.find((coupon) => coupon.couponcode === couponCode);
@@ -85,7 +86,7 @@ const Cart = () => {
           />
           <p className="empty-cart-msg">Your cart is empty</p>
           <p>You can go to the home page to view more restaurants</p>
-          <p>{user.name}</p>
+          
         </div>
       </div>
     );

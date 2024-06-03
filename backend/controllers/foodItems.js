@@ -127,7 +127,7 @@ foodRestaurantList.get('/getAllDishOfRestaurant/:id', async (req, res) => {
         {
             const item = id.toString()
             const data = await FoodList.findById(item)
-            console.log(data)
+           
             foodItem.push(data)
         };
        

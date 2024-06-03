@@ -165,8 +165,13 @@
   
   .coupon-link {
     cursor: pointer;
-    color: #007bff;
+    color: #fc8019;
+    font-weight: 800;
+    
+  }
+  .coupon-link:hover{
     text-decoration: underline;
+    color:#fc8019;
   }
   
   .coupon-input {
