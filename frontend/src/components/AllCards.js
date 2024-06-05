@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "../styles/allCards.css";
-import { MdStars } from "react-icons/md";
 import Shimmer from "./Shimmer";
 
 const AllCards = ({ heading, data , categoryName,fontSize}) => {
@@ -41,9 +40,7 @@ if(!isLoading){
               </div>
               <div style={{ marginLeft: "12px", fontSize:`${fontSize}`}}>
                 <div className="item-name">{item.name || ""}</div>
-                <div className="rating">
-                  <MdStars /> &nbsp;{item.rating || "5"}
-                </div>
+                
                 <div className="info" >
                   <div>{item.category?.join(", ") || ""}</div>
                   <div>{item.address || ""}</div>

@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Checkout from '../src/checkout/Checkout.js';
 import Navbar from "./components/navbar.js";
 import Shimmer from "./components/Shimmer.js";
-import { UserDetails } from "./components/userDetail.js";
 import { login } from "./store/authSlice.js";
 import Success from '../src/checkout/Success.js';
 import Canceled from '../src/checkout/Canceled.js';
@@ -38,7 +37,6 @@ const App = () => {
   const [signInPage, setSignInPage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   
-  const userDetail = useContext(UserDetails);
 
   const signInHandler = () => {
     setSignInPage(true);
@@ -51,9 +49,20 @@ const App = () => {
   useEffect(() => {
     const userId = sessionStorage.getItem('id');
     const userRole = sessionStorage.getItem('role');
+    const userName = sessionStorage.getItem('name');
+    const email= sessionStorage.getItem('email');
+    const phone = sessionStorage.getItem('phone');
+    const address = sessionStorage.getItem('address');
     
     if (userId && userRole) {
-      dispatch(login({ role: userRole }));
+      dispatch(login({
+        role: userRole || "user",
+        id: userId || "",
+        name: userName || "",
+        email: email || "",
+        phone: phone || "",
+        address: address || "",
+      }));
     }
     
     if (isAuthenticated) {
@@ -68,7 +77,6 @@ const App = () => {
   }
 
   return (
-    <UserDetails.Provider value={userDetail}>
       <Router>
         <Suspense fallback={<Shimmer />}>
           <Navbar onSignIn={signInHandler} />
@@ -94,7 +102,6 @@ const App = () => {
           {signInPage && <SignIn onClose={closeHandler} />}
         </Suspense>
       </Router>
-    </UserDetails.Provider>
   );
 };
 

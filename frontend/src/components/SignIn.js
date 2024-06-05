@@ -16,6 +16,7 @@ const SignIn = ({ onClose }) => {
     mobile: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,53 +29,56 @@ const SignIn = ({ onClose }) => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setErrorMessage("");
-    }, 5000);
-
-    return () => clearTimeout(timer);
+    if (errorMessage) {
+      const timer = setTimeout(() => {
+        setErrorMessage("");
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
   }, [errorMessage]);
 
   const loginHandler = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const response = await axios.post(`${server}api/v1/login`, loginInputs);
-      
       setErrorMessage("Login Successful!!");
       const role = response?.data?.role;
       sessionStorage.setItem("id", response.data._id);
       sessionStorage.setItem("role", role);
-     
-      console.log(response.data.role);
+      sessionStorage.setItem("name",response.data?.name)
+      sessionStorage.setItem("email",response.data?.email)
+      sessionStorage.setItem("phone",response.data?.mobile)
+      sessionStorage.setItem("address",response.data?.address)
       navigate("/");
-     
-
-      dispatch(login({ role: role || "user" }));
+      dispatch(login({
+        role: role || "user",
+        id: response.data._id || "",
+        name: response?.data?.name || "",
+        email: response?.data?.email || "",
+        phone: response?.data?.mobile || "",
+        address: response?.data?.address || "",
+      }));
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
-        setErrorMessage(error.response.data.error);
-      }
+      setErrorMessage(error.response?.data?.error || "Login failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+      setLoginInputs({ ...loginInputs, email: "", password: "", mobile: "" });
     }
-
-    setLoginInputs({ ...loginInputs, email: "", password: "", mobile: "" });
   };
 
   const registerHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      const response = await axios.post(
-        `${server}api/v1/register`,
-        loginInputs
-      );
+      const response = await axios.post(`${server}api/v1/register`, loginInputs);
       setErrorMessage("Registration Successful!!");
-      console.log(response);
       setRegisterPage(false);
       setLoginInputs({ name: "", email: "", password: "", mobile: "" });
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
-        setErrorMessage(error.response.data.error);
-      }
+      setErrorMessage(error.response?.data?.error || "Registration failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -93,84 +97,109 @@ const SignIn = ({ onClose }) => {
           <IoCloseOutline />
         </div>
         {registerPage ? (
-          <div className="register">
-            <h1>Register</h1>
-            <span>
-              or{" "}
-              <span
-                onClick={() => {
-                  setRegisterPage(false);
-                  setLoginInputs((prevState) => ({ ...prevState, name: "" }));
-                }}
-              >
-                login to your account
-              </span>
-            </span>
-            <form onSubmit={registerHandler}>
-              <input
-                type="text"
-                name="name"
-                onChange={inputsChangeHandler}
-                placeholder="Name"
-                value={loginInputs.name}
-              />
-              <input
-                type="text"
-                placeholder="Email"
-                name="email"
-                value={loginInputs.email}
-                onChange={inputsChangeHandler}
-              />
-              <input
-                type="number"
-                name="mobile"
-                onChange={inputsChangeHandler}
-                placeholder="Mobile Number"
-                value={loginInputs.mobile}
-                minLength={10} // Minimum length
-                maxLength={10} // Maximum length
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Enter password"
-                value={loginInputs.password}
-                onChange={inputsChangeHandler}
-              />
-              <button type="submit">Register</button>
-            </form>
-          </div>
+          <RegisterForm
+            inputs={loginInputs}
+            onInputChange={inputsChangeHandler}
+            onSubmit={registerHandler}
+            isLoading={isLoading}
+          />
         ) : (
-          <div className="login">
-            <h1>Login</h1>
-            <span>
-              or <span onClick={createAccHandler}>create an account</span>
-            </span>
-            <form onSubmit={loginHandler}>
-              <input
-                type="text"
-                placeholder="Email"
-                name="email"
-                value={loginInputs.email}
-                onChange={inputsChangeHandler}
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Enter password"
-                value={loginInputs.password}
-                onChange={inputsChangeHandler}
-              />
-              <button type="submit">Login</button>
-            </form>
-          </div>
+          <LoginForm
+            inputs={loginInputs}
+            onInputChange={inputsChangeHandler}
+            onSubmit={loginHandler}
+            onCreateAccount={createAccHandler}
+            isLoading={isLoading}
+          />
         )}
         {errorMessage && (
-          <p className="error-message">{errorMessage.toString()}</p>
+          <p className="error-message">{errorMessage}</p>
         )}
       </div>
     </div>
   );
 };
+
+const RegisterForm = ({ inputs, onInputChange, onSubmit, isLoading }) => (
+  <div className="register">
+    <h1>Register</h1>
+    <span>
+      or{" "}
+      <span onClick={() => onInputChange({ target: { name: "registerPage", value: false } })}>
+        login to your account
+      </span>
+    </span>
+    <form onSubmit={onSubmit}>
+      <input
+        type="text"
+        name="name"
+        onChange={onInputChange}
+        placeholder="Name"
+        value={inputs.name}
+        required
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        name="email"
+        value={inputs.email}
+        onChange={onInputChange}
+        required
+      />
+      <input
+        type="text"
+        name="mobile"
+        onChange={onInputChange}
+        placeholder="Mobile Number"
+        value={inputs.mobile}
+        minLength={10}
+        maxLength={10}
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Enter password"
+        value={inputs.password}
+        onChange={onInputChange}
+        required
+        minLength={6}
+      />
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? "Registering..." : "Register"}
+      </button>
+    </form>
+  </div>
+);
+
+const LoginForm = ({ inputs, onInputChange, onSubmit, onCreateAccount, isLoading }) => (
+  <div className="login">
+    <h1>Login</h1>
+    <span>
+      or <span onClick={onCreateAccount}>create an account</span>
+    </span>
+    <form onSubmit={onSubmit}>
+      <input
+        type="email"
+        placeholder="Email"
+        name="email"
+        value={inputs.email}
+        onChange={onInputChange}
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Enter password"
+        value={inputs.password}
+        onChange={onInputChange}
+        required
+      />
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? "Logging in..." : "Login"}
+      </button>
+    </form>
+  </div>
+);
 
 export default SignIn;

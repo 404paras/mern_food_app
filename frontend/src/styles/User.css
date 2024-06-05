@@ -10,29 +10,29 @@
     margin-bottom: 1rem;
   }
   
-  .user-info, .orders-list {
+  .user-info, .user-orders-list {
     background-color: white;
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .info-row {
+  .user-info-row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5rem;
   }
   
-  .info-row label {
+  .user-info-row label {
     font-weight: bold;
     flex: 1;
   }
   
-  .info-row input, .info-row span {
+  .user-info-row input, .user-info-row span {
     flex: 2;
   }
   
-  button {
+  .user-btn {
     background-color: #007bff;
     color: white;
     border: none;
@@ -41,20 +41,20 @@
     cursor: pointer;
   }
   
-  button:hover {
+  .user-btn:hover {
     background-color: #0056b3;
   }
   
-  .orders-list {
+  .user-orders-list {
     margin-top: 2rem;
   }
   
-  .order-item {
+  .user-order-item {
     border-bottom: 1px solid #ddd;
     padding: 0.5rem 0;
   }
   
-  .order-item p {
+  .user-order-item p {
     margin: 0.2rem 0;
   }
   

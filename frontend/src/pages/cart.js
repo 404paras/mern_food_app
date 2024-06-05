@@ -20,8 +20,6 @@ const Cart = () => {
   const [coupons, setCoupons] = useState(null);
   const [showCouponInput, setShowCouponInput] = useState(false);
 
-
-
   useEffect(() => {
     const fetchOffers = async () => {
       try {
@@ -44,14 +42,14 @@ const Cart = () => {
     calculateBillDetail();
   }, [foodItems, coupons]);
 
-
-
   const handleCouponCodeSubmit = () => {
     const coupon = coupons.find((coupon) => coupon.couponcode === couponCode);
     if (coupon) {
       setCouponApplied(true);
       setAppliedCouponName(coupon.couponcode);
-      setBillDetail((prevBillDetail) => prevBillDetail * (1 - coupon.discount / 100));
+      setBillDetail(
+        (prevBillDetail) => prevBillDetail * (1 - coupon.discount / 100)
+      );
       setInvalidCoupon(false);
     } else {
       setCouponApplied(false);
@@ -64,7 +62,14 @@ const Cart = () => {
       dispatch(removeItem({ foodItemId: id }));
     } else if (operation === "plus") {
       const item = foodItems.find((foodItem) => foodItem.id === id);
-      dispatch(addItem({ id: item.id, name: item.name, price: item.price, image: item.image }));
+      dispatch(
+        addItem({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          image: item.image,
+        })
+      );
     }
   };
 
@@ -86,7 +91,6 @@ const Cart = () => {
           />
           <p className="empty-cart-msg">Your cart is empty</p>
           <p>You can go to the home page to view more restaurants</p>
-          
         </div>
       </div>
     );
@@ -103,16 +107,26 @@ const Cart = () => {
         <ul className="cart-items">
           {foodItems.map((item) => (
             <li className="cart-item" key={item.id}>
-              <img src={item.image} alt={item.name} className="cart-item-image" />
+              <img
+                src={item.image}
+                alt={item.name}
+                className="cart-item-image"
+              />
               <div className="cart-item-details">
                 <p className="cart-item-name">{item.name}</p>
                 <p className="cart-item-price">₹{item.price * item.count}</p>
                 <p className="cart-item-count">
-                  <button onClick={() => handleButton(item.id, "minus")} className="cart-minus">
+                  <button
+                    onClick={() => handleButton(item.id, "minus")}
+                    className="cart-minus"
+                  >
                     -
                   </button>
                   <span>{item.count}</span>
-                  <button onClick={() => handleButton(item.id, "plus")} className="cart-plus">
+                  <button
+                    onClick={() => handleButton(item.id, "plus")}
+                    className="cart-plus"
+                  >
                     +
                   </button>
                 </p>
@@ -142,7 +156,10 @@ const Cart = () => {
           </div>
           {!showCouponInput && !couponApplied && (
             <div className="bill-row coupon-row">
-              <span className="coupon-link" onClick={() => setShowCouponInput(true)}>
+              <span
+                className="coupon-link"
+                onClick={() => setShowCouponInput(true)}
+              >
                 Have a Coupon Code?
               </span>
             </div>
@@ -156,7 +173,12 @@ const Cart = () => {
                 onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
                 id="coupon-input"
               />
-              <button id="coupon-code-input-btn" onClick={handleCouponCodeSubmit}>Apply</button>
+              <button
+                id="coupon-code-input-btn"
+                onClick={handleCouponCodeSubmit}
+              >
+                Apply
+              </button>
             </div>
           )}
           {invalidCoupon && (
@@ -174,10 +196,19 @@ const Cart = () => {
             <span>₹{grandTotal.toFixed(2)}</span>
           </div>
         </div>
-        <div  onClick={checkOutBtnHandler}>
-        <Link to="/checkout">
-          <button className="cart-checkout-btn">CheckOut</button>
-        </Link></div>
+        {!signIn ? (
+          <>
+            {" "}
+            <button className="cart-checkout-btn" onClick={checkOutBtnHandler}>
+              CheckOut
+            </button>
+          </>
+        ) : (
+          
+          <Link to="/checkout">
+            <button className="cart-checkout-btn">CheckOut</button>
+          </Link>
+        )}
       </div>
       {signIn && <SignIn onClose={() => setSignIn(false)} />}
     </div>

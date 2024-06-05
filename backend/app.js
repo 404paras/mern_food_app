@@ -28,38 +28,22 @@ const YOUR_DOMAIN = `http://localhost:${port}`;
 connectDB();
 
 // Stripe Checkout Session Route
-app.post('/create-checkout-session', async (req, res) => {
-  try {
-    // Create a product and price on Stripe
-    const product = await stripe.products.create({
-      name: 'Pure kit',
-      description: 'High quality skincare product',
-    });
-
-    const price = await stripe.prices.create({
-      unit_amount: 6500, // $65.00
-      currency: 'inr',
-      product: product.id,
-    });
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price: price.id, // Use the created price ID
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: `${YOUR_DOMAIN}/success`,
-    cancel_url: `${YOUR_DOMAIN}/canceled`,
-    });
-
-    res.json({ id: session.id });
-  } catch (error) {
-    res.status(500).send(`Error creating checkout session: ${error.message}`);
+app.post('/checout-session',async(req,res)=>{
+  
+  const instance = new Razorpay({ key_id: 'YOUR_KEY_ID', key_secret: 'YOUR_SECRET' })
+  const amount = req.body*100
+try{
+  instance.orders.create({
+  amount: amount,
+  currency: "INR",
+  receipt: "receipt#1",
+  notes: {
+      key1: "value3",
+      key2: "value2"
   }
-});
+  })}catch{}
+})
+
 
 app.use('/api/v1', userRouter);
 app.use('/api/v1', foodRestaurantList);

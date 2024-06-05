@@ -6,6 +6,7 @@
     gap: 2rem;
   }
   
+
   .empty-cart-container {
     min-height: 81.5vh;
     display: flex;
@@ -156,7 +157,7 @@
   
   .coupon-row {
     cursor: pointer;
-    color: blue;
+    text-decoration: none;
   }
   
   .coupon-row:hover {
@@ -212,6 +213,7 @@
     width: 100%;
     border-radius: 10px;
     cursor: pointer;
+    text-decoration: none;
   }
 
   #coupon-input{

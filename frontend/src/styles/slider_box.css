@@ -42,7 +42,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-    height: 40vh;
+    height: 35vh;
 }
 
 .slider-box- .card {
@@ -64,7 +64,7 @@
     justify-content: space-around;
     padding: 0.5rem;
     word-spacing: 2px;
-    height: 18vh;
+    height: 15vh;
 }
 
 .slider-box- .card .slider-images img {

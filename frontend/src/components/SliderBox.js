@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/slider_box.css";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { allRestaurants } from '../Data/Data.js';
-import { MdStars } from "react-icons/md";
+
 import { Link } from "react-router-dom";
 
 const SliderBox = () => {
@@ -85,9 +85,7 @@ const SliderBox = () => {
               </div>
               <div className="item-info">
               <div className="item-name">{item?.name}</div>
-              <div className="rating">
-                <MdStars /> &nbsp;{item?.rating}
-              </div>
+             
               
               <div className="address">{item?.address}</div>
             </div>
