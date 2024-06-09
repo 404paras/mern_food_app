@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy, useContext } from "react";
+import React, { useState, useEffect, Suspense, lazy  } from "react";
 import "./app.css";
 import {
   BrowserRouter as Router,
@@ -7,12 +7,12 @@ import {
  
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Checkout from '../src/checkout/Checkout.js';
 import Navbar from "./components/navbar.js";
 import Shimmer from "./components/Shimmer.js";
 import { login } from "./store/authSlice.js";
-import Success from '../src/checkout/Success.js';
+
 import Canceled from '../src/checkout/Canceled.js';
+import Payment from "./pages/Payment/Payment.js";
 
 // Lazy-loaded components
 const UserOffers = lazy(() => import("./pages/UserOffers.js"));
@@ -94,8 +94,8 @@ const App = () => {
             <Route path="/admin/manageRestaurant" element={<AdminRoute isAuthenticated={isAuthenticated}><ManageRestaurant /></AdminRoute>} />
             <Route path="/admin/addOffers" element={<AdminRoute isAuthenticated={isAuthenticated}><AdminAddOffers /></AdminRoute>} />
             <Route path="/admin/addRestaurant" element={<AdminRoute isAuthenticated={isAuthenticated}><AddRestaurants /></AdminRoute>} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/success" element={<Success />} />
+           
+            <Route path="/checkout/:orderId/:price" element={<Payment />} />
             <Route path="/canceled" element={<Canceled />} />
             <Route path="*" element={<Home />} />
           </Routes>

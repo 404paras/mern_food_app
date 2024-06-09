@@ -13,7 +13,7 @@ export const allRestaurants = async () => {
 };
 
 export const categoryData = async ({categoryName}) => {
- console.log(categoryName)
+
   try {
 
     const response = await axios.get(`${server}api/v1/category/${categoryName}`);
@@ -57,7 +57,7 @@ export const restInfo = async({id})=>{
 export const getAllOffers = async () => {
   try {
     const response = await axios.get(`${server}api/v1/getAllOffers`);
-    console.log(response)
+    
     return response.data; // Return the offers data
   } catch (error) {
     console.error('Error fetching offers:', error);

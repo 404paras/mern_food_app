@@ -2,6 +2,7 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import { connectDB } from './database/connectDb.js';
 import dotenv from 'dotenv';
+import Razorpay from 'razorpay';
 import cors from 'cors';
 import userRouter from './controllers/userAuth.js';
 import foodRestaurantList from './controllers/foodItems.js';
@@ -9,11 +10,10 @@ import categoryRouter from './controllers/category.js';
 import path from 'path';
 import search from './controllers/search.js';
 import offerManagement from './controllers/offers.js';
-import stripePackage from 'stripe';
+import crypto from 'crypto';
 
 dotenv.config();
 
-const stripe = stripePackage(process.env.STRIPE_SECRET_KEY);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
@@ -23,27 +23,53 @@ app.use(express.json());
 app.use(cors());
 
 const port = process.env.PORT || 4000;
-const YOUR_DOMAIN = `http://localhost:${port}`;
+const key_id = process.env.RAZORPAY_KEYID;
+const secret_key = process.env.RAZORPAY_SECRET_KEY;
 
 connectDB();
 
-// Stripe Checkout Session Route
-app.post('/checout-session',async(req,res)=>{
-  
-  const instance = new Razorpay({ key_id: 'YOUR_KEY_ID', key_secret: 'YOUR_SECRET' })
-  const amount = req.body*100
-try{
-  instance.orders.create({
-  amount: amount,
-  currency: "INR",
-  receipt: "receipt#1",
-  notes: {
-      key1: "value3",
-      key2: "value2"
-  }
-  })}catch{}
-})
+const razorpay = new Razorpay({
+  key_id: key_id,
+  key_secret: secret_key
+});
 
+app.post('/create_order', async (req, res) => {
+  const { amount, currency, receipt } = req.body;
+  const options = {
+    amount: amount, 
+    currency,
+    receipt,
+    payment_capture: 1,
+  };
+console.log(options)
+  try {
+    const response = await razorpay.orders.create(options);
+    console.log(response)
+    res.json({
+      id: response.id,
+      currency: response.currency,
+      amount: response.amount,
+    });
+    console.log(response)
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+app.post('/verify_payment', (req, res) => {
+  const { order_id, payment_id, razorpay_signature } = req.body;
+  const key_secret = secret_key;
+
+  let hmac = crypto.createHmac('sha256', key_secret);
+  hmac.update(order_id + "|" + payment_id);
+  const generated_signature = hmac.digest('hex');
+
+  if (generated_signature === razorpay_signature) {
+    res.json({ status: 'success' });
+  } else {
+    res.status(400).json({ status: 'failure' });
+  }
+});
 
 app.use('/api/v1', userRouter);
 app.use('/api/v1', foodRestaurantList);
@@ -51,7 +77,7 @@ app.use('/api/v1', categoryRouter);
 app.use('/api/v1', search);
 app.use('/api/v1', offerManagement);
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/frontend/build/index.html'));
 });
 

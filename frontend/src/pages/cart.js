@@ -3,14 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import "../styles/Cart.css";
 import { addItem, removeItem } from "../store/cartItemsSlice.js";
 import SignIn from "../components/SignIn.js";
+import { v4 as uuidv4 } from 'uuid';
 import { getAllOffers } from "../Data/Data.js";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 const Cart = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const foodItems = useSelector((state) => state.cart.foodItems.itemDetail);
   const dispatch = useDispatch();
-
+  const [orderId, setOrderId] = useState("");
   const [couponCode, setCouponCode] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
   const [appliedCouponName, setAppliedCouponName] = useState("");
@@ -19,6 +20,9 @@ const Cart = () => {
   const [signIn, setSignIn] = useState(false);
   const [coupons, setCoupons] = useState(null);
   const [showCouponInput, setShowCouponInput] = useState(false);
+
+  
+  
 
   useEffect(() => {
     const fetchOffers = async () => {
@@ -40,6 +44,7 @@ const Cart = () => {
       setBillDetail(totalBill);
     };
     calculateBillDetail();
+    setOrderId(uuidv4());
   }, [foodItems, coupons]);
 
   const handleCouponCodeSubmit = () => {
@@ -77,7 +82,7 @@ const Cart = () => {
     if (!isAuthenticated) {
       setSignIn(true);
     } else {
-      // Proceed with checkout
+      setSignIn(false);
     }
   };
 
@@ -196,18 +201,15 @@ const Cart = () => {
             <span>₹{grandTotal.toFixed(2)}</span>
           </div>
         </div>
-        {!signIn ? (
-          <>
-            {" "}
-            <button className="cart-checkout-btn" onClick={checkOutBtnHandler}>
-              CheckOut
-            </button>
-          </>
+
+        {!isAuthenticated ? (
+          <button className="cart-checkout-btn" onClick={checkOutBtnHandler}>
+            CheckOut
+          </button>
         ) : (
-          
-          <Link to="/checkout">
-            <button className="cart-checkout-btn">CheckOut</button>
-          </Link>
+          <Link to={`/checkout/${encodeURIComponent(orderId)}/${encodeURIComponent(grandTotal.toFixed(2))}`}>
+  <button className="cart-checkout-btn">CheckOut </button>{" "}
+</Link>
         )}
       </div>
       {signIn && <SignIn onClose={() => setSignIn(false)} />}
