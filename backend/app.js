@@ -36,28 +36,28 @@ const razorpay = new Razorpay({
 app.post('/create_order', async (req, res) => {
   const { amount, currency, receipt } = req.body;
   const options = {
-    amount: amount, 
+    amount: amount , 
     currency,
     receipt,
     payment_capture: 1,
   };
-console.log(options)
+
   try {
     const response = await razorpay.orders.create(options);
-    console.log(response)
+    
     res.json({
       id: response.id,
       currency: response.currency,
       amount: response.amount,
     });
-    console.log(response)
+    
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
 app.post('/verify_payment', (req, res) => {
-  const { order_id, payment_id, razorpay_signature } = req.body;
+  const { order_id, payment_id, razorpay_signature,amount } = req.body;
   const key_secret = secret_key;
 
   let hmac = crypto.createHmac('sha256', key_secret);
@@ -65,7 +65,7 @@ app.post('/verify_payment', (req, res) => {
   const generated_signature = hmac.digest('hex');
 
   if (generated_signature === razorpay_signature) {
-    res.json({ status: 'success' });
+    res.json({ status: 'success' , order_id:order_id , payment_id:payment_id,amount:amount});
   } else {
     res.status(400).json({ status: 'failure' });
   }

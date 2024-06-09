@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams ,useNavigate} from "react-router-dom";
 import { server } from "../../server";
 import "../../styles/Payment.css"; 
 import { useSelector } from "react-redux";
@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const Payment = () => {
   const userInfo = useSelector(state => state.auth);
   const { orderId, price } = useParams();
-  console.log(orderId, price);
+  const navigate = useNavigate();
 
   const orderUrl = `${server}create_order`;
   const verifyUrl = `${server}verify_payment`;
@@ -21,9 +21,7 @@ const Payment = () => {
     pincode: ""
   });
 
-  useEffect(() => {
-    // You can set initial state or perform any other logic here
-  }, []);
+  
 
   const handlePayment = async () => {
     const orderData = {
@@ -45,17 +43,23 @@ const Payment = () => {
         description: 'Test Transaction',
         order_id,
         handler: async function (response) {
+         console.log("fasnfkanfkawjnfk",response)
           const paymentData = {
             order_id,
             payment_id: response.razorpay_payment_id,
             razorpay_signature: response.razorpay_signature,
+            amount:amount
+           
           };
+        
 
           try {
             const verifyResponse = await axios.post(verifyUrl, paymentData);
             console.log('Verify Response:', verifyResponse.data);
             if (verifyResponse.data.status === 'success') {
-              alert('Payment successful');
+             
+             
+              navigate(`/success/${encodeURIComponent(verifyResponse.data.order_id)}/${encodeURIComponent(verifyResponse.data.payment_id)}/${encodeURIComponent(verifyResponse.data.amount)}`)
             } else {
               alert('Payment verification failed');
             }

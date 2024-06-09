@@ -13,6 +13,7 @@ import { login } from "./store/authSlice.js";
 
 import Canceled from '../src/checkout/Canceled.js';
 import Payment from "./pages/Payment/Payment.js";
+import PaymentSuccess from "./pages/Payment/PaymentSuccess.js";
 
 // Lazy-loaded components
 const UserOffers = lazy(() => import("./pages/UserOffers.js"));
@@ -96,7 +97,7 @@ const App = () => {
             <Route path="/admin/addRestaurant" element={<AdminRoute isAuthenticated={isAuthenticated}><AddRestaurants /></AdminRoute>} />
            
             <Route path="/checkout/:orderId/:price" element={<Payment />} />
-            <Route path="/canceled" element={<Canceled />} />
+            <Route path="/success/:orderId/:paymentId/:amount" element={<PaymentSuccess/>} />
             <Route path="*" element={<Home />} />
           </Routes>
           {signInPage && <SignIn onClose={closeHandler} />}
