@@ -11,6 +11,7 @@ import path from 'path';
 import search from './controllers/search.js';
 import offerManagement from './controllers/offers.js';
 import crypto from 'crypto';
+import order from './controllers/orderInfo.js';
 
 dotenv.config();
 
@@ -76,7 +77,7 @@ app.use('/api/v1', foodRestaurantList);
 app.use('/api/v1', categoryRouter);
 app.use('/api/v1', search);
 app.use('/api/v1', offerManagement);
-
+app.use('/api/v1',order)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/frontend/build/index.html'));
 });

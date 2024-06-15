@@ -11,7 +11,6 @@ import Navbar from "./components/navbar.js";
 import Shimmer from "./components/Shimmer.js";
 import { login } from "./store/authSlice.js";
 
-import Canceled from '../src/checkout/Canceled.js';
 import Payment from "./pages/Payment/Payment.js";
 import PaymentSuccess from "./pages/Payment/PaymentSuccess.js";
 
@@ -34,6 +33,7 @@ const User = lazy(()=> import("./components/User.js"))
 
 const App = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  
   const dispatch = useDispatch();
   const [signInPage, setSignInPage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -89,12 +89,12 @@ const App = () => {
             <Route path="/category/:name" element={<CategoryRest />} />
             <Route path="/restaurant/:categoryName/:id" element={<RestaurantDishes />} />
             <Route path="/offers" element={<UserOffers />} />
-            <Route path="/admin" element={<AdminRoute isAuthenticated={isAuthenticated}><AdminPage /></AdminRoute>} />
-            <Route path="/admin/addFoodItem" element={<AdminRoute isAuthenticated={isAuthenticated}><AddFoodItem /></AdminRoute>} />
-            <Route path="/admin/manageCustomers" element={<AdminRoute isAuthenticated={isAuthenticated}><CustomerAdmin /></AdminRoute>} />
-            <Route path="/admin/manageRestaurant" element={<AdminRoute isAuthenticated={isAuthenticated}><ManageRestaurant /></AdminRoute>} />
-            <Route path="/admin/addOffers" element={<AdminRoute isAuthenticated={isAuthenticated}><AdminAddOffers /></AdminRoute>} />
-            <Route path="/admin/addRestaurant" element={<AdminRoute isAuthenticated={isAuthenticated}><AddRestaurants /></AdminRoute>} />
+            <Route path="/admin" element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminPage />}/>} />
+            <Route path="/admin/addFoodItem" element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddFoodItem/>}/>} />
+            <Route path="/admin/manageCustomers" element={<AdminRoute isAuthenticated={isAuthenticated} child={<CustomerAdmin />}/>} />
+            <Route path="/admin/manageRestaurant" element={<AdminRoute isAuthenticated={isAuthenticated} child={<ManageRestaurant />}/>} />
+            <Route path="/admin/addOffers" element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminAddOffers />}/>} />
+            <Route path="/admin/addRestaurant" element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddRestaurants />}/>} />
            
             <Route path="/checkout/:orderId/:price" element={<Payment />} />
             <Route path="/success/:orderId/:paymentId/:amount" element={<PaymentSuccess/>} />
