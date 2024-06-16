@@ -71,6 +71,7 @@
     .restaurantDish {
         width: 90%;
         min-height: 50vh;
+        overflow-x:hidden;
     }
     
     .restSchema {

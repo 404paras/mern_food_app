@@ -68,7 +68,7 @@
 @media (max-width:480px){
     .restDishCard {
         min-height: 15vh;
-        
+        overflow-x:hidden;
         padding: 0.5rem;
         width: 100%;
        

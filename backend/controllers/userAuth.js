@@ -5,11 +5,11 @@ import { Router } from 'express';
 const router = new Router();
 
 router.post('/register', async (req, res) => {
-    const { name, email, password ,mobile} = req.body;
+    const { name, email, password, mobile } = req.body;
 
     try {
         const hashPassword = await bcrypt.hash(password, 10);
-        const user = new User({ name, email, password: hashPassword, role: 'user',mobile:mobile });
+        const user = new User({ name, email, password: hashPassword, role: 'user', mobile });
         const savedUser = await user.save();
         res.status(201).json(savedUser);
     } catch (error) {
@@ -63,6 +63,22 @@ router.delete('/deleteUser/:id', async (req, res) => {
     } catch (error) {
         console.error('Error in deleting user:', error);
         res.status(500).json({ error: 'Could not delete user' });
+    }
+});
+
+router.put('/user/update/:id', async (req, res) => {
+    const { id } = req.params;
+    const { name, email, phone } = req.body;
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(id, { name, email, mobile: phone }, { new: true });
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json({ message: "User updated successfully", user: updatedUser });
+    } catch (error) {
+        console.error('Error in updating user:', error);
+        res.status(500).json({ error: 'Error in updating User' });
     }
 });
 

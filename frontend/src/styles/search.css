@@ -1,8 +1,8 @@
 .search {
-    margin: 2rem auto auto auto;
+    margin: 2rem auto;
     padding: 1rem;
     min-height: calc(100vh - 70px);
-    width: 800px;
+    width: 80%;
 }
 
 .search-bar {
@@ -16,12 +16,12 @@
     border: 1px solid black;
 }
 
-.search-bar>input {
+.search-bar > input {
     font-size: 1.1rem;
     line-height: 24px;
     width: 80%;
     height: 100%;
-    outline: 0;
+    outline: none;
     padding: 0.7rem;
     border: none;
     overflow: hidden;
@@ -36,6 +36,7 @@
 .svg_search {
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 0.2rem;
     width: 20%;
     cursor: pointer;
@@ -50,15 +51,14 @@
 
 .search-slider {
     width: 100%;
+    margin-top: 1rem;
 }
 
 .searchResult {
     background: #fff;
     color: #282c3f;
-    height: 100%;
     width: 100%;
-    padding-top: 13px;
-    padding-bottom: 56px;
+    padding: 13px 0 56px;
     overflow-x: hidden;
 }
 
@@ -73,7 +73,7 @@
 }
 
 ._2f0cx {
-    -ms-flex-align: center;
+    display: flex;
     align-items: center;
     width: 64px;
     height: 64px;
@@ -81,7 +81,7 @@
 }
 
 ._23LIV {
-    -ms-flex-direction: column;
+    display: flex;
     flex-direction: column;
     margin-left: 15px;
 }
@@ -115,7 +115,7 @@
 .searchInfo {
     width: 95%;
     min-height: 40vh;
-    margin: 2rem 0 2rem 0;
+    margin: 2rem 0;
     display: grid;
     padding: 1rem;
     grid-template-columns: repeat(2, 1fr);
@@ -125,5 +125,52 @@
 }
 
 .selectedSearchCard {
-    margin: 0.5rem 0 1rem 0;
+    margin: 0.5rem auto;
+}
+
+@media (max-width: 480px) {
+    .search {
+        width: 90%;
+        padding: 0.3rem;  overflow-x:hidden;
+    }
+
+    .selectedSearchCard {
+        width: 95%;
+        padding: 0.3rem;
+        margin: auto;
+    }
+
+    .morebtnstyle {
+        padding: 0.5rem;
+        font-weight: 800;
+        font-size: 1.1rem;
+    }
+
+    ._1Z_E6 {
+        font-size: 1rem;
+        color: #7e808c;
+    }
+
+    .searchInfo {
+        width: 100%;
+        min-height: 30vh;
+        margin: auto;
+        display: grid;
+        padding: 0;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        background-color: rgb(238, 236, 236);
+        border-radius: 6px;
+    }
+
+    .searchResult button {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    ._23LIV {
+        margin-left: 0;
+        text-align: center;
+    }
 }

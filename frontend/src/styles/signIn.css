@@ -98,3 +98,15 @@ form>button {
 form>button:hover {
     background-color: #f4964a;
 }
+
+@media (max-width:480px){
+    .signIn {
+        width: 80%;
+       
+    }
+    form{
+        margin: auto;
+        width: 90%;
+    }
+    
+}

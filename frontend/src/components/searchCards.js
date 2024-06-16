@@ -15,27 +15,16 @@ const SearchCards = ({ image, name, id, price, category, desc, width }) => {
   return (
     <div className="searchCard">
       <div className="leftSearch">
-        <div
-          style={{ fontWeight: "800", fontSize: "0.9rem", width: { width } }}
-        >
+        <div className={`name ${width ? `custom-width-${width}` : ""}`}>
           {name || " "}
         </div>
-        <div style={{ fontWeight: "600", fontSize: "0.9rem" }}>
-          {" "}
+        <div className="price">
           {price ? "₹" + price : " "}
         </div>
-        <div style={{ fontSize: "0.7rem", color: "gray" }}>
+        <div className="category">
           {category?.join(" ") || " "}
         </div>
-        <div
-          style={{
-            fontSize: "0.6rem",
-            lineHeight: "13px",
-            wordSpacing: "8px",
-            width: "80%",
-            color: "gray",
-          }}
-        >
+        <div className="desc">
           {desc || " "}
         </div>
       </div>

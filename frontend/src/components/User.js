@@ -1,131 +1,182 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import "../styles/User.css";
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { server } from '../server';
+import '../styles/userInfo.css';
+import { getUserOrders } from '../Data/Data';
 
 const User = () => {
-  const user = useSelector((state) => state.auth);
-  console.log(user)
-  // const orders = useSelector((state) => state.user.orders);
-  const orders = [{ id: 1, date: "2023-05-15", total: 1200, status: "Delivered" }];
-  const dispatch = useDispatch();
+  const [option, setOption] = useState('profile');
+  const [profileData, setProfileData] = useState({});
+  const [originalProfileData, setOriginalProfileData] = useState({});
+  const [profileEdit, setProfileEdit] = useState(false);
+  const [orders, setOrders] = useState('');
 
-  const [editMode, setEditMode] = useState(false);
-  const [userInfo, setUserInfo] = useState({
-    name: user.name,
-    email: user.email,
-    address: user.address,
-    phone: user.phone,
-  });
-  const [initialUserInfo, setInitialUserInfo] = useState(userInfo);
+  const userData = useSelector((state) => state.auth);
 
-  /**
   useEffect(() => {
-    dispatch(fetchUserOrders(userContext.id));
-  }, [dispatch, userContext.id]);
-  */
+    const fetchOrders = async () => {
+      const data = await getUserOrders({ userId: userData.id });
+      console.log(data);
+      setOrders(data);
+    };
 
-  const handleInputChange = (e) => {
+    if (option === 'orders' && orders === '') {
+      console.log(userData.id);
+      fetchOrders();
+    }
+    setProfileData(userData);
+    setOriginalProfileData(userData);
+  }, [userData, orders, option]);
+
+  const inputChangeHandler = (e) => {
     const { name, value } = e.target;
-    setUserInfo((prevUserInfo) => ({
-      ...prevUserInfo,
+    setProfileData((prevData) => ({
+      ...prevData,
       [name]: value,
     }));
   };
 
-  const handleSave = () => {
-    // dispatch(updateUserDetails(userInfo));
-    setEditMode(false);
-    setInitialUserInfo(userInfo);
+  const handleProfileEdit = async () => {
+    try {
+      const response = await axios.put(`${server}api/v1/user/update/${userData.id}`, {
+        name: profileData.name,
+        email: profileData.email,
+        phone: profileData.phone,
+      });
+
+      if (response.status === 200) {
+        alert('Profile updated successfully');
+        setProfileEdit(false);
+        setOriginalProfileData(profileData); // Update original data with new changes if needed
+      } else {
+        alert('Failed to update profile');
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert('Failed to update profile');
+    }
   };
 
   const handleCancel = () => {
-    setUserInfo(initialUserInfo);
-    setEditMode(false);
+    setProfileData(originalProfileData); // Reset to original profile data
+    setProfileEdit(false);
+  };
+
+  const formatStatus = (status) => {
+    return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
+  };
+
+  const getStatusClass = (status) => {
+    switch (status.toLowerCase()) {
+      case 'pending':
+        return 'status-pending';
+      case 'completed':
+        return 'status-completed';
+      case 'cancelled':
+        return 'status-cancelled';
+      default:
+        return '';
+    }
   };
 
   return (
-    <div className="user-info-container">
-      <h2>User Information</h2>
-      <div className="user-info">
-        {editMode ? (
-          <div className="user-edit-info">
-            <div className="user-info-row">
+    <div className="user-info">
+      <div className="user-info-header">
+        <h1>User Dashboard</h1>
+      </div>
+      <div className="user-info-btns">
+        <button
+          className={option === 'profile' ? 'active' : ''}
+          onClick={() => setOption('profile')}
+        >
+          My Profile
+        </button>
+        <button
+          className={option === 'orders' ? 'active' : ''}
+          onClick={() => setOption('orders')}
+        >
+          My Orders
+        </button>
+      </div>
+      <div className="user-data">
+        {option === 'profile' ? (
+          <div className="profile-info">
+            <h2>Profile Information</h2>
+            <div className="profile-item">
               <label>Name:</label>
-              <input
-                type="text"
-                name="name"
-                value={userInfo.name}
-                onChange={handleInputChange}
-              />
+              {profileEdit ? (
+                <input
+                  type="text"
+                  name="name"
+                  value={profileData.name}
+                  onChange={inputChangeHandler}
+                />
+              ) : (
+                <span>{profileData.name}</span>
+              )}
             </div>
-            <div className="user-info-row">
+            <div className="profile-item">
               <label>Email:</label>
-              <input
-                type="email"
-                name="email"
-                value={userInfo.email}
-                onChange={handleInputChange}
-              />
+              <span>{profileData.email}</span>
             </div>
-            <div className="user-info-row">
-              <label>Address:</label>
-              <input
-                type="text"
-                name="address"
-                value={userInfo.address}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="user-info-row">
+            <div className="profile-item">
               <label>Phone:</label>
-              <input
-                type="text"
-                name="phone"
-                value={userInfo.phone}
-                onChange={handleInputChange}
-              />
+              {profileEdit ? (
+                <input
+                  type="tel"
+                  name="phone"
+                  value={profileData.phone}
+                  onChange={inputChangeHandler}
+                />
+              ) : (
+                <span>{profileData.phone}</span>
+              )}
             </div>
-            <div className="user-button-group">
-              <button className="user-btn" onClick={handleSave}>Save</button>
-              <button className="user-btn" onClick={handleCancel}>Cancel</button>
-            </div>
+            {!profileEdit ? (
+              <button className="edit-profile-btn" onClick={() => setProfileEdit(true)}>
+                Edit Profile
+              </button>
+            ) : (
+              <div className="profile-btns">
+                <button onClick={handleProfileEdit} className="save">Save</button>
+                <button onClick={handleCancel} className="cancel">Cancel</button>
+              </div>
+            )}
           </div>
         ) : (
-          <div className="user-display-info">
-            <div className="user-info-row">
-              <label>Name:</label>
-              <span>{userInfo.name}</span>
-            </div>
-            <div className="user-info-row">
-              <label>Email:</label>
-              <span>{userInfo.email}</span>
-            </div>
-            <div className="user-info-row">
-              <label>Address:</label>
-              <span>{userInfo.address}</span>
-            </div>
-            <div className="user-info-row">
-              <label>Phone:</label>
-              <span>{userInfo.phone}</span>
-            </div>
-            <button className="user-btn" onClick={() => setEditMode(true)}>Edit</button>
+          <div className="order-info">
+            <h2>Order History</h2>
+            {orders && orders.length > 0 ? (
+              <ul>
+                {orders.map((order, index) => (
+                  <li key={index}>
+                    <div className="order-item">
+                      <p>
+                        <strong>Order ID:</strong> {order.orderId}
+                      </p>
+                      <p>
+                        <strong>Date:</strong> {new Date(order.updatedAt).toLocaleString()}
+                      </p>
+                      <p>
+                        <strong>Transaction Id:</strong> {order.transactionId}
+                      </p>
+                      <p>
+                        <strong>Total:</strong> {order.payment} Rs
+                      </p>
+                      <p>
+                        <strong>Status:</strong> <span className={`status ${getStatusClass(order.status)}`}>{formatStatus(order.status)}</span>
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No orders found.</p>
+            )}
           </div>
         )}
       </div>
-
-      <h2>Past Orders</h2>
-      {orders && orders.length > 0 && (
-        <div className="user-orders-list">
-          {orders.map((order) => (
-            <div key={order.id} className="user-order-item">
-              <p>Order ID: {order.id}</p>
-              <p>Date: {order.date}</p>
-              <p>Total: ₹{order.total}</p>
-              <p>Status: {order.status}</p>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 };

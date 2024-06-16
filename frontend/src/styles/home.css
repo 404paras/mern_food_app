@@ -26,6 +26,7 @@
         width: 100%;
         min-height:40vh;
         overflow-x:hidden;
+        margin: 0.2rem;
     }
     .bottom-line {
    
@@ -33,6 +34,9 @@
         background-color: rgb(226, 226, 231);
         width: calc(100% - 32px);
         margin:0.5rem;
+    }
+    .slider{
+        height: 10vh;
     }
     .slider-box{
         height: 40vh;

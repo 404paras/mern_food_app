@@ -28,6 +28,7 @@ const Navbar = ({ onSignIn }) => {
 
   const logOutHandler = () => {
     sessionStorage.clear();
+    navigate('/')
     dispatch(logout());
   };
 

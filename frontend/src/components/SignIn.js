@@ -46,10 +46,10 @@ const SignIn = ({ onClose }) => {
       const role = response?.data?.role;
       sessionStorage.setItem("id", response.data._id);
       sessionStorage.setItem("role", role);
-      sessionStorage.setItem("name",response.data?.name)
-      sessionStorage.setItem("email",response.data?.email)
-      sessionStorage.setItem("phone",response.data?.mobile)
-      sessionStorage.setItem("address",response.data?.address)
+      sessionStorage.setItem("name", response.data?.name);
+      sessionStorage.setItem("email", response.data?.email);
+      sessionStorage.setItem("phone", response.data?.mobile);
+      sessionStorage.setItem("address", response.data?.address);
       navigate("/");
       dispatch(login({
         role: role || "user",
@@ -102,6 +102,7 @@ const SignIn = ({ onClose }) => {
             onInputChange={inputsChangeHandler}
             onSubmit={registerHandler}
             isLoading={isLoading}
+            setRegisterPage={setRegisterPage}
           />
         ) : (
           <LoginForm
@@ -120,12 +121,12 @@ const SignIn = ({ onClose }) => {
   );
 };
 
-const RegisterForm = ({ inputs, onInputChange, onSubmit, isLoading }) => (
+const RegisterForm = ({ inputs, onInputChange, onSubmit, isLoading, setRegisterPage }) => (
   <div className="register">
     <h1>Register</h1>
     <span>
       or{" "}
-      <span onClick={() => onInputChange({ target: { name: "registerPage", value: false } })}>
+      <span onClick={() => setRegisterPage(false)}>
         login to your account
       </span>
     </span>

@@ -64,3 +64,16 @@ export const getAllOffers = async () => {
     return []; // Return an empty array in case of an error
   }
 };
+
+export const getUserOrders = async ({userId})=>{
+  console.log(userId)
+  try {
+    const response = await axios.get(`${server}api/v1/order/user/${userId}`);
+    
+    return response.data;
+    
+  } catch (error) {
+    console.error('Error fetching offers:', error);
+    return []; 
+  }
+}

@@ -5,6 +5,7 @@
     padding: 1rem;
     border-radius: 10px;
     background-color: white;
+    margin-bottom: 1rem;
 }
 
 .leftSearch {
@@ -22,12 +23,11 @@
     flex-direction: column;
 }
 
-.rightSearch>.add {
+.rightSearch .add {
     width: 6.5vw;
     font-size: 0.8rem;
     padding: 0.5rem 0.7rem;
     background-color: white;
-    color: green;
     border: 1px solid rgb(168, 166, 166);
     border-radius: 5px;
     cursor: pointer;
@@ -35,13 +35,93 @@
     color: green;
 }
 
-.rightSearch>img {
+.rightSearch img {
     width: 118px;
     height: 96px;
     object-fit: cover;
     border-radius: 6px;
 }
 
-.rightSearch>.add:hover {
+.rightSearch .add:hover {
     background-color: rgb(195, 192, 192);
+}
+
+.name {
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+
+.price {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.category {
+    font-size: 0.7rem;
+    color: gray;
+}
+
+.desc {
+    font-size: 0.6rem;
+    line-height: 13px;
+    word-spacing: 8px;
+    width: 80%;
+    color: gray;
+}
+
+/* Custom width classes if needed */
+.custom-width-80 {
+    width: 80%;
+}
+
+.custom-width-100 {
+    width: 100%;
+}
+
+.custom-width-50 {
+    width: 50%;
+}
+
+@media (max-width: 480px) {
+    .searchCard {
+        height: auto;
+        width: 90%;
+        padding: 0.5rem;
+        margin: 0.5rem auto;
+        overflow-x:hidden;
+    }
+
+    .rightSearch .add {
+        width: 80%;
+        font-size: 0.7rem;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .rightSearch img {
+        width: 80%;
+        height: 85px;
+    }
+
+    .name {
+        font-weight: 800;
+        font-size: 0.8rem;
+    }
+
+    .price {
+        font-weight: 600;
+        font-size: 0.8rem;
+    }
+
+    .category {
+        font-size: 0.6rem;
+        color: gray;
+    }
+
+    .desc {
+        font-size: 0.6rem;
+        line-height: 11px;
+        word-spacing: 6px;
+        width: 90%;
+        color: gray;
+    }
 }
