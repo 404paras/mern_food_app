@@ -44,7 +44,7 @@
         display: grid;
         grid-template-columns: repeat(3, 0.8fr);
         gap: 0.8rem;
-        overflow-x:hidden;
+        
     }
     
     .shimmer-container {
