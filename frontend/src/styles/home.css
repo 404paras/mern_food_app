@@ -5,10 +5,11 @@
     display: flex;
     flex-direction: column;
     z-index: 10;
+    
 }
 
 .bottom-line {
-    margin: 2rem auto 3rem auto;
+   
     height: 0.5px;
     background-color: rgb(226, 226, 231);
     width: calc(100% - 32px);
@@ -17,4 +18,23 @@
 
 .slider-box {
     height: 60vh;
+}
+
+@media (max-width: 480px) {
+
+    .home{
+        width: 100%;
+        min-height:40vh;
+        overflow-x:hidden;
+    }
+    .bottom-line {
+   
+        height: 0.5px;
+        background-color: rgb(226, 226, 231);
+        width: calc(100% - 32px);
+        margin:0.5rem;
+    }
+    .slider-box{
+        height: 40vh;
+    }
 }

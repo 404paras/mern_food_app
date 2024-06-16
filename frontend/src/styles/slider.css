@@ -4,23 +4,23 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 2rem 1rem 2rem 1rem;
+    margin: 2rem 1rem;
     height: 30vh;
     padding: 1rem;
-}
-
-.slider .heading {
+  }
+  
+  .slider .heading {
     width: 100%;
     display: flex;
     justify-content: space-between;
-}
-
-.slider .button-home {
+  }
+  
+  .slider .button-home {
     display: flex;
     justify-content: space-between;
-}
-
-.slider .button-home button {
+  }
+  
+  .slider .button-home button {
     margin: 0.5rem;
     font-size: 1.5rem;
     border: none;
@@ -30,26 +30,76 @@
     color: black;
     width: 2rem;
     height: 2rem;
-}
-
-.slider .button-home button:hover {
+    transition: background-color 0.3s, color 0.3s; /* Added transition for smooth hover effect */
+  }
+  
+  .slider .button-home button:hover {
     background-color: black;
     color: white;
-}
-
-.slider .slider-images {
+  }
+  
+  .slider .slider-images {
     width: 100%;
     display: flex;
     justify-content: space-around;
-}
-
-.slider .slider-images .sliderImg {
+  }
+  
+  .slider .slider-images .sliderImg {
     cursor: pointer;
     width: 100%;
     height: 13rem;
-    transition: 0.5s ease-in;
-}
-
-.slider .slider-images .sliderImg:hover {
+    transition: transform 0.5s ease-in; /* Refined transition property */
+  }
+  
+  .slider .slider-images .sliderImg:hover {
     transform: scale(1.1);
-}
+  }
+  
+  @media (max-width:480px){
+    .slider {
+        height: 15vh;
+        padding: 0.5rem;
+        width: 90%;
+      }
+      
+      .slider .heading {
+        width: 100%;
+        display: flex;
+        height:25%;
+
+        justify-content: space-between;
+       
+        
+      }
+      .slider .heading h2{
+        font-size: 0.8rem;
+      }
+      
+      .slider .button-home {
+        display: flex;
+        justify-content: space-between;
+      }
+      
+      .slider .button-home button {
+        margin: 0.1rem;
+        font-size: 0.9rem;
+        width: 1.5rem;
+        height: 1.5rem;
+      
+      }
+    
+      .slider .slider-images {
+        width: 100%;
+        height:70%;
+        display: flex;
+        justify-content: space-around;
+      }
+      
+      .slider .slider-images .sliderImg {
+        cursor: pointer;
+        width: 100%;
+        height: 90%;
+      }
+      
+      
+  }

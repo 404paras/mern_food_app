@@ -5,6 +5,7 @@
     align-items: center;
     width: 100%;
     height: 100%;
+  
 }
 
 .slider-box- .heading {
@@ -86,4 +87,84 @@
 .rating,
 .address {
     font-size: 0.8rem;
+}
+
+@media (max-width:480px){
+    .slider-box- {
+        padding: 0.5rem;
+        height: 100%;
+        width: 90%;
+        margin:0.5rem;
+    }
+    
+    .slider-box- .heading {
+        width: 100%;
+        display: flex;
+        height:15%;
+
+        justify-content: space-between;
+     
+    }
+    
+    .slider-box- .heading h2{
+        font-size: 0.8rem;
+        
+    }
+    .slider-box- .button {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .slider-box- .button button {
+        margin: 0.1rem;
+        font-size: 0.9rem;
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    
+  
+    .slider-box- .cards {
+        
+        display: grid;
+        grid-template-columns: repeat(3, 0.5fr);
+        gap: 1rem;
+        height: 70%;
+        
+    }
+    
+    .slider-box- .card {
+        height: 100%;
+        cursor: pointer;
+        transition: 0.5s ease-out;
+    }
+    
+    .slider-box- .card .slider-images {
+        height: 15vh;
+    }
+    
+    .slider-box- .card .item-info {
+        background-color: rgba(255, 255, 255, 0.9);
+
+        height: 8vh;
+    }
+    
+    .slider-box- .card .slider-images img {
+        width: 100%;
+        border-radius: 10px 10px 0 0;
+        height: 100%;
+    }
+    
+    .slider-box- .card .item-name {
+        font-size: 0.7rem;
+        font-weight: bold;
+        margin: 5px 0 5px 8px;
+    }
+    
+   
+    
+    
+    .address {
+        font-size: 0.5rem;
+    }
+    
 }

@@ -1,78 +1,124 @@
 .navbar {
-    width: 100%;
     height: 10vh;
     display: flex;
+
     justify-content: space-around;
     align-items: center;
     background-color: white;
     position: sticky;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     top: 0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.258);
     z-index: 100;
-}
-
-.back-button svg {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  
+  .back-button svg {
     font-size: 1.5rem;
     margin-left: 1rem;
     cursor: pointer;
-}
-
-.back-button svg:hover {
+  }
+  
+  .back-button svg:hover {
     color: #fc8019;
-}
-
-.logo {
+  }
+  
+  .logo {
     flex: 4;
-    margin: auto;
-    width: 100%;
-    align-items: center;
     display: flex;
-    font-size: 1.2rem;
     justify-content: center;
-}
-
-.nav-items {
+    align-items: center;
+    font-size: 1.2rem;
+  }
+  
+  .nav-items {
     flex: 6;
-    width: 100%;
-    margin: auto;
-}
-
-.nav-items ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .nav-items ul {
     display: flex;
     justify-content: space-around;
     align-items: center;
     list-style: none;
-}
-
-.nav-items ul li {
+    width: 100%;
+  }
+  
+  .nav-items ul li {
     cursor: pointer;
     font-size: 1.1rem;
-}
-
-.nav-items ul li.cart {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  }
+  
+  .nav-items ul li.cart {
     position: relative;
-}
-
-.nav-items ul li.cart svg {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-items ul li.cart svg {
     font-size: 1.8rem;
     fill: #60b246;
-}
-
-.nav-items ul li.cart span {
-    font-size: 0.6rem;
+  }
+  
+  .nav-items ul li.cart .span-cart {
     position: absolute;
-    color: white;
-    font-weight: 600;
     left: 5px;
     top: 5px;
-}
-
-.nav-items ul li:hover {
-    stroke: #fc8019;
-    fill: #fc8019;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: white;
+  }
+  
+  .nav-items ul li:hover {
     color: #fc8019;
-}
+  }
+  
+  @media only screen and (max-width: 480px) {
+    .navbar {
+      height: 10vh;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .back-button svg {
+      font-size: 1rem;
+      margin-left: 0.5rem;
+    }
+  
+    .logo {
+      flex: 3;
+      font-size: 1.2rem;
+    }
+  
+    .nav-items {
+      flex: 5;
+      justify-content: space-between;
+    }
+  
+    .nav-items ul {
+      justify-content: space-between;
+    }
+  
+    .nav-items ul li {
+      font-size: 1rem;
+    }
+  
+    .nav-items ul li.cart svg {
+      font-size: 1rem;
+    }
+  
+    .nav-items ul li .navbar-span-remove {
+      display: none;
+    }
+  
+    .navbar-resize-gap {
+      flex: 2;
+      width: 100%;
+    }
+  
+    .navbar-span-remove {
+      display: none;
+    }
+  }
+  

@@ -10,7 +10,7 @@ const RestaurantDishes = () => {
   const [foodItems, setFoodItems] = useState([]);
   const { categoryName, id } = useParams();
   const [restDetail, setRestDetail] = useState({});
-const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchFoodItems = async () => {
@@ -32,9 +32,9 @@ const [isLoading, setIsLoading] = useState(false);
     }
   }, [id, foodItems, restDetail]);
 
-if(!isLoading) {
-  return <Shimmer/>}
-
+  if(!isLoading) {
+    return <Shimmer/>;
+  }
 
   return (
     <div className="restaurantDish">
@@ -48,7 +48,7 @@ if(!isLoading) {
             <img src={restDetail.imgUrl} alt="" />
           </div>
         </div>
-        <div style={{ margin: "3rem" }}></div>
+        <div className="spacer"></div>
         <div className="dishCards">
           <div className="line"></div>
           {foodItems.length > 0 &&

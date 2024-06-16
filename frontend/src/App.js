@@ -33,7 +33,7 @@ const User = lazy(()=> import("./components/User.js"))
 
 const App = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  
+  console.log(window.screen)
   const dispatch = useDispatch();
   const [signInPage, setSignInPage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

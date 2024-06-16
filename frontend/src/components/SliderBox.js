@@ -10,6 +10,8 @@ const SliderBox = () => {
   const [isLeftDisabled, setIsLeftDisabled] = useState(true);
   const [isRightDisabled, setIsRightDisabled] = useState(false);
   const [restList, setRestList] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.screen.availWidth <= 500);
+  const itemsToShow = isMobile ? 3 : 4;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +26,15 @@ const SliderBox = () => {
     if (restList.length === 0) {
       fetchData();
     }
+    const handleResize = () => {
+      setIsMobile(window.screen.availWidth <= 500);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, [restList]);
 
   const leftBtnHandler = () => {
@@ -37,11 +48,11 @@ const SliderBox = () => {
   };
 
   const rightBtnHandler = () => {
-    if (imgIndex < restList.length - 4) {
+    if (imgIndex < restList.length - itemsToShow) {
       setImgIndex((prev) => prev + 1);
       setIsLeftDisabled(false);
     }
-    if (imgIndex === restList.length - 5) {
+    if (imgIndex === restList.length - (itemsToShow+1)) {
       setIsRightDisabled(true);
     }
   };
@@ -73,7 +84,7 @@ const SliderBox = () => {
       </div>
       <div className="cards">
         {restList && restList
-          .slice(imgIndex, imgIndex + 4)
+          .slice(imgIndex, imgIndex + itemsToShow)
           .map((item, index) => (
             <div className="card" key={index} onClick={() => cardHandler(item.id)}>
            <Link

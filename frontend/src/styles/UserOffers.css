@@ -45,3 +45,53 @@
 .copy-button:hover {
     opacity: 0.8;
 }
+
+@media (max-width:480px){
+    .user-offers-container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+    }
+    
+    .offer-list {
+        margin-top: 1rem;
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .offer-item {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #f4f4f4;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .offer-details {
+        margin-bottom: 10px;
+    }
+    
+    .coupon-code {
+        font-weight: bold;
+    }
+    
+    .discount {
+        color: #666;
+    }
+    
+    .copy-button {
+        margin: auto;
+        border: none;
+        background-color: #fc8019;
+        color: white;
+        font-size: 0.8rem;
+        padding: 0.5rem;
+        font-weight: 600;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    
+    .copy-button:hover {
+        opacity: 0.8;
+    }
+}

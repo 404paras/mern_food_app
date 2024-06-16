@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { categoryData } from '../Data/Data.js';
 import AllCards from '../components/AllCards.js';
 import Shimmer from '../components/Shimmer.js';
+import '../styles/categoryRest.css';
 
 const CategoryRest = () => {
   const { name } = useParams();
@@ -25,33 +26,20 @@ const CategoryRest = () => {
     fetchData();
   }, [name]); // Fetch data whenever name changes
 
-  if (loading) return <Shimmer/>;
+  if (loading) return <Shimmer />;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div style={{ width: "80%", margin: "auto", minHeight: "100vh", padding: "0 20px",
-   
-    overflowX: "hidden",
-    overflowY: "auto" }}>
-      <div style={{
-        color: "#282c3f",
-        paddingTop: "60px",
-        paddingBottom: "8px",
-  
-        display: "flex",
-        msFlexAlign: "center",
-        alignItems: "center",
-        msFlexPack: "justify",
-        justifyContent: "space-between",
-        maxWidth: "1260px",
-        minWidth: "1260px",
-        paddingLeft: "16px",
-      }}>
+    <div className="category-rest-container">
+      <div className="category-header">
         <div>
-        <div style={{ fontSize: "40px", fontWeight: 600 }}>{name}</div>
-        <div>Dive into these delicious & flavoursome noodles for a perfect meal</div>
-      </div></div>
-      <div><AllCards heading={"Restaurants to explore"} data={category} categoryName = {name}/></div>
+          <div className="category-title">{name}</div>
+          <div className="category-subtitle">Dive into these delicious & flavoursome noodles for a perfect meal</div>
+        </div>
+      </div>
+      <div>
+        <AllCards heading={"Restaurants to explore"} data={category} categoryName={name} />
+      </div>
     </div>
   );
 };
