@@ -53,7 +53,7 @@
 }
 
 .slider-box- .card .slider-images {
-    height: 22vh;
+    height: 24vh;
 }
 
 .slider-box- .card .item-info {
@@ -65,7 +65,7 @@
     justify-content: space-around;
     padding: 0.5rem;
     word-spacing: 2px;
-    height: 15vh;
+    height: 11vh;
 }
 
 .slider-box- .card .slider-images img {
