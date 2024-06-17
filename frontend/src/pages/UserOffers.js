@@ -42,6 +42,9 @@ const UserOffers = () => {
             <div className="offer-details">
               <span className="discount">Discount:</span> {offer.discount}%
             </div>
+            <div className="offer-details">
+              <span className="description">Description: </span>{offer.description}
+            </div>
             <button
               className="copy-button"
               onClick={() => {

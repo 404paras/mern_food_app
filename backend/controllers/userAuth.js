@@ -1,4 +1,5 @@
 import { User } from '../models/user.js';
+import { OrderInfo } from '../models/order-info.js'; // Import the Order model
 import bcrypt from 'bcrypt';
 import { Router } from 'express';
 
@@ -57,12 +58,19 @@ router.delete('/deleteUser/:id', async (req, res) => {
         if (!existingUser) {
             return res.status(404).json({ message: "User not found" });
         }
-        
+
+        // Delete orders associated with the user
+        await OrderInfo.deleteMany({ userId: id });
+        console.log(`Orders for user ${id} deleted successfully`);
+
+        // Delete the user
         await User.findByIdAndDelete(id);
-        res.status(200).json({ message: "User deleted successfully" });
+        console.log(`User ${id} deleted successfully`);
+        
+        res.status(200).json({ message: "User and associated orders deleted successfully" });
     } catch (error) {
-        console.error('Error in deleting user:', error);
-        res.status(500).json({ error: 'Could not delete user' });
+        console.error('Error in deleting user and associated orders:', error);
+        res.status(500).json({ error: 'Could not delete user and associated orders' });
     }
 });
 

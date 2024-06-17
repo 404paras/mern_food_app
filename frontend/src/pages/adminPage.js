@@ -3,13 +3,15 @@ import AdminPageCard from '../components/AdminPageCards.js'; // Adjust the path 
 import manageRest from '../assets/adminPage/manageRestaurant.webp';
 import manageCustomer from '../assets/adminPage/manageCustomer.jpeg';
 import manageOffer from '../assets/adminPage/manageOffer.jpeg';
+import orderPageAdmin from '../assets/adminPage/orderPageAdmin.jpeg'
+import '../styles/AdminPage.css'; // Import the CSS file for styling
 
 const AdminPage = () => {
   return (
-    <div className="admin-page" style={{ paddingTop: "60px", backgroundColor: "white", width: "80%", margin: "auto", minHeight: "80vh" }}>
-      <h1 style={{ textAlign: "center", marginBottom: "30px" }}>Admin Dashboard</h1>
+    <div className="admin-page">
+      <h1 className="admin-page-heading">Admin Dashboard</h1>
 
-      <div style={{ flexWrap: "wrap", display: "flex", justifyContent: "space-around", alignItems: "center", width: "100%" }}>
+      <div className="admin-page-cards">
         <AdminPageCard
           title="Manage Restaurant"
           description="Click here to add a new restaurant to the system."
@@ -28,7 +30,12 @@ const AdminPage = () => {
           link="/admin/addOffers"
           img={manageOffer}
         />
-        {/* Add more Card components for other functionalities */}
+        <AdminPageCard
+          title="Manage Orders"
+          description="Click here to manage orders."
+          link="/admin/manageOrder"
+          img={orderPageAdmin}
+        />
       </div>
     </div>
   );

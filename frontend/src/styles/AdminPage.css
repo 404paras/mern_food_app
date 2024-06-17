@@ -1,0 +1,25 @@
+.admin-page {
+    padding-top: 60px;
+    background-color: white;
+    width: 80%;
+    margin: auto;
+    min-height: 80vh;
+  }
+  
+  .admin-page-heading {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .admin-page-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+  
+  /* Styles for AdminPageCard component can also go here if needed */
+  
+  
+  

@@ -1,78 +1,145 @@
 .customer-admin-container {
     min-height: 80vh;
-    width: 70%;
+    width: 80%;
     margin: auto;
-    padding: 1rem;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.customer-admin-heading {
-    text-align: center;
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it overlays other content */
+}
+
+.modal {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+}
+
+.modal h2 {
+    font-size: 1.5rem;
     margin-bottom: 1rem;
 }
 
+.modal button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.modal button:hover {
+    background-color: #0056b3;
+}
+
+
+.customer-admin-heading {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #333;
+}
+
 .customer-search-bar-container {
-    margin: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .customer-search-bar {
     display: flex;
     align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .customer-search-bar input {
     flex: 1;
-    padding: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px 0 0 8px;
+    font-size: 0.7rem;
+    outline: none;
 }
 
 .customer-search-bar button {
-    background: #007bff;
+    background: #fc8019;
     color: #fff;
     border: none;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    margin-left: 0.5rem;
+    border-radius: 0 8px 8px 0;
+    padding: 0.75rem 1.5rem;
     cursor: pointer;
+    transition: background 0.3s;
+}
+
+.customer-search-bar button:hover {
+    opacity: 0.7;
 }
 
 .customer-details {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background: #f4f4f4;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background: #f9f9f9;
     border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .customer-name,
 .customer-email,
 .customer-mobile,
 .customer-address {
-    margin: 0;
-    color: #666;
+    margin: 0.3rem 0;
+    color: #555;
 }
 
 .customer-buttons {
     display: flex;
     justify-content: space-between;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 }
 
 .delete-button,
 .view-history-button {
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.5rem;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    transition: background 0.3s;
 }
 
 .delete-button {
     background: #f44336;
 }
 
+.delete-button:hover {
+    background: #d32f2f;
+}
+
 .view-history-button {
     background: #2196f3;
+}
+
+.view-history-button:hover {
+    background: #1976d2;
 }
 
 .delete-icon {
@@ -84,5 +151,57 @@
     text-align: center;
     font-size: 1.5rem;
     color: #666;
-    margin-top: 1rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 480px) {
+    .customer-admin-container {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .customer-search-bar {
+        flex-direction: column;
+    }
+
+    .customer-search-bar input{
+        width: 95%;
+        border-radius: 8px;
+    }
+    .customer-search-bar button {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .customer-search-bar button {
+        margin-top: 0.5rem;
+        border-radius: 8px;
+    }
+
+    .modal {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 80%;
+        max-height: 80%;
+        overflow-y: auto;
+    }
+    
+    .modal h2 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    .customer-buttons {
+        flex-direction: column;
+    }
+
+    .delete-button,
+    .view-history-button {
+        width: 100%;
+        margin-top: 0.5rem;
+        border-radius: 8px;
+    }
+
+    
 }

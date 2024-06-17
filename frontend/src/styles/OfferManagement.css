@@ -1,67 +1,153 @@
-.offer-management-container {
-    width: 70%;
-    margin: auto;
-    padding: 1rem;
-}
-
-.offer-management- h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-.offer-form label,
-.offer-form input {
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-.offer-form input {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 4px;
+/* Container for the whole component */
+.admin-add-offers-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
     border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-.offer-form button {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.offer-form button:hover {
-    background: #0056b3;
-}
-
-.offer-list {
-    list-style: none;
-    padding: 0;
-}
-
-.offer-list li {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background: #f4f4f4;
     border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
+    font-family: Arial, sans-serif;
 }
 
-.offer-list li button {
-    background: #dc3545;
-    color: #fff;
+/* Styling for the header */
+.admin-add-offers-container > div:first-child {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Styling for the buttons */
+.admin-add-offers-container button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
-.offer-list li button:hover {
-    background: #c82333;
+.admin-add-offers-container button:hover {
+    background-color: #45a049;
+}
+
+/* Form styling for adding and editing offers */
+.admin-add-offers-container .offer-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.admin-add-offers-container .offer-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.admin-add-offers-container .offer-form input {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.admin-add-offers-container .offer-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.admin-add-offers-container .offer-form button:last-child {
+    margin-left: 10px;
+    background-color: #f44336;
+}
+
+.admin-add-offers-container .offer-form button:hover {
+    background-color: #45a049;
+}
+
+/* Styling for existing offers */
+.admin-add-offers-container .existing-offers {
+    margin-top: 20px;
+}
+
+.admin-add-offers-container .existing-offers > div {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.admin-add-offers-container .existing-offers > div > div {
+    margin-bottom: 10px;
+}
+
+.admin-add-offers-container .existing-offers > div > div:last-child {
+    margin-top: 10px;
+}
+
+.admin-add-offers-container .existing-offers > div > div button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.admin-add-offers-container .existing-offers > div > div button:hover {
+    background-color: #d32f2f;
+}
+
+/* Styling for editing an offer */
+.admin-add-offers-container .edit-offer-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.admin-add-offers-container .edit-offer-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.admin-add-offers-container .edit-offer-form input {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.admin-add-offers-container .edit-offer-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.admin-add-offers-container .edit-offer-form button:last-child {
+    margin-left: 10px;
+    background-color: #f44336;
+}
+
+.admin-add-offers-container .edit-offer-form button:hover {
+    background-color: #45a049;
 }

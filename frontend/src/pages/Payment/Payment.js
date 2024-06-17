@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+// Payment.js
+
+import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { server } from "../../server";
@@ -30,7 +32,7 @@ const Payment = () => {
 
     try {
       const orderResponse = await axios.post(orderUrl, orderData);
-      console.log("Order Response:", orderResponse.data);
+
       const { id: order_id, amount, currency } = orderResponse.data;
 
       const options = {
@@ -61,14 +63,14 @@ const Payment = () => {
                 )}/${encodeURIComponent(verifyResponse.data.amount)}`
               );
             } else {
-              alert("Payment verification failed");
+              navigate("/payment-failed"); // Navigate to payment failed page
             }
           } catch (error) {
             console.error(
               "Verification Error:",
               error.response ? error.response.data : error.message
             );
-            alert("Payment verification failed");
+            navigate("/payment-failed"); // Navigate to payment failed page on error
           }
         },
         prefill: {
@@ -93,7 +95,7 @@ const Payment = () => {
         "Order Error:",
         error.response ? error.response.data : error.message
       );
-      alert("Payment initiation failed");
+      navigate("/payment-failed"); // Navigate to payment failed page on order creation error
     }
   };
 

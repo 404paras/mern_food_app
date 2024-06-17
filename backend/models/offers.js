@@ -1,9 +1,22 @@
 import mongoose from "mongoose";
 
-const offers = new mongoose.Schema({
-couponcode:{type:String, required:true,unique:true},
-discount:{type:Number,required:true}
+const offersSchema = new mongoose.Schema({
+    couponcode: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
+    },
+    discount: {
+        type: Number,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    }
+}, {
+    timestamps: true
+});
 
-},{timestamps:true})
-
-export const Offer = mongoose.model('Offer',offers)
+export const Offer = mongoose.model('Offer', offersSchema);

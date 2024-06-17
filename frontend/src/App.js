@@ -13,6 +13,8 @@ import { login } from "./store/authSlice.js";
 
 import Payment from "./pages/Payment/Payment.js";
 import PaymentSuccess from "./pages/Payment/PaymentSuccess.js";
+import PaymentFailed from "./pages/Payment/PaymentFailed.js";
+
 
 // Lazy-loaded components
 const UserOffers = lazy(() => import("./pages/UserOffers.js"));
@@ -30,6 +32,7 @@ const RestaurantDishes = lazy(() => import("./pages/RestaurantDishes.js"));
 const AdminRoute = lazy(() => import("./components/AdminRoute.js"));
 const AdminAddOffers = lazy(() => import("./components/AdminAddOffers.js"));
 const User = lazy(()=> import("./components/User.js"))
+const AdminOrders = lazy(()=>import('./components/AdminOrders.js'))
 
 const App = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -95,9 +98,10 @@ const App = () => {
             <Route path="/admin/manageRestaurant" element={<AdminRoute isAuthenticated={isAuthenticated} child={<ManageRestaurant />}/>} />
             <Route path="/admin/addOffers" element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminAddOffers />}/>} />
             <Route path="/admin/addRestaurant" element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddRestaurants />}/>} />
-           
+           <Route path="/admin/manageOrder" element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminOrders/>}/>}/>
             <Route path="/checkout/:orderId/:price" element={<Payment />} />
             <Route path="/success/:orderId/:paymentId/:amount" element={<PaymentSuccess/>} />
+            <Route path="/payment-failed" element={<PaymentFailed/>}/>
             <Route path="*" element={<Home />} />
           </Routes>
           {signInPage && <SignIn onClose={closeHandler} />}

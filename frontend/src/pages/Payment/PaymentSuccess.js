@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../../styles/PaymentSuccess.css"; // Assuming you have a CSS file for styles
 import { useSelector, useDispatch } from "react-redux";
@@ -11,18 +11,21 @@ const PaymentSuccess = () => {
   const { foodItems } = useSelector((state) => state.cart);
   const { id } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
+const [count,setCount] = useState(0);
   useEffect(() => {
     const createOrder = async () => {
       if (foodItems && foodItems.itemDetail) {
-        const food = foodItems.itemDetail.map(item => ({ id: item.id, count: item.count }));
+        const food = foodItems.itemDetail.map((item) => ({
+          id: item.id,
+          count: item.count,
+        }));
         try {
           const response = await axios.post(`${server}api/v1/order`, {
             orderId,
             transactionId: paymentId,
             userId: id,
             payment: amount / 100, // Ensure payment is in the correct format
-            foodItems: food
+            foodItems: food,
           });
           console.log("Order created successfully:", response.data);
           dispatch(clearCart());
@@ -31,9 +34,12 @@ const PaymentSuccess = () => {
         }
       }
     };
-
-    createOrder();
-  }, [orderId, paymentId, amount, id, dispatch]);
+if(count===0){
+    createOrder(); // Call createOrder inside useEffect
+setCount(1);
+  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependency array ensures this effect runs only once
 
   return (
     <div className="payment-success-container">
@@ -41,9 +47,15 @@ const PaymentSuccess = () => {
         <h1>Payment Successful!</h1>
         <p>Thank you for your purchase.</p>
         <div className="order-details">
-          <p><strong>Order ID:</strong> {orderId}</p>
-          <p><strong>Payment ID:</strong> {paymentId}</p>
-          <p><strong>Total Amount:</strong> ₹{amount / 100}</p>
+          <p>
+            <strong>Order ID:</strong> {orderId}
+          </p>
+          <p>
+            <strong>Payment ID:</strong> {paymentId}
+          </p>
+          <p>
+            <strong>Total Amount:</strong> ₹{amount / 100}
+          </p>
         </div>
         <div className="payment-success-actions">
           <Link to="/" className="btn">

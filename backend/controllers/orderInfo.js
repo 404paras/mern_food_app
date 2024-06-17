@@ -4,7 +4,6 @@ import { User } from '../models/user.js';
 
 const order = Router();
 
-// Create a new order
 order.post('/order', async (req, res) => {
     const { orderId, transactionId, userId, payment, foodItems } = req.body;
 
@@ -42,7 +41,6 @@ order.post('/order', async (req, res) => {
     }
 });
 
-// Get orders by user ID
 order.get('/order/user/:userId', async (req, res) => {
     const { userId } = req.params;
     try {
@@ -58,7 +56,6 @@ order.get('/order/user/:userId', async (req, res) => {
     }
 });
 
-// Get all orders for admin
 order.get('/order/admin/all', async (req, res) => {
     try {
         const orders = await OrderInfo.find();
@@ -69,7 +66,6 @@ order.get('/order/admin/all', async (req, res) => {
     }
 });
 
-// Admin updates order status
 order.put('/order/:orderId/status', async (req, res) => {
     const { orderId } = req.params;
     const { status } = req.body;
@@ -80,7 +76,7 @@ order.put('/order/:orderId/status', async (req, res) => {
 
     try {
         const order = await OrderInfo.findOneAndUpdate(
-            { orderId },
+            { _id: orderId },
             { status },
             { new: true }
         );
