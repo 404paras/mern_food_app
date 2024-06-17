@@ -13,7 +13,7 @@ const cartItemsSlice = createSlice({
     addItem: (state, action) => {
       const item = action.payload;
       const existingItem = state.foodItems.itemDetail.find(foodItem => foodItem.id === item.id);
-console.log(state)
+
       if (existingItem) {
         existingItem.count++;
       } else {
@@ -30,9 +30,9 @@ console.log(state)
       sessionStorage.setItem('cartItems', JSON.stringify(state.foodItems));
     },
     removeItem: (state, action) => {
-      const itemId = action.payload;
+      const itemId = action.payload.foodItemId; // Adjust this line
       const existingItem = state.foodItems.itemDetail.find(foodItem => foodItem.id === itemId);
-console.log(action,existingItem,initialState,state)
+
       if (existingItem) {
         if (existingItem.count > 1) {
           existingItem.count--;
@@ -40,7 +40,6 @@ console.log(action,existingItem,initialState,state)
           state.foodItems.itemDetail = state.foodItems.itemDetail.filter(foodItem => foodItem.id !== itemId);
         }
         state.foodItems.itemCount = state.foodItems.itemDetail.reduce((total, foodItem) => total + foodItem.count, 0);
-        console.log(state.foodItems)
         sessionStorage.setItem('cartItems', JSON.stringify(state.foodItems));
       }
     },

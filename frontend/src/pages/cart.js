@@ -5,7 +5,7 @@ import { addItem, removeItem } from "../store/cartItemsSlice.js";
 import SignIn from "../components/SignIn.js";
 import { v4 as uuidv4 } from 'uuid';
 import { getAllOffers } from "../Data/Data.js";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -20,9 +20,6 @@ const Cart = () => {
   const [signIn, setSignIn] = useState(false);
   const [coupons, setCoupons] = useState(null);
   const [showCouponInput, setShowCouponInput] = useState(false);
-
-  
-  
 
   useEffect(() => {
     const fetchOffers = async () => {
@@ -64,7 +61,7 @@ const Cart = () => {
 
   const handleButton = (id, operation) => {
     if (operation === "minus") {
-      dispatch(removeItem({ foodItemId: id }));
+      dispatch(removeItem({ foodItemId: id })); // Adjust this line
     } else if (operation === "plus") {
       const item = foodItems.find((foodItem) => foodItem.id === id);
       dispatch(
@@ -208,8 +205,8 @@ const Cart = () => {
           </button>
         ) : (
           <Link to={`/checkout/${encodeURIComponent(orderId)}/${encodeURIComponent(grandTotal.toFixed(2))}`}>
-  <button className="cart-checkout-btn">CheckOut </button>{" "}
-</Link>
+            <button className="cart-checkout-btn">CheckOut </button>{" "}
+          </Link>
         )}
       </div>
       {signIn && <SignIn onClose={() => setSignIn(false)} />}
