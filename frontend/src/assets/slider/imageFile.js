@@ -4,8 +4,6 @@ import Lassi from './Lassi.png';
 import Paratha from "./Paratha.png";
 import Pastry from "./Pastry.png";
 import Pizza from "./Pizza.png";
-import Rasgulla from "./Rasgulla.png";
-import Rasmalai from "./Rasmalai.png";
 import Rolls from "./Rolls.png";
 import Biryani from "./Biryani.avif";
 
@@ -20,9 +18,7 @@ const file = {
     4:{name:"Paratha",img:Paratha},
     5:{name:"Pastry",img:Pastry},
     6:{name:"Pizza",img:Pizza},
-    7:{name:"Rasgulla",img:Rasgulla},
-    8:{name:"Rasmalai",img:Rasmalai},
-    9:{name:"Rolls",img:Rolls},
+    7:{name:"Rolls",img:Rolls},
 }
 
 export default file;

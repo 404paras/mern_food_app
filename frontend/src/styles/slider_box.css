@@ -77,7 +77,7 @@
 .slider-box- .card .item-name {
     font-size: 1.1rem;
     font-weight: bold;
-    margin: 10px 0 10px 16px;
+    margin: auto
 }
 
 .slider-box- .card:hover {
@@ -87,6 +87,7 @@
 .rating,
 .address {
     font-size: 0.8rem;
+    margin: auto
 }
 
 @media (max-width:480px){

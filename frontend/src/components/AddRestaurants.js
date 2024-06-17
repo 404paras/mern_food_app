@@ -128,7 +128,7 @@ const AddRestaurants = () => {
       console.log(restaurantName.category)
 
       const response = await axios.post(`${server}api/v1/admin/category`,{
-        type: 'Biryani',
+        type: restaurantName.category,
         restaurants: [restaurantId]
       })
 
@@ -148,7 +148,7 @@ const AddRestaurants = () => {
           restId: restaurantId,
           quantity: fooditem.quantity,
         });
-
+//
         foodId.push(foodItemId.toString());
       }
 
