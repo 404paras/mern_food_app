@@ -1,45 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useParams } from "react-router-dom";
-import "../../styles/PaymentSuccess.css"; // Assuming you have a CSS file for styles
-import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
-import { server } from "../../server"; // Ensure this points to your server URL
-import { clearCart } from "../../store/cartItemsSlice";
+import "../../styles/PaymentSuccess.css";
+
 
 const PaymentSuccess = () => {
   const { orderId, paymentId, amount } = useParams();
-  const { foodItems } = useSelector((state) => state.cart);
-  const { id } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-const [count,setCount] = useState(0);
-  useEffect(() => {
-    const createOrder = async () => {
-      if (foodItems && foodItems.itemDetail) {
-        const food = foodItems.itemDetail.map((item) => ({
-          id: item.id,
-          count: item.count,
-        }));
-        try {
-          const response = await axios.post(`${server}api/v1/order`, {
-            orderId,
-            transactionId: paymentId,
-            userId: id,
-            payment: amount / 100, // Ensure payment is in the correct format
-            foodItems: food,
-          });
-          console.log("Order created successfully:", response.data);
-          dispatch(clearCart());
-        } catch (error) {
-          console.error("Failed to create order:", error);
-        }
-      }
-    };
-if(count===0){
-    createOrder(); // Call createOrder inside useEffect
-setCount(1);
-  }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Empty dependency array ensures this effect runs only once
+ 
+
+  
 
   return (
     <div className="payment-success-container">

@@ -1,16 +1,21 @@
-// Payment.js
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { server } from "../../server";
 import "../../styles/Payment.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch  } from "react-redux";
+
+import { clearCart } from "../../store/cartItemsSlice";
 
 const Payment = () => {
+  const token = sessionStorage.getItem("token");
   const userInfo = useSelector((state) => state.auth);
   const { orderId, price } = useParams();
   const navigate = useNavigate();
+  const { foodItems } = useSelector((state) => state.cart);
+  const { id } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
 
   const orderUrl = `${server}create_order`;
   const verifyUrl = `${server}verify_payment`;
@@ -23,15 +28,48 @@ const Payment = () => {
     pincode: "",
   });
 
+  const createOrder = async ({paymentId}) => {
+    if (foodItems && foodItems.itemDetail) {
+      const food = foodItems.itemDetail.map((item) => ({
+        id: item.id,
+        count: item.count,
+      }));
+      console.log("paymentid",paymentId)
+      try {
+        
+        const response = await axios.post(`${server}api/v1/order`, {
+          orderId,
+          transactionId: paymentId,
+          userId: id,
+          payment: price,
+          foodItems: food,
+        },{ headers: {
+          Authorization: `Bearer ${token}`,
+        },});
+        console.log("Order created successfully:", response.data);
+        dispatch(clearCart());
+        
+      } catch (error) {
+        
+        console.error("Failed to create order:", error);
+      }
+    }
+  };
+
   const handlePayment = async () => {
     const orderData = {
-      amount: price * 100, // Amount in paise (Razorpay expects amount in smallest currency unit)
+      amount: price * 100,
       currency: "INR",
       receipt: orderId,
     };
 
     try {
-      const orderResponse = await axios.post(orderUrl, orderData);
+      const orderResponse = await axios.post(orderUrl, orderData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log('order response ',orderResponse);
 
       const { id: order_id, amount, currency } = orderResponse.data;
 
@@ -43,18 +81,27 @@ const Payment = () => {
         description: "Test Transaction",
         order_id,
         handler: async function (response) {
-          console.log("Payment Response:", response);
           const paymentData = {
             order_id,
             payment_id: response.razorpay_payment_id,
             razorpay_signature: response.razorpay_signature,
-            amount: amount,
+            amount,
           };
 
           try {
-            const verifyResponse = await axios.post(verifyUrl, paymentData);
-            console.log("Verify Response:", verifyResponse.data);
+            const verifyResponse = await axios.post(verifyUrl, paymentData, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+
+            console.log('verifyResponse', verifyResponse)
             if (verifyResponse.data.status === "success") {
+              console.log('success', verifyResponse.data)
+
+            
+              createOrder({paymentId:verifyResponse.data.payment_id});
+
               navigate(
                 `/success/${encodeURIComponent(
                   verifyResponse.data.order_id
@@ -63,14 +110,14 @@ const Payment = () => {
                 )}/${encodeURIComponent(verifyResponse.data.amount)}`
               );
             } else {
-              navigate("/payment-failed"); // Navigate to payment failed page
+              navigate("/payment-failed");
             }
           } catch (error) {
             console.error(
               "Verification Error:",
               error.response ? error.response.data : error.message
             );
-            navigate("/payment-failed"); // Navigate to payment failed page on error
+            navigate("/payment-failed");
           }
         },
         prefill: {
@@ -95,7 +142,7 @@ const Payment = () => {
         "Order Error:",
         error.response ? error.response.data : error.message
       );
-      navigate("/payment-failed"); // Navigate to payment failed page on order creation error
+      navigate("/payment-failed");
     }
   };
 

@@ -12,8 +12,12 @@ import search from './controllers/search.js';
 import offerManagement from './controllers/offers.js';
 import crypto from 'crypto';
 import order from './controllers/orderInfo.js';
+import {verifyToken} from './Authenticator.js';
 
 dotenv.config();
+
+
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,7 +38,7 @@ const razorpay = new Razorpay({
   key_secret: secret_key
 });
 
-app.post('/create_order', async (req, res) => {
+app.post('/create_order', verifyToken ,async (req, res) => {
   const { amount, currency, receipt } = req.body;
   const options = {
     amount: amount , 
@@ -43,9 +47,10 @@ app.post('/create_order', async (req, res) => {
     payment_capture: 1,
   };
 
+
   try {
     const response = await razorpay.orders.create(options);
-    
+   
     res.json({
       id: response.id,
       currency: response.currency,
@@ -57,7 +62,7 @@ app.post('/create_order', async (req, res) => {
   }
 });
 
-app.post('/verify_payment', (req, res) => {
+app.post('/verify_payment', verifyToken,(req, res) => {
   const { order_id, payment_id, razorpay_signature,amount } = req.body;
   const key_secret = secret_key;
 
@@ -77,7 +82,7 @@ app.use('/api/v1', foodRestaurantList);
 app.use('/api/v1', categoryRouter);
 app.use('/api/v1', search);
 app.use('/api/v1', offerManagement);
-app.use('/api/v1',order)
+app.use('/api/v1',verifyToken,order)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/frontend/build/index.html'));
 });

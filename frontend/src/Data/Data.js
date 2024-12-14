@@ -4,7 +4,7 @@ import { server } from '../server.js';
 export const allRestaurants = async () => {
   try {
     const { data } = await axios.get(`${server}api/v1/getAllRestaurants`);
-   
+  
     return data;
   } catch (error) {
     console.error('Error fetching all restaurants:', error);
@@ -66,14 +66,23 @@ export const getAllOffers = async () => {
 };
 
 export const getUserOrders = async ({userId})=>{
-  console.log(userId)
+  let t = sessionStorage.getItem('token');
+  
   try {
-    const response = await axios.get(`${server}api/v1/order/user/${userId}`);
+    const response = await axios.get(`${server}api/v1/order/user/${userId}`,{
+      headers: {
+        Authorization: `Bearer ${t}`,
+      },
+    });
+    
     
     return response.data;
     
   } catch (error) {
-    console.error('Error fetching offers:', error);
+    console.log(error)
+    if(error.response.status===401){
+     return '401'
+    }
     return []; 
   }
 }

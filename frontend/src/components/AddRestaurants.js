@@ -117,6 +117,7 @@ const AddRestaurants = () => {
   const submitBtnHandler = async () => {
     try {
       console.log(restaurantName,dishes)
+
       const {
         data: { restaurantId },
       } = await axios.post(`${server}api/v1/admin/addRestaurant`, {

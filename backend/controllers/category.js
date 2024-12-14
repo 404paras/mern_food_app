@@ -16,7 +16,7 @@ categoryRouter.post('/admin/category', async (req, res) => {
         }
 
         if (restaurants && restaurants.length > 0) {
-            // Filter out duplicate restaurant IDs
+           
             const uniqueRestaurants = restaurants.filter(restaurantId => !existingCategory.restaurants.includes(restaurantId));
             existingCategory.restaurants.push(...uniqueRestaurants);
             await existingCategory.save();

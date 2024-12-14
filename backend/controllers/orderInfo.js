@@ -8,6 +8,13 @@ order.post('/order', async (req, res) => {
     const { orderId, transactionId, userId, payment, foodItems } = req.body;
 
     try {
+const existing  = await OrderInfo.findOne({orderId});
+
+if(existing) {
+
+    return ;
+}
+
         const transformedFoodItems = foodItems.map(item => ({
             item: item.id,
             count: item.count
@@ -43,7 +50,9 @@ order.post('/order', async (req, res) => {
 
 order.get('/order/user/:userId', async (req, res) => {
     const { userId } = req.params;
+    
     try {
+
         const orders = await OrderInfo.find({ userId });
 
         if (!orders) {
@@ -70,7 +79,7 @@ order.put('/order/:orderId/status', async (req, res) => {
     const { orderId } = req.params;
     const { status } = req.body;
 
-    if (!['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'].includes(status)) {
+    if (!['Pending',  'Delivered', 'pending', 'delivered'].includes(status)) {
         return res.status(400).json({ error: 'Invalid status value' });
     }
 

@@ -42,25 +42,34 @@ const SignIn = ({ onClose }) => {
     setIsLoading(true);
     try {
       const response = await axios.post(`${server}api/v1/login`, loginInputs);
+      
+      const { existingUser, token } = response.data;
       setErrorMessage("Login Successful!!");
-      const role = response?.data?.role;
-      sessionStorage.setItem("id", response.data._id);
-      sessionStorage.setItem("role", role);
-      sessionStorage.setItem("name", response.data?.name);
-      sessionStorage.setItem("email", response.data?.email);
-      sessionStorage.setItem("phone", response.data?.mobile);
-      sessionStorage.setItem("address", response.data?.address);
+
+      sessionStorage.setItem("token", token);
+      sessionStorage.setItem("id", existingUser._id);
+      sessionStorage.setItem("role", existingUser.role);
+      sessionStorage.setItem("name", existingUser.name);
+      sessionStorage.setItem("email", existingUser.email);
+      sessionStorage.setItem("phone", existingUser.mobile);
+      sessionStorage.setItem("address", existingUser.address);
+      sessionStorage.setItem("token",token);
+
       navigate("/");
-      dispatch(login({
-        role: role || "user",
-        id: response.data._id || "",
-        name: response?.data?.name || "",
-        email: response?.data?.email || "",
-        phone: response?.data?.mobile || "",
-        address: response?.data?.address || "",
-      }));
+      dispatch(
+        login({
+          role: existingUser.role || "user",
+          id: existingUser._id || "",
+          name: existingUser.name || "",
+          email: existingUser.email || "",
+          phone: existingUser.mobile || "",
+          address: existingUser.address || "",
+        })
+      );
     } catch (error) {
-      setErrorMessage(error.response?.data?.error || "Login failed. Please try again.");
+      setErrorMessage(
+        error.response?.data?.error || "Login failed. Please try again."
+      );
     } finally {
       setIsLoading(false);
       setLoginInputs({ ...loginInputs, email: "", password: "", mobile: "" });
@@ -71,12 +80,14 @@ const SignIn = ({ onClose }) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.post(`${server}api/v1/register`, loginInputs);
+      await axios.post(`${server}api/v1/register`, loginInputs);
       setErrorMessage("Registration Successful!!");
       setRegisterPage(false);
       setLoginInputs({ name: "", email: "", password: "", mobile: "" });
     } catch (error) {
-      setErrorMessage(error.response?.data?.error || "Registration failed. Please try again.");
+      setErrorMessage(
+        error.response?.data?.error || "Registration failed. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -113,22 +124,24 @@ const SignIn = ({ onClose }) => {
             isLoading={isLoading}
           />
         )}
-        {errorMessage && (
-          <p className="error-message">{errorMessage}</p>
-        )}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </div>
     </div>
   );
 };
 
-const RegisterForm = ({ inputs, onInputChange, onSubmit, isLoading, setRegisterPage }) => (
+const RegisterForm = ({
+  inputs,
+  onInputChange,
+  onSubmit,
+  isLoading,
+  setRegisterPage,
+}) => (
   <div className="register">
     <h1>Register</h1>
     <span>
       or{" "}
-      <span onClick={() => setRegisterPage(false)}>
-        login to your account
-      </span>
+      <span onClick={() => setRegisterPage(false)}>login to your account</span>
     </span>
     <form onSubmit={onSubmit}>
       <input
@@ -173,7 +186,13 @@ const RegisterForm = ({ inputs, onInputChange, onSubmit, isLoading, setRegisterP
   </div>
 );
 
-const LoginForm = ({ inputs, onInputChange, onSubmit, onCreateAccount, isLoading }) => (
+const LoginForm = ({
+  inputs,
+  onInputChange,
+  onSubmit,
+  onCreateAccount,
+  isLoading,
+}) => (
   <div className="login">
     <h1>Login</h1>
     <span>

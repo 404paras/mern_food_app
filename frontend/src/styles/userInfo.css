@@ -105,20 +105,42 @@
     border-bottom: 1px solid #ddd;
   }
   
-  .status {
+  
+  
+  .Pending {
+    color:rgb(228, 56, 56);
     font-weight: bold;
   }
   
-  .status-pending {
-    color: fc8019;
-  }
-  
-  .status-completed {
+  .Delivered {
     color: green;
+    font-weight: bold;
   }
   
-  .status-cancelled {
-    color: red;
+  .order-filters{
+    display: flex;
+    justify-content: space-between;
+   
+    align-items: center;
+  }
+  .filter-btns{
+    display: flex;
+    
+  }
+  .filter-btns>button{
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background: #ddd;
+    cursor: pointer;
+  }
+
+  .filter-btns>button.active{
+    background: #f68e39;
+    color: white;
+    outline: none;
+    font-weight: 500;
   }
   
   @media (max-width:480px){
@@ -128,5 +150,10 @@
     }
     .user-info-header h1{
         font-size: 1.5rem;
+    }
+    .filter-btns>button{
+      margin: 0 0.5rem;
+      padding: 0.2rem 0.5rem;
+     font-size: 0.5rem;
     }
   }
