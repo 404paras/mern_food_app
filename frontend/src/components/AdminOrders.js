@@ -82,7 +82,7 @@ const AdminOrders = () => {
               <div className="order-details">
                 <p><strong>Order ID:</strong> {order.orderId}</p>
                 <p>
-                  <strong>Status:</strong> <span  className={order.status}>{order.status}</span>
+                  <strong>Status:</strong> <span  className={`${order.status==="pending"?"Pending":order.status}`}>{`${order.status==="pending"?"Pending":order.status}`}</span>
                 </p>
                 <p><strong>User ID:</strong> {order.userId}</p>
                 <p><strong>Payment:</strong> Rs {order.payment}</p>
