@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { server } from "../server";
@@ -23,36 +23,33 @@ const User = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const logOutHandler = () => {
+  const logOutHandler = useCallback(() => {
     sessionStorage.clear();
     navigate("/");
     dispatch(logout());
-  };
+  }, [navigate, dispatch]);
 
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       const data = await getUserOrders({ userId: userData.id }, {});
       if (data === "401") {
         logOutHandler();
-        navigate("/");
       } else {
         setOrders(data);
         setAllOrders(data);
-        
       }
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
-  };
+  }, [userData.id, logOutHandler]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (option === "orders" && allOrders.length === 0) {
       fetchOrders();
     }
     setProfileData(userData);
     setOriginalProfileData(userData);
-  }, [userData, allOrders.length, option]);
+  }, [userData, allOrders.length, option, fetchOrders]);
 
   const filterOrders = (filter) => {
     if (filter === "pending") {
