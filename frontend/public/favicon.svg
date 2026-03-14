@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Orange circle background -->
+  <circle cx="16" cy="16" r="15.5" fill="#fc8019"/>
+
+  <!-- Steam lines -->
+  <path d="M10 10 Q12 7 10 4"  stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <path d="M16 9  Q18 6 16 3"  stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <path d="M22 10 Q24 7 22 4"  stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+
+  <!-- Bowl dome -->
+  <path d="M5 19 Q5 12 16 12 Q27 12 27 19Z" fill="white"/>
+  <!-- Bowl rim -->
+  <rect x="4" y="18" width="24" height="4" rx="2" fill="white"/>
+  <!-- Bowl base -->
+  <rect x="9" y="22" width="14" height="3" rx="1.5" fill="rgba(255,255,255,0.7)"/>
+</svg>

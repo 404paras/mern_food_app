@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 68">
+  <!-- Icon: orange circle with bowl + steam -->
+  <circle cx="34" cy="34" r="32" fill="#fc8019"/>
+
+  <!-- Steam lines -->
+  <path d="M22 20 Q25 15 22 10" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M34 17 Q37 12 34 7"  stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M46 20 Q49 15 46 10" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+  <!-- Bowl dome -->
+  <path d="M12 38 Q12 23 34 23 Q56 23 56 38Z" fill="white"/>
+  <!-- Bowl rim -->
+  <rect x="11" y="37" width="46" height="6" rx="3" fill="white"/>
+  <!-- Bowl base -->
+  <rect x="20" y="43" width="28" height="4" rx="2" fill="rgba(255,255,255,0.7)"/>
+
+  <!-- Brand text -->
+  <text x="82" y="46"
+        font-family="'Arial Black', Arial, sans-serif"
+        font-size="30"
+        font-weight="900"
+        fill="#fc8019"
+        letter-spacing="-0.5">Khana</text>
+  <text x="180" y="46"
+        font-family="'Arial Black', Arial, sans-serif"
+        font-size="30"
+        font-weight="900"
+        fill="#3ea83e"
+        letter-spacing="-0.5">Kart</text>
+</svg>

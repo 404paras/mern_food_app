@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "../assets/logo.svg";
 import { FaRegUser } from "react-icons/fa6";
 import { BiSolidOffer } from "react-icons/bi";
 import { CiSearch } from "react-icons/ci";
@@ -39,7 +40,9 @@ const Navbar = ({ onSignIn }) => {
       <div className="back-button" onClick={() => navigate(-1)}>
         {showBackButton && <IoMdArrowRoundBack />}
       </div>
-      <div className="logo">KhanaKart</div>
+      <div className="logo">
+        <img src={logo} alt="KhanaKart" className="logo-img" />
+      </div>
       <div className="navbar-resize-gap"></div>
       <div className="nav-items">
         <ul>
