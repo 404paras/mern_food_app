@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import "../styles/AdminOrders.css";
 import { server } from "../server";
@@ -11,7 +11,7 @@ const AdminOrders = () => {
 
 
 
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       const response = await axios.get(`${server}api/v1/order/admin/all`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -21,10 +21,10 @@ const AdminOrders = () => {
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
-  };
+  }, [token]);
   useEffect(() => {
     fetchOrders();
-  }, []);
+  }, [fetchOrders]);
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {

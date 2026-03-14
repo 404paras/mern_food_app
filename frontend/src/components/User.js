@@ -45,6 +45,7 @@ const User = () => {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (option === "orders" && allOrders.length === 0) {
       fetchOrders();
