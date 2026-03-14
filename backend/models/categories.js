@@ -4,7 +4,7 @@ const categorySchema = new mongoose.Schema({
     type: { type: String, required: true, unique: true },
     restaurants: [{
         type: mongoose.Types.ObjectId,
-        ref: 'RestaurantList'
+        ref: 'RestaurantsList'
     }]
 }, { timestamps: true });
 

@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 import "../styles/allCards.css";
 import Shimmer from "./Shimmer";
 
-const AllCards = ({ heading, data , categoryName,fontSize}) => {
+const AllCards = ({ heading, data, categoryName, fontSize }) => {
   const [restaurant, setRestaurant] = useState([]);
-const [isLoading,setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    if (data) {
+    // Only update if data exists and is different from current restaurant state
+    if (data && data.length > 0) {
       setRestaurant(data);
-      setIsLoading(true);
+      setIsLoading(false);
     }
-  }, [data,restaurant]);
-if(!isLoading){
-  return (
-    <Shimmer/>
-  )
-}
+  }, [data]); // Removed 'restaurant' from dependency array to prevent infinite loop
+
+  if (isLoading) {
+    return <Shimmer />;
+  }
+
   return (
     <div className="box" style={{
       position: "relative",

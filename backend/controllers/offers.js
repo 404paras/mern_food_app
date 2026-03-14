@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import { Offer } from '../models/offers.js';
+import { verifyAdmin } from '../Authenticator.js';
+import { validateOffer } from '../middleware/validation.js';
 
 const offerManagement = new Router();
 
-// Add or update an offer
-offerManagement.post('/addOrUpdateOffer', async (req, res) => {
+// Add or update an offer (Admin only)
+offerManagement.post('/addOrUpdateOffer', verifyAdmin, validateOffer, async (req, res) => {
     const { couponcode, discount, description } = req.body;
     try {
         // Check if the same coupon code exists
@@ -39,8 +41,8 @@ offerManagement.get('/getAllOffers', async (req, res) => {
     }
 });
 
-// Remove an offer
-offerManagement.delete('/deleteOffer/:couponcode', async (req, res) => {
+// Remove an offer (Admin only)
+offerManagement.delete('/deleteOffer/:couponcode', verifyAdmin, async (req, res) => {
     const { couponcode } = req.params;
     try {
         // Find and delete the offer by coupon code
@@ -52,8 +54,8 @@ offerManagement.delete('/deleteOffer/:couponcode', async (req, res) => {
     }
 });
 
-// Edit an offer
-offerManagement.put('/editOffer/:couponcode', async (req, res) => {
+// Edit an offer (Admin only)
+offerManagement.put('/editOffer/:couponcode', verifyAdmin, validateOffer, async (req, res) => {
     const { couponcode } = req.params;
     const { discount, description } = req.body;
     try {

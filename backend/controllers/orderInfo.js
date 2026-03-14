@@ -8,12 +8,11 @@ order.post('/order', async (req, res) => {
     const { orderId, transactionId, userId, payment, foodItems } = req.body;
 
     try {
-const existing  = await OrderInfo.findOne({orderId});
+        const existing = await OrderInfo.findOne({ orderId });
 
-if(existing) {
-
-    return ;
-}
+        if (existing) {
+            return res.status(200).json({ message: 'Order already exists', order: existing });
+        }
 
         const transformedFoodItems = foodItems.map(item => ({
             item: item.id,
@@ -79,14 +78,21 @@ order.put('/order/:orderId/status', async (req, res) => {
     const { orderId } = req.params;
     const { status } = req.body;
 
-    if (!['Pending',  'Delivered', 'pending', 'delivered'].includes(status)) {
-        return res.status(400).json({ error: 'Invalid status value' });
+    // Normalize status to lowercase and validate against schema enum
+    const normalizedStatus = status?.toLowerCase();
+    const validStatuses = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'];
+    
+    if (!normalizedStatus || !validStatuses.includes(normalizedStatus)) {
+        return res.status(400).json({ 
+            error: 'Invalid status value',
+            validStatuses: validStatuses
+        });
     }
 
     try {
         const order = await OrderInfo.findOneAndUpdate(
             { _id: orderId },
-            { status },
+            { status: normalizedStatus },
             { new: true }
         );
 

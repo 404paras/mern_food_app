@@ -1,10 +1,11 @@
 import Router from 'express';
 import { Category } from '../models/categories.js';
 import { RestaurantsList } from '../models/restaurant.js';
+import { verifyAdmin } from '../Authenticator.js';
 
 const categoryRouter = new Router();
 
-categoryRouter.post('/admin/category', async (req, res) => {
+categoryRouter.post('/admin/category', verifyAdmin, async (req, res) => {
     const { type, restaurants } = req.body;
 
 

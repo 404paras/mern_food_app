@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import { RestaurantsList } from '../models/restaurant.js';
 import { FoodList } from '../models/foodItems.js';
+import { verifyAdmin } from '../Authenticator.js';
+import { validateRestaurant, validateFoodItem, validateObjectId } from '../middleware/validation.js';
 
 const foodRestaurantList = new Router();
 
-foodRestaurantList.post('/admin/addRestaurant', async (req, res) => {
+foodRestaurantList.post('/admin/addRestaurant', verifyAdmin, validateRestaurant, async (req, res) => {
     const { name, address, imgUrl } = req.body;
 
     try {
@@ -21,7 +23,7 @@ foodRestaurantList.post('/admin/addRestaurant', async (req, res) => {
     }
 });
 
-foodRestaurantList.post('/admin/addFoodItems', async (req, res) => {
+foodRestaurantList.post('/admin/addFoodItems', verifyAdmin, validateFoodItem, async (req, res) => {
     const { name, description, outlet, category, price, image, restId, quantity } = req.body;
 
     try {
@@ -34,7 +36,7 @@ foodRestaurantList.post('/admin/addFoodItems', async (req, res) => {
     }
 });
 
-foodRestaurantList.post('/admin/addFood', async (req, res) => {
+foodRestaurantList.post('/admin/addFood', verifyAdmin, async (req, res) => {
     
     const data = req.body;
     
@@ -63,7 +65,7 @@ foodRestaurantList.post('/admin/addFood', async (req, res) => {
 
 
 
-foodRestaurantList.post('/admin/restaurant', async (req, res) => {
+foodRestaurantList.post('/admin/restaurant', verifyAdmin, async (req, res) => {
     const { restId, foodItems } = req.body;
 
     try {
@@ -99,7 +101,7 @@ foodRestaurantList.get('/getAllRestaurants', async (req, res) => {
     }
 });
 
-foodRestaurantList.get('/getRestaurantInfo/:id',async (req,res)=>{
+foodRestaurantList.get('/getRestaurantInfo/:id', validateObjectId('id'), async (req,res)=>{
     const {id} = req.params;
     try {
         const restaurant = await RestaurantsList.findById(id);
@@ -113,7 +115,7 @@ foodRestaurantList.get('/getRestaurantInfo/:id',async (req,res)=>{
         }
 })
 
-foodRestaurantList.get('/getAllDishOfRestaurant/:id', async (req, res) => {
+foodRestaurantList.get('/getAllDishOfRestaurant/:id', validateObjectId('id'), async (req, res) => {
     const { id } = req.params;
     try {
         const restaurant = await RestaurantsList.findById(id);
@@ -139,7 +141,7 @@ foodRestaurantList.get('/getAllDishOfRestaurant/:id', async (req, res) => {
     }
 });
 
-foodRestaurantList.delete('/admin/deleteDish/:id', async (req, res) => {
+foodRestaurantList.delete('/admin/deleteDish/:id', verifyAdmin, validateObjectId('id'), async (req, res) => {
     const { id } = req.params;
     try {
         const foodItem = await FoodList.findByIdAndDelete(id);
@@ -157,7 +159,7 @@ foodRestaurantList.delete('/admin/deleteDish/:id', async (req, res) => {
     }
 });
 
-foodRestaurantList.delete('/admin/deleteRestaurant/:id', async (req, res) => {
+foodRestaurantList.delete('/admin/deleteRestaurant/:id', verifyAdmin, validateObjectId('id'), async (req, res) => {
     const { id } = req.params;
     try {
         const restaurant = await RestaurantsList.findByIdAndDelete(id);

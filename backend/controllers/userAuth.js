@@ -2,11 +2,12 @@ import { User } from '../models/user.js';
 import { OrderInfo } from '../models/order-info.js';
 import bcrypt from 'bcrypt';
 import { Router } from 'express';
-import {Authenticator} from '../Authenticator.js';
+import { Authenticator, verifyAdmin, verifyToken } from '../Authenticator.js';
+import { validateRegistration, validateLogin, validateObjectId } from '../middleware/validation.js';
 
 const router = Router();
 
-router.post('/register', async (req, res) => {
+router.post('/register', validateRegistration, async (req, res) => {
     const { name, email, password, mobile } = req.body;
 
     try {
@@ -20,7 +21,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', validateLogin, async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -45,7 +46,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.get('/getAllUsers', async (req, res) => {
+router.get('/getAllUsers', verifyAdmin, async (req, res) => {
     try {
         const users = await User.find({ role: 'user' });
         res.status(200).json({ users });
@@ -55,7 +56,7 @@ router.get('/getAllUsers', async (req, res) => {
     }
 });
 
-router.delete('/deleteUser/:id', async (req, res) => {
+router.delete('/deleteUser/:id', verifyAdmin, validateObjectId('id'), async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -77,7 +78,7 @@ router.delete('/deleteUser/:id', async (req, res) => {
     }
 });
 
-router.put('/user/update/:id', async (req, res) => {
+router.put('/user/update/:id', verifyToken, validateObjectId('id'), async (req, res) => {
     const { id } = req.params;
     const { name, email, phone } = req.body;
 
