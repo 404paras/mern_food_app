@@ -1,7 +1,7 @@
 {
-    "name": "backend",
+    "name": "khanakart-backend",
     "version": "1.0.0",
-    "description": "",
+    "description": "KhanaKart - Food Delivery App Backend API",
     "main": "app.js",
     "type": "module",
     "scripts": {

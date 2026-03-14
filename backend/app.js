@@ -12,7 +12,8 @@ import search from './controllers/search.js';
 import offerManagement from './controllers/offers.js';
 import crypto from 'crypto';
 import order from './controllers/orderInfo.js';
-import {verifyToken} from './Authenticator.js';
+import { verifyToken } from './Authenticator.js';
+import { errorHandler, notFound } from './middleware/errorHandler.js';
 
 dotenv.config();
 
@@ -82,11 +83,28 @@ app.use('/api/v1', foodRestaurantList);
 app.use('/api/v1', categoryRouter);
 app.use('/api/v1', search);
 app.use('/api/v1', offerManagement);
-app.use('/api/v1',verifyToken,order)
+app.use('/api/v1', verifyToken, order);
+
+// Serve frontend in production
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/frontend/build/index.html'));
 });
 
+// Error handling middleware (must be after all routes)
+app.use(notFound);
+app.use(errorHandler);
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Promise Rejection:', err);
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  process.exit(1);
+});
+
 app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+  console.log(`KhanaKart server listening on port ${port}`);
 });

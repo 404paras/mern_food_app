@@ -39,7 +39,7 @@ const Navbar = ({ onSignIn }) => {
       <div className="back-button" onClick={() => navigate(-1)}>
         {showBackButton && <IoMdArrowRoundBack />}
       </div>
-      <div className="logo">Food App</div>
+      <div className="logo">KhanaKart</div>
       <div className="navbar-resize-gap"></div>
       <div className="nav-items">
         <ul>

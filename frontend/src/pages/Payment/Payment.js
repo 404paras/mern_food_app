@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { server } from "../../server";
+import { server, RAZORPAY_KEY_ID } from "../../server";
 import "../../styles/Payment.css";
 import { useSelector, useDispatch  } from "react-redux";
 
@@ -19,7 +19,6 @@ const Payment = () => {
 
   const orderUrl = `${server}create_order`;
   const verifyUrl = `${server}verify_payment`;
-  const key_id = "rzp_test_RacGQw3EN9fQH1";
 
   const [address, setAddress] = useState({
     street: "",
@@ -74,10 +73,10 @@ const Payment = () => {
       const { id: order_id, amount, currency } = orderResponse.data;
 
       const options = {
-        key: key_id,
+        key: RAZORPAY_KEY_ID,
         amount,
         currency,
-        name: "Food Mern",
+        name: "KhanaKart",
         description: "Test Transaction",
         order_id,
         handler: async function (response) {

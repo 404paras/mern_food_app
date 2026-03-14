@@ -1,6 +1,7 @@
 {
-    "name": "frontend",
-    "version": "0.1.0",
+    "name": "khanakart-frontend",
+    "version": "1.0.0",
+    "description": "KhanaKart - Food Delivery App Frontend",
     "private": true,
     "dependencies": {
         "@reduxjs/toolkit": "^2.2.3",

@@ -27,12 +27,12 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.isAuthenticated = false;
-      state.id=""
+      state.id = "";
       state.role = "";
       state.email = "";
       state.name = "";
       state.address = "";
-      state.mobile = "";
+      state.phone = "";
     },
   },
 });
