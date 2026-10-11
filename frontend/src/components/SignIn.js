@@ -124,7 +124,11 @@ const SignIn = ({ onClose }) => {
             isLoading={isLoading}
           />
         )}
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {errorMessage && (
+          <p className={errorMessage.toLowerCase().includes("successful") ? "success-message" : "error-message"}>
+            {errorMessage}
+          </p>
+        )}
       </div>
     </div>
   );

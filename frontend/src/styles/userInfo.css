@@ -111,11 +111,26 @@
     color:rgb(228, 56, 56);
     font-weight: bold;
   }
-  
+
   .Delivered {
     color: green;
     font-weight: bold;
   }
+
+  .status-badge {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .status-pending    { background: #fff3cd; color: #856404; }
+  .status-confirmed  { background: #cce5ff; color: #004085; }
+  .status-shipped    { background: #d4edda; color: #155724; }
+  .status-delivered  { background: #d4edda; color: #155724; }
+  .status-cancelled  { background: #f8d7da; color: #721c24; }
   
   .order-filters{
     display: flex;

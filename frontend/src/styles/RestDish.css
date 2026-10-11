@@ -116,3 +116,32 @@
     
     
 }
+.qty-control {
+  position: absolute;
+  bottom: 0;
+  right: 1.5vw;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #60b246;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-weight: 600;
+}
+
+.qty-control button {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #e53e3e;
+  padding: 0 4px;
+}
+
+.qty-control span {
+  min-width: 16px;
+  text-align: center;
+}

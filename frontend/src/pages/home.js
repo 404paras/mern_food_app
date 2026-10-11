@@ -27,21 +27,17 @@ const Home = () => {
 
   return (
     <>
-      {restData.length === 0 ? (<div className='shimmer'>
-      
-        <Shimmer /></div>
-      ) : (
-        <div className="home">
-          <div className="slider"><Slider /></div>
-          <div className="bottom-line"></div>
-          <div className="slider-box"><SliderBox /></div>
-          <div className="bottom-line"></div>
-          {restData.length > 0 && (
-            <div><AllCards heading={"Restaurants with online food delivery"} data={restData} /></div>
-          )}
-          
-        </div>
-      )}
+      <div className="home">
+        <div className="slider"><Slider /></div>
+        <div className="bottom-line"></div>
+        <div className="slider-box"><SliderBox /></div>
+        <div className="bottom-line"></div>
+        {restData.length === 0 ? (
+          <Shimmer />
+        ) : (
+          <AllCards heading={"Restaurants with online food delivery"} data={restData} />
+        )}
+      </div>
       <Footer />
     </>
   );

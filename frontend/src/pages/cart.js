@@ -11,12 +11,13 @@ const Cart = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const foodItems = useSelector((state) => state.cart.foodItems.itemDetail);
   const dispatch = useDispatch();
-  const [orderId, setOrderId] = useState("");
+  const [orderId] = useState(() => uuidv4());
   const [couponCode, setCouponCode] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
   const [appliedCouponName, setAppliedCouponName] = useState("");
   const [invalidCoupon, setInvalidCoupon] = useState(false);
   const [billDetail, setBillDetail] = useState(0);
+  const [originalBill, setOriginalBill] = useState(0);
   const [signIn, setSignIn] = useState(false);
   const [coupons, setCoupons] = useState(null);
   const [showCouponInput, setShowCouponInput] = useState(false);
@@ -39,9 +40,9 @@ const Cart = () => {
         0
       );
       setBillDetail(totalBill);
+      setOriginalBill(totalBill);
     };
     calculateBillDetail();
-    setOrderId(uuidv4());
   }, [foodItems, coupons]);
 
   const handleCouponCodeSubmit = () => {
@@ -93,6 +94,9 @@ const Cart = () => {
           />
           <p className="empty-cart-msg">Your cart is empty</p>
           <p>You can go to the home page to view more restaurants</p>
+          <Link to="/" className="cart-checkout-btn" style={{ display: "inline-block", marginTop: "1rem", textAlign: "center" }}>
+            Browse Restaurants
+          </Link>
         </div>
       </div>
     );
@@ -104,6 +108,7 @@ const Cart = () => {
   const grandTotal = billDetail + deliveryFee + platformFee + gst;
 
   return (
+    <>
     <div className="cart-contain">
       <div className="cart-container">
         <ul className="cart-items">
@@ -191,6 +196,7 @@ const Cart = () => {
           {couponApplied && (
             <div className="bill-row coupon-applied">
               <span>Coupon Applied: {appliedCouponName}</span>
+              <span className="discount-savings">- ₹{(originalBill - billDetail).toFixed(2)}</span>
             </div>
           )}
           <div className="bill-row total">
@@ -209,8 +215,10 @@ const Cart = () => {
           </Link>
         )}
       </div>
-      {signIn && <SignIn onClose={() => setSignIn(false)} />}
     </div>
+    {signIn && <SignIn onClose={() => setSignIn(false)} />}
+  </>
+
   );
 };
 

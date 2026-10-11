@@ -48,21 +48,21 @@ const Navbar = ({ onSignIn }) => {
         <ul>
           <Link to="/">
             {" "}
-            <li>
+            <li className={location.pathname === "/" ? "nav-active" : ""}>
               {" "}
               <IoHomeOutline /> &nbsp; <span className="navbar-span-remove">Home</span>
             </li>
           </Link>
           <Link to="/search">
             {" "}
-            <li>
+            <li className={location.pathname === "/search" ? "nav-active" : ""}>
               <CiSearch /> &nbsp; <span className="navbar-span-remove">Search</span>
             </li>
           </Link>
           {!isAdmin && (
             <Link to="/offers">
               {" "}
-              <li>
+              <li className={location.pathname === "/offers" ? "nav-active" : ""}>
                 {" "}
                 <BiSolidOffer /> &nbsp; <span className="navbar-span-remove">Offers</span>
               </li>
@@ -70,7 +70,7 @@ const Navbar = ({ onSignIn }) => {
           )}
           <Link to="/cart">
             {" "}
-            <li className="cart">
+            <li className={`cart${location.pathname === "/cart" ? " nav-active" : ""}`}>
               <svg
                 class="_1GTCc _173fq"
                 viewBox="-1 0 37 32"
@@ -85,14 +85,14 @@ const Navbar = ({ onSignIn }) => {
           </Link>
           {isAuthenticated && (
             <Link to="/user">
-              <li>
+              <li className={location.pathname === "/user" ? "nav-active" : ""}>
                 <FaRegUser /> &nbsp; <span className="navbar-span-remove"> User</span>
               </li>
             </Link>
           )}
           {isAdmin && (
             <Link to="/admin">
-              <li>
+              <li className={location.pathname.startsWith("/admin") ? "nav-active" : ""}>
                 {" "}
                 <MdAdminPanelSettings /> &nbsp;<span className="navbar-span-remove">Admin</span>
               </li>{" "}

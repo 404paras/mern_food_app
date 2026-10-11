@@ -1,13 +1,19 @@
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
 .signIn {
     width: 35%;
     right: 0;
-    height: 180vh;
+    height: 100vh;
     position: fixed;
-    overflow: none;
+    overflow-y: auto;
     background-color: white;
     top: 0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    z-index: 1001;
+    animation: slideIn 0.25s ease forwards;
 }
 
 .signIn-details {
@@ -109,4 +115,17 @@ form>button:hover {
         width: 90%;
     }
     
+}
+.error-message {
+  color: #e53e3e;
+  font-size: 0.85rem;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.success-message {
+  color: #38a169;
+  font-size: 0.85rem;
+  margin-top: 8px;
+  text-align: center;
 }

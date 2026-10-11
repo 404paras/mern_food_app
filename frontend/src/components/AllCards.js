@@ -52,7 +52,7 @@ const AllCards = ({ heading, data, categoryName, fontSize }) => {
           ))}
         </div>
       ) : (
-        <div>Loading...</div>
+        <Shimmer />
       )}
     </div>
   );

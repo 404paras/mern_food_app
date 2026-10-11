@@ -1,59 +1,14 @@
 import React from 'react';
-import '../styles/shimmer.css'; // Assuming you have a CSS file for styling
-
+import '../styles/shimmer.css';
 
 const Shimmer = () => {
   return (
-
     <div className="shimmer">
-    <div className="shimmer-container">
-     
-      <div className="shimmer-animation"></div>
-    </div>
-    <div className="shimmer-container">
-     
-      <div className="shimmer-animation"></div>
-    </div>
-    <div className="shimmer-container">
-     
-      <div className="shimmer-animation"></div>
-    </div>
-    <div className="shimmer-container">
-     
-      <div className="shimmer-animation"></div>
-    </div>
-    <div className="shimmer-container">
-     
-      <div className="shimmer-animation"></div>
-    </div>
-    <div className="shimmer-container">
-     
-      <div className="shimmer-animation"></div>
-    </div>
-    <div className="shimmer-container">
-     
-      <div className="shimmer-animation"></div>
-    </div>
-    <div className="shimmer-container">
-     
-      <div className="shimmer-animation"></div>
-    </div>
-    <div className="shimmer-container">
-     
-      <div className="shimmer-animation"></div>
-    </div>
-    <div className="shimmer-container">
-     
-      <div className="shimmer-animation"></div>
-    </div>
-    <div className="shimmer-container">
-     
-      <div className="shimmer-animation"></div>
-    </div>
-    <div className="shimmer-container">
-     
-      <div className="shimmer-animation"></div>
-    </div>
+      {Array.from({ length: 12 }, (_, i) => (
+        <div key={i} className="shimmer-container">
+          <div className="shimmer-animation"></div>
+        </div>
+      ))}
     </div>
   );
 };

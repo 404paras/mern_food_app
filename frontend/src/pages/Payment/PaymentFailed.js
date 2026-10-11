@@ -1,21 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/PaymentFailed.css";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { logout } from "../../store/authSlice.js"
 
 const PaymentFailed = () => {
-
-const navigate = useNavigate();
-
-const dispatch = useDispatch();
-  
-const logOutHandler = () => {
-  sessionStorage.clear();
-  navigate('/')
-  dispatch(logout());
-};
   return (
     <div className="payment-failed-container">
       <h2>Payment Failed</h2>
@@ -35,8 +22,8 @@ const logOutHandler = () => {
         <Link to="/" className="btn">
           Back to Home
         </Link>
-        <Link to="/" className="btn" onClick={logOutHandler}>
-          Try to Login Again
+        <Link to="/cart" className="btn">
+          Back to Cart
         </Link>
       </div>
     </div>

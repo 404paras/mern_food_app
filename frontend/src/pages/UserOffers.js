@@ -13,7 +13,6 @@ const UserOffers = () => {
       try {
         const offersData = await getAllOffers();
         setOffers(offersData);
-        console.log(offersData, offers);
       } catch (error) {
         console.error("Error fetching offers:", error);
       }
@@ -29,6 +28,17 @@ const UserOffers = () => {
     return <Shimmer />;
   }
 
+  if (offers.length === 0) {
+    return (
+      <div className="user-offers-container">
+        <h2>Available Offers</h2>
+        <p style={{ marginTop: "2rem", color: "#718096", textAlign: "center" }}>
+          No offers available right now. Check back soon!
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="user-offers-container">
       <h2>Available Offers</h2>
@@ -37,10 +47,11 @@ const UserOffers = () => {
           <li key={index} className="offer-item">
             <div className="offer-details">
               <span className="coupon-code">Coupon Code:</span>{" "}
-              {offer.couponcode}
+              <span className="coupon-pill">{offer.couponcode}</span>
             </div>
             <div className="offer-details">
-              <span className="discount">Discount:</span> {offer.discount}%
+              <span className="discount">Discount:</span>{" "}
+              <span className="discount-badge">{offer.discount}% OFF</span>
             </div>
             <div className="offer-details">
               <span className="description">Description: </span>{offer.description}

@@ -42,11 +42,7 @@ categoryRouter.get('/category/:name', async (req, res) => {
         if (restaurantIds.length < 1) {
             return res.status(404).json({ message: 'No restaurants available for this category' });
         }
-        const restData = [];
-        for (const restId of restaurantIds) {
-            const data = await RestaurantsList.findById(restId);
-            restData.push(data);
-        }
+        const restData = await RestaurantsList.find({ _id: { $in: restaurantIds } });
         res.status(200).json(restData);
     } catch (error) {
         console.error(error);

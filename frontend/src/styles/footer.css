@@ -1,8 +1,8 @@
 .footer {
-    height: 35vh;
+    min-height: 35vh;
+    height: auto;
     background-color: rgb(43, 42, 42);
     color: wheat;
-    overflow: hidden;
     margin-top: 3rem;
 }
 

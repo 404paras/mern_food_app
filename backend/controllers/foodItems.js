@@ -74,14 +74,8 @@ foodRestaurantList.post('/admin/restaurant', verifyAdmin, async (req, res) => {
             return res.status(404).json({ message: 'Restaurant not found' });
         }
 
-        for (const foodItemId of foodItems) {
-            const foodItem = await FoodList.findById(foodItemId);
-            if (!foodItem) {
-                console.error(`Food item with ID ${foodItemId} not found`);
-                continue;
-            }
-            restaurant.foodItems.push(foodItem._id);
-        }
+        const foundItems = await FoodList.find({ _id: { $in: foodItems } }, '_id');
+        restaurant.foodItems.push(...foundItems.map(f => f._id));
 
         await restaurant.save();
         res.status(200).json({ message: 'Food items added to restaurant successfully' });
@@ -118,23 +112,13 @@ foodRestaurantList.get('/getRestaurantInfo/:id', validateObjectId('id'), async (
 foodRestaurantList.get('/getAllDishOfRestaurant/:id', validateObjectId('id'), async (req, res) => {
     const { id } = req.params;
     try {
-        const restaurant = await RestaurantsList.findById(id);
-        
+        const restaurant = await RestaurantsList.findById(id).populate('foodItems');
+
         if (!restaurant) {
             return res.status(404).json({ message: 'Restaurant not found' });
         }
 
-        const foodItem = []
-        for(const id of restaurant.foodItems)
-        {
-            const item = id.toString()
-            const data = await FoodList.findById(item)
-           
-            foodItem.push(data)
-        };
-       
-        
-        res.status(200).json({ foodItem });
+        res.status(200).json({ foodItem: restaurant.foodItems });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Failed to fetch food items of restaurant' });

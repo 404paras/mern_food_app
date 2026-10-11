@@ -20,22 +20,19 @@ const Search = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    if (!searchInput) return;
+    const timer = setTimeout(async () => {
       try {
         const { data } = await axios.post(
           `${server}api/v1/search/${searchInput}`
         );
         setSearchData(data.results);
-       
       } catch (error) {
         console.error("Error fetching search results:", error);
       }
-    };
-    if (searchInput !== "") {
-      fetchData();
-    }
-    console.log(selectedId);
-  }, [searchInput, selectedId]);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
 
   return (
@@ -118,6 +115,10 @@ const Search = () => {
               </div>
             </>
           )}
+        </div>
+      ) : searchInput && searchData.length === 0 ? (
+        <div className="search-empty">
+          <p>No results for &quot;{searchInput}&quot;</p>
         </div>
       ) : searchInput ? (
         <div className="searchResult">

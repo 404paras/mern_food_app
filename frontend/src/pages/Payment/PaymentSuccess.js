@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../store/cartItemsSlice.js";
 import "../../styles/PaymentSuccess.css";
-
 
 const PaymentSuccess = () => {
   const { orderId, paymentId, amount } = useParams();
- 
+  const dispatch = useDispatch();
 
-  
+  useEffect(() => {
+    dispatch(clearCart());
+  }, [dispatch]);
 
   return (
     <div className="payment-success-container">
@@ -26,6 +29,9 @@ const PaymentSuccess = () => {
           </p>
         </div>
         <div className="payment-success-actions">
+          <Link to="/user" className="btn">
+            View My Orders
+          </Link>
           <Link to="/" className="btn">
             Continue Shopping
           </Link>

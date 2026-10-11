@@ -4,7 +4,8 @@ import axios from "axios";
 import { server } from "../server";
 import "../styles/userInfo.css";
 import { getUserOrders } from "../Data/Data";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { logout } from "../store/authSlice.js";
@@ -82,15 +83,15 @@ const User = () => {
       );
 
       if (response.status === 200) {
-        alert("Profile updated successfully");
+        toast.success("Profile updated successfully");
         setProfileEdit(false);
         setOriginalProfileData(profileData);
       } else {
-        alert("Failed to update profile");
+        toast.error("Failed to update profile");
       }
     } catch (error) {
       console.error("Error updating profile:", error);
-      alert("Failed to update profile");
+      toast.error("Failed to update profile");
     }
   };
 
@@ -218,7 +219,7 @@ const User = () => {
                       </p>
                       <p>
                         <strong>Status:</strong>{" "}
-                        <span className={order.status==="pending"?'Pending':order.status}>{order.status==="pending"?'Pending':order.status}</span>
+                        <span className={`status-badge status-${order.status.toLowerCase()}`}>{order.status}</span>
                       </p>
                     </div>
                   </li>
@@ -230,6 +231,7 @@ const User = () => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

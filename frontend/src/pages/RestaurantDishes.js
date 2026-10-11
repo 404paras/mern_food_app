@@ -15,22 +15,19 @@ const RestaurantDishes = () => {
   useEffect(() => {
     const fetchFoodItems = async () => {
       try {
-        const data = await restaurantDish({ id });
-
-        setFoodItems(data.foodItem);
-        
-        const restaurant = await restInfo({ id });
-        setRestDetail(restaurant);
+        const [dishData, restaurantData] = await Promise.all([
+          restaurantDish({ id }),
+          restInfo({ id }),
+        ]);
+        setFoodItems(dishData.foodItem);
+        setRestDetail(restaurantData);
         setIsLoading(true);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
-    if (foodItems.length === 0) {
-      fetchFoodItems();
-    }
-  }, [id, foodItems, restDetail]);
+    fetchFoodItems();
+  }, [id]);
 
   if(!isLoading) {
     return <Shimmer/>;

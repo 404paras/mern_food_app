@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
- 
+  useLocation,
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./components/navbar.js";
@@ -40,7 +40,6 @@ const App = () => {
   const dispatch = useDispatch();
   const [signInPage, setSignInPage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  
 
   const signInHandler = () => {
     setSignInPage(true);
@@ -53,28 +52,22 @@ const App = () => {
   useEffect(() => {
     const userId = sessionStorage.getItem('id');
     const userRole = sessionStorage.getItem('role');
-    const userName = sessionStorage.getItem('name');
-    const email= sessionStorage.getItem('email');
-    const phone = sessionStorage.getItem('phone');
-    const address = sessionStorage.getItem('address');
-    
     if (userId && userRole) {
       dispatch(login({
-        role: userRole || "user",
-        id: userId || "",
-        name: userName || "",
-        email: email || "",
-        phone: phone || "",
-        address: address || "",
+        role: userRole,
+        id: userId,
+        name: sessionStorage.getItem('name') || '',
+        email: sessionStorage.getItem('email') || '',
+        phone: sessionStorage.getItem('phone') || '',
+        address: sessionStorage.getItem('address') || '',
       }));
     }
-    
-    if (isAuthenticated) {
-      setSignInPage(false);
-    }
-
     setIsLoading(false);
-  }, [dispatch, isAuthenticated]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isAuthenticated) setSignInPage(false);
+  }, [isAuthenticated]);
 
   if (isLoading) {
     return <Shimmer />;
@@ -82,31 +75,40 @@ const App = () => {
 
   return (
       <Router>
-        <Suspense fallback={<Shimmer />}>
-          <Navbar onSignIn={signInHandler} />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/user" element={<User/>}/>
-            <Route path="/search" element={<Search />} />
-            <Route path="/category/:name" element={<CategoryRest />} />
-            <Route path="/restaurant/:categoryName/:id" element={<RestaurantDishes />} />
-            <Route path="/offers" element={<UserOffers />} />
-            <Route path="/admin" element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminPage />}/>} />
-            <Route path="/admin/addFoodItem" element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddFoodItem/>}/>} />
-            <Route path="/admin/manageCustomers" element={<AdminRoute isAuthenticated={isAuthenticated} child={<CustomerAdmin />}/>} />
-            <Route path="/admin/manageRestaurant" element={<AdminRoute isAuthenticated={isAuthenticated} child={<ManageRestaurant />}/>} />
-            <Route path="/admin/addOffers" element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminAddOffers />}/>} />
-            <Route path="/admin/addRestaurant" element={<AdminRoute isAuthenticated={isAuthenticated} child={<AddRestaurants />}/>} />
-           <Route path="/admin/manageOrder" element={<AdminRoute isAuthenticated={isAuthenticated} child={<AdminOrders/>}/>}/>
-            <Route path="/checkout/:orderId/:price" element={<Payment />} />
-            <Route path="/success/:orderId/:paymentId/:amount" element={<PaymentSuccess/>} />
-            <Route path="/payment-failed" element={<PaymentFailed/>}/>
-            <Route path="*" element={<Home />} />
-          </Routes>
-          {signInPage && <SignIn onClose={closeHandler} />}
-        </Suspense>
+        <AppInner signInPage={signInPage} onSignIn={signInHandler} onClose={closeHandler} />
       </Router>
+  );
+};
+
+const AppInner = ({ signInPage, onSignIn, onClose }) => {
+  const location = useLocation();
+  return (
+    <Suspense fallback={<Shimmer />}>
+      <Navbar onSignIn={onSignIn} />
+      <div key={location.pathname} className="page-fade">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/user" element={<User/>}/>
+          <Route path="/search" element={<Search />} />
+          <Route path="/category/:name" element={<CategoryRest />} />
+          <Route path="/restaurant/:categoryName/:id" element={<RestaurantDishes />} />
+          <Route path="/offers" element={<UserOffers />} />
+          <Route path="/admin" element={<AdminRoute child={<AdminPage />}/>} />
+          <Route path="/admin/addFoodItem" element={<AdminRoute child={<AddFoodItem/>}/>} />
+          <Route path="/admin/manageCustomers" element={<AdminRoute child={<CustomerAdmin />}/>} />
+          <Route path="/admin/manageRestaurant" element={<AdminRoute child={<ManageRestaurant />}/>} />
+          <Route path="/admin/addOffers" element={<AdminRoute child={<AdminAddOffers />}/>} />
+          <Route path="/admin/addRestaurant" element={<AdminRoute child={<AddRestaurants />}/>} />
+          <Route path="/admin/manageOrder" element={<AdminRoute child={<AdminOrders/>}/>}/>
+          <Route path="/checkout/:orderId/:price" element={<Payment />} />
+          <Route path="/success/:orderId/:paymentId/:amount" element={<PaymentSuccess/>} />
+          <Route path="/payment-failed" element={<PaymentFailed/>}/>
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </div>
+      {signInPage && <SignIn onClose={onClose} />}
+    </Suspense>
   );
 };
 

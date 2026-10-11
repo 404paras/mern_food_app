@@ -21,8 +21,8 @@
 }
 
 .empty-cart img {
-  width: 30%;
-  height: 40%;
+  width: 180px;
+  height: auto;
 }
 
 .empty-cart p {
@@ -37,14 +37,15 @@
 }
 
 .cart-checkout {
-  position: absolute;
-  width: 20%;
+  width: 28%;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  right: 10px;
+  position: sticky;
+  top: 80px;
+  align-self: flex-start;
   min-height: 30vh;
 }
 
@@ -465,4 +466,9 @@
   #coupon-code-input-btn:hover {
     opacity: 0.8;
   }
+}
+
+.discount-savings {
+  color: #38a169;
+  font-weight: 600;
 }
